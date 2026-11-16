@@ -179,3 +179,61 @@ a.gref .ic{width:13px;height:13px}
   .stats{grid-template-columns:1fr 1fr}.stat b{font-size:22px}
   .chips .chip{font-size:12px;padding:6px 10px}
 }
+
+/* =================== Tips en celular =================== */
+.co .ct,.frase > div,.fb > div,.t30,.hintbox,.solbox,.tile,.q4 div,.dec-qs li > div{min-width:0}
+.co p,.frase,.t30 li,.hintbox,.tile p,.qexp,.fb{overflow-wrap:anywhere}
+@media (max-width:760px){
+  code{white-space:normal;overflow-wrap:anywhere;word-break:break-word}
+  .co{gap:10px;padding:12px 12px}
+  .co .cw{flex:0 0 30px;height:30px;border-radius:9px}
+  .co .cw .ic{width:16px;height:16px}
+  .co .ct > b:first-child{font-size:15px}
+  .frase{padding:12px 14px;font-size:15.5px;gap:10px}
+  .molde{font-size:13.5px;padding:16px 14px}
+  .molde .slot[data-tip]:hover::after,.molde .slot[data-tip]:focus::after{position:fixed;left:12px;right:12px;top:auto;bottom:16px;width:auto;max-width:none;z-index:150}
+  .tile .ex{white-space:normal;overflow-wrap:anywhere}
+  .gc-it span{overflow-wrap:anywhere}
+}
+@media (hover:none){#gtip{display:none!important}}
+
+/* =================== Pulido móvil =================== */
+@media (max-width:760px){
+  main{padding:78px 10px 90px}
+  section.card{padding:22px 14px;border-radius:20px;margin-bottom:22px}
+  .demo{padding:14px 10px;border-radius:16px}
+  .dec{padding:14px 10px;border-radius:18px}
+  .dec-c{font-size:15.5px;line-height:1.65}
+  .dec-lines{min-height:90px;font-size:13px}
+  .dec-qs li{padding:9px 10px}
+  .demo .chips{flex-wrap:nowrap;overflow-x:auto;padding-bottom:6px;margin-right:-10px;scrollbar-width:thin}
+  .demo .chips .chip{flex:0 0 auto;white-space:nowrap}
+  .gaz-cats{flex-wrap:nowrap;overflow-x:auto;padding-bottom:6px}
+  .gaz-cats .chip{flex:0 0 auto}
+  .gaz-letters{flex-wrap:nowrap;overflow-x:auto}
+  .gaz-l{flex:0 0 34px}
+  .mini-wrap{margin:20px -4px 6px}
+  .exc-body{padding:0 10px 12px}.exc-head{padding:12px}
+  .t30{padding:14px}
+  .t30 ul{padding-left:18px}
+  .tbl th,.tbl td{padding:8px 10px}
+  .ba .arrow{transform:rotate(90deg);justify-self:center}
+  .venns{grid-template-columns:1fr 1fr}
+  .steps div{padding:16px 12px}
+  .score{flex-direction:column;align-items:flex-start;padding:16px}
+  .ring{width:120px;height:120px}
+  .gm-zone{min-height:140px}
+  .lab-top .seg{width:100%}.lab-top .seg button{flex:1}
+  .labbar,.hist button{max-width:100%}
+  footer{padding:16px 6px}
+}
+@media (hover:none){.code-bar .hint,.exc-ed .hint{display:none}.sr-box kbd{display:none}}
+.search-top{flex:1 1 0;min-width:0}
+#top > .iconbtn,#top > .logo,#top > .btn-gl,#top > .lvl{flex:0 0 auto}
+@media (max-width:760px){.sr-box{padding:7px 10px;gap:6px}.search-top .sr-box input{font-size:14px}}
+.dec-done{align-items:flex-start}.dec-done .ic{margin-top:3px}
+@media (max-width:760px){
+  pre.hl{white-space:pre-wrap;overflow-wrap:anywhere;font-size:13px;padding:13px 14px}
+  .gc-title span{display:none}
+  .dj-t td{padding:6px 7px;font-size:12.5px}
+}

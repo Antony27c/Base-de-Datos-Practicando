@@ -26,7 +26,6 @@ h3{font-size:20px;margin:34px 0 10px;display:flex;align-items:center;gap:10px}
 h3::before{content:"";width:6px;height:22px;border-radius:4px;background:linear-gradient(var(--c,var(--indigo)),var(--c2,var(--violet)))}
 .ic{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:0 0 auto}
 .ic.fill{fill:currentColor;stroke:none}
-.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 
 /* ---------- Topbar ---------- */
 #top{position:fixed;top:0;left:0;right:0;height:64px;z-index:50;display:flex;align-items:center;gap:16px;padding:0 20px;background:var(--glass);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}

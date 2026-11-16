@@ -74,7 +74,7 @@
       $$('.dm', host).forEach(m => m.classList.remove('on'));
       const sql = rows.map(r => r.textContent).join('\n') + (rows.length && !/;\s*$/.test(rows[rows.length - 1].textContent) ? ';' : '');
       out.innerHTML = '';
-      out.appendChild(h(`<div class="dec-done">${icon('check')} <b>Listo.</b> Las 4 preguntas armaron la consulta. Ejecutala para ver el resultado.</div>`));
+      out.appendChild(h(`<div class="dec-done">${icon('check')}<span><b>Listo.</b> Las 4 preguntas armaron la consulta. Ejecutala para ver el resultado.</span></div>`));
       out.appendChild(U.codeCard(sql, { title: 'Consulta final' }));
       if (D.tip) out.appendChild(h(`<div class="co co-tip"><div class="cw">${icon('bulb')}</div><div class="ct"><b>Tip</b><p>${D.tip}</p></div></div>`));
       if (D.g) out.appendChild(h(`<div class="gcite" data-g="${D.g.join(',')}"></div>`));
