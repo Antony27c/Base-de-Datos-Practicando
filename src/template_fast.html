@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ruta rápida SQL · Recuperatorio de Base de Datos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600;700;800&display=swap" rel="stylesheet">
+<script>try { document.documentElement.dataset.theme = localStorage.getItem('gsql.theme') || 'dark'; } catch (e) { }</script>
+<style>
+/*__CSS__*/
+</style>
+</head>
+<body data-page="fast">
+<!--__SPRITE__-->
+
+<header id="top">
+  <button class="iconbtn" id="menuBtn" aria-label="Menú"><svg class="ic"><use href="#i-menu"/></svg></button>
+  <a class="logo" href="#inicio"><span class="lg"><svg class="ic"><use href="#i-zap"/></svg></span><span>Ruta rápida<small>SQL · Recuperatorio</small></span></a>
+  <div class="search-top" id="searchTop"></div>
+  <a class="btn sm btn-gl" href="glosario.html#glosario"><svg class="ic"><use href="#i-book"/></svg><span>Glosario</span></a>
+  <div class="prog"><span><b>Ejercicios</b><em id="progTxt">0 / 0</em></span><div class="bar"><i id="progBar"></i></div></div>
+  <div class="lvl" title="Ganás XP resolviendo ejercicios"><div class="badge" id="lvlBadge"><svg class="ic fill"><use href="#i-star"/></svg></div><div class="txt"><b id="lvlName">Recién llegado</b><span id="lvlXp">0 XP</span></div></div>
+  <button class="iconbtn" id="themeBtn" aria-label="Cambiar tema"><svg class="ic"><use href="#i-sun"/></svg></button>
+</header>
+
+<nav id="side">
+  <div class="grp">Ruta rápida</div>
+  <a class="nav-a" href="#mapa" style="--nc:var(--pink)"><span class="ni"><svg class="ic"><use href="#i-map"/></svg></span>Mapa del examen<span class="dot"></span></a>
+  <a class="nav-a" href="#paso1" style="--nc:var(--indigo)"><span class="ni"><svg class="ic"><use href="#i-target"/></svg></span>1 · Cómo pensar una consigna<span class="dot"></span></a>
+  <a class="nav-a" href="#paso2" style="--nc:var(--cyan)"><span class="ni"><svg class="ic"><use href="#i-filter"/></svg></span>2 · Leer y filtrar<span class="dot"></span></a>
+  <a class="nav-a" href="#paso3" style="--nc:var(--amber)"><span class="ni"><svg class="ic"><use href="#i-layers"/></svg></span>3 · Contar y agrupar<span class="dot"></span></a>
+  <a class="nav-a" href="#paso4" style="--nc:var(--violet)"><span class="ni"><svg class="ic"><use href="#i-link"/></svg></span>4 · Unir tablas<span class="dot"></span></a>
+  <a class="nav-a" href="#paso5" style="--nc:var(--pink)"><span class="ni"><svg class="ic"><use href="#i-trophy"/></svg></span>5 · El que más<span class="dot"></span></a>
+  <a class="nav-a" href="#paso6" style="--nc:var(--sky)"><span class="ni"><svg class="ic"><use href="#i-cal"/></svg></span>6 · Fechas<span class="dot"></span></a>
+  <a class="nav-a" href="#paso7" style="--nc:var(--orange)"><span class="ni"><svg class="ic"><use href="#i-edit"/></svg></span>7 · INSERT, UPDATE, DELETE<span class="dot"></span></a>
+  <a class="nav-a" href="#paso8" style="--nc:var(--red)"><span class="ni"><svg class="ic"><use href="#i-check"/></svg></span>8 · Recuento y checklist<span class="dot"></span></a>
+  <a class="nav-a" href="#paso9" style="--nc:var(--emerald)"><span class="ni"><svg class="ic"><use href="#i-trophy"/></svg></span>9 · El examen modelo<span class="dot"></span></a>
+  <div class="grp">Para profundizar</div>
+  <a class="nav-a ext" href="glosario.html#glosario" style="--nc:var(--violet)"><span class="ni"><svg class="ic"><use href="#i-book"/></svg></span>Glosario A–Z<span class="dot"></span></a>
+  <a class="nav-a ext" href="glosario.html#base" style="--nc:var(--indigo)"><span class="ni"><svg class="ic"><use href="#i-db"/></svg></span>Guía completa (lecciones)<span class="dot"></span></a>
+  <a class="nav-a ext" href="glosario.html#ejercicios" style="--nc:var(--emerald)"><span class="ni"><svg class="ic"><use href="#i-target"/></svg></span>99 ejercicios<span class="dot"></span></a>
+  <a class="nav-a ext" href="glosario.html#simulacro" style="--nc:var(--pink)"><span class="ni"><svg class="ic"><use href="#i-clock"/></svg></span>Simulacro con tiempo<span class="dot"></span></a>
+  <a class="nav-a ext" href="glosario.html#lab" style="--nc:var(--cyan)"><span class="ni"><svg class="ic"><use href="#i-flask"/></svg></span>Laboratorio libre<span class="dot"></span></a>
+</nav>
+
+<main><div class="wrap">
+
+<!-- =============================================================== HERO -->
+<div id="inicio" class="hero">
+  <div class="floaters" id="floaters"></div>
+  <span class="kick"><svg class="ic"><use href="#i-zap"/></svg> Ruta rápida · modelo de recuperatorio</span>
+  <h1>Lo justo y necesario para aprobar, en 9 pasos</h1>
+  <p>Teoría en 30 segundos, una animación para entender cada tema y la consigna real del examen desarmada pregunta por pregunta. Para el detalle de cualquier término, el <a href="glosario.html#glosario" style="color:#fff;font-weight:800">glosario</a>.</p>
+  <div id="searchHero"></div>
+  <div class="btns">
+    <a class="btn" href="#mapa"><svg class="ic fill"><use href="#i-play"/></svg> Empezar</a>
+    <a class="btn ghost" href="#paso9"><svg class="ic"><use href="#i-target"/></svg> Ir directo al examen modelo</a>
+    <a class="btn ghost" href="glosario.html#glosario"><svg class="ic"><use href="#i-book"/></svg> Abrir el glosario</a>
+  </div>
+  <div class="route"><span>Tu avance en la ruta</span><div class="route-bar"><i></i></div><span class="route-n">0 / 9</span></div>
+</div>
+
+<!-- =============================================================== MAPA -->
+<section class="card" id="mapa" data-c="pink" data-seen>
+  <div class="l-head"><div class="l-icon"><svg class="ic"><use href="#i-map"/></svg></div><div><div class="l-kicker">Antes de arrancar <span class="time"><svg class="ic"><use href="#i-clock"/></svg>2 min</span></div><h2>Qué te toman: el mapa del examen modelo</h2></div></div>
+  <p class="lead">El recuperatorio 2025 (<code>20251103_base_de_datos_recuperatorio.pdf</code>) tiene <b>10 consignas</b> sobre la base JARDINERÍA. Según el PDF, cada una vale 20 puntos y se aprueba con 60/100. Esta ruta está armada alrededor de esas 10 consignas:</p>
+  <div class="exam-map" id="examMap"></div>
+  <div class="two">
+    <div class="tile"><h4><svg class="ic"><use href="#i-edit"/></svg>4 de 10 modifican datos</h4><p>Consignas 1 a 4: dos <code>INSERT</code> y dos <code>UPDATE</code>. Son puntos casi regalados si sabés el molde → <a href="#paso7">Paso 7</a>.</p></div>
+    <div class="tile"><h4><svg class="ic"><use href="#i-table"/></svg>6 de 10 son consultas</h4><p><code>WHERE</code>, <code>DISTINCT</code>, <code>SELF JOIN</code>, <code>GROUP BY</code>, <code>COUNT</code> y "el que más" → pasos 2 a 5.</p></div>
+  </div>
+  <div class="co co-info"><div class="cw"><svg class="ic"><use href="#i-info"/></svg></div><div class="ct"><b>En tu parcial también salió</b>
+    <p><code>ORDER BY</code> por dos columnas, subconsulta con <code>IN</code>, cálculos con el año (<code>YEAR</code>), "las 5 más caras" (<code>LIMIT 5</code>), "las vigentes" (<code>IS NULL</code>) y "el que más reservas tiene". Todo eso también está en la ruta.</p>
+    <p id="engineStatus" class="loading"><span class="spin"></span> Cargando el motor SQL...</p></div></div>
+</section>
+
+<!-- =============================================================== PASO 1 -->
+<section class="card" id="paso1" data-c="indigo" data-seen>
+  <div class="l-head"><div class="l-icon"><svg class="ic"><use href="#i-target"/></svg></div><div><div class="l-kicker">Paso 1 <span class="time"><svg class="ic"><use href="#i-clock"/></svg>6 min</span></div><h2>Cómo pensar (y atacar) una consigna</h2></div></div>
+  <div class="frase"><svg class="ic"><use href="#i-bulb"/></svg><div>No empieces escribiendo SQL: <b>respondé 4 preguntas</b> mirando la consigna. Cada respuesta es una parte de la consulta.</div></div>
+  <div class="q4">
+    <div style="--qc:var(--sky)"><span class="n">1</span><b>¿Qué muestro?</b><code>SELECT ...</code><small>Buscá los sustantivos: "el nombre", "el código", "cuántos". Glosario: <a class="gref" data-g="select">SELECT</a></small></div>
+    <div style="--qc:var(--violet)"><span class="n">2</span><b>¿De qué tabla sale?</b><code>FROM ... JOIN</code><small>Si los datos están en 2 tablas, o dice "junto con", hay JOIN. <a class="gref" data-g="inner-join">JOIN</a></small></div>
+    <div style="--qc:var(--cyan)"><span class="n">3</span><b>¿Qué filas sirven?</b><code>WHERE ...</code><small>"De Madrid", "en 2008", "españoles", "que no...". <a class="gref" data-g="where">WHERE</a></small></div>
+    <div style="--qc:var(--amber)"><span class="n">4</span><b>¿Agrupo, ordeno, corto?</b><code>GROUP BY · ORDER BY · LIMIT</code><small>"Cada" → <a class="gref" data-g="group-by">GROUP BY</a>. "El que más" → <a class="gref" data-g="el-que-mas">patrón</a>.</small></div>
+  </div>
+  <div class="decoder" data-d="X3"></div>
+
+  <h3>Las palabras de la consigna te dicen qué usar</h3>
+  <table class="tbl">
+    <tr><th>Si la consigna dice...</th><th>Usá</th><th>Glosario</th></tr>
+    <tr><td>"listado", "devuelve", "mostrar"</td><td><code>SELECT ... FROM</code></td><td><a class="gref" data-g="select">SELECT</a></td></tr>
+    <tr><td>"de X", "que sean", "españoles", "de la ciudad de..."</td><td><code>WHERE</code></td><td><a class="gref" data-g="where">WHERE</a></td></tr>
+    <tr><td>"sin repetidos", "no deben aparecer repetidas"</td><td><code>DISTINCT</code></td><td><a class="gref" data-g="distinct">DISTINCT</a></td></tr>
+    <tr><td>"ordenado por", "de mayor a menor"</td><td><code>ORDER BY ... DESC</code></td><td><a class="gref" data-g="order-by">ORDER BY</a></td></tr>
+    <tr><td>"¿cuántos?", "cantidad"</td><td><code>COUNT(*)</code></td><td><a class="gref" data-g="count">COUNT</a></td></tr>
+    <tr><td>"cada", "por país"</td><td><code>GROUP BY</code></td><td><a class="gref" data-g="group-by">GROUP BY</a></td></tr>
+    <tr><td>"junto con", "y el nombre de su..."</td><td><code>JOIN ... ON</code></td><td><a class="gref" data-g="inner-join">INNER JOIN</a></td></tr>
+    <tr><td>"sus jefes"</td><td>la tabla empleado dos veces</td><td><a class="gref" data-g="self-join">SELF JOIN</a></td></tr>
+    <tr><td>"el que más", "el más caro", "el que menos"</td><td><code>ORDER BY ... LIMIT 1</code> o <code>MAX</code></td><td><a class="gref" data-g="el-que-mas">"El que más"</a></td></tr>
+    <tr><td>"los 5 más..."</td><td><code>ORDER BY ... LIMIT 5</code></td><td><a class="gref" data-g="limit">LIMIT</a></td></tr>
+    <tr><td>"en 2008", "en enero"</td><td><code>YEAR()</code>, <code>MONTH()</code></td><td><a class="gref" data-g="year">YEAR</a></td></tr>
+    <tr><td>"vigentes", "sin entregar", "sin fecha"</td><td><code>IS NULL</code></td><td><a class="gref" data-g="is-null">IS NULL</a></td></tr>
+    <tr><td>"que nunca", "que no tengan"</td><td><code>NOT IN</code> o <code>LEFT JOIN ... IS NULL</code></td><td><a class="gref" data-g="sub-in">NOT IN</a></td></tr>
+    <tr><td>"insertar", "agregar"</td><td><code>INSERT INTO</code></td><td><a class="gref" data-g="insert">INSERT</a></td></tr>
+    <tr><td>"cambie", "disminuya", "aumente"</td><td><code>UPDATE ... SET ... WHERE</code></td><td><a class="gref" data-g="update">UPDATE</a></td></tr>
+  </table>
+  <h3>Se escribe en un orden, MySQL lo lee en otro</h3>
+  <div class="demo"><div class="demo-h"><span class="tag"><svg class="ic fill"><use href="#i-play"/></svg> Animación</span><b>Tocá el botón y mirá cómo se reordena</b></div><div id="demoOrden"></div></div>
+  <p>Por eso <code>COUNT</code> no puede ir en el WHERE (todavía no se agrupó) y el alias del SELECT no existe en el WHERE. Glosario: <a class="gref" data-g="orden-ejecucion">orden de ejecución</a>.</p>
+</section>
+
+<!-- =============================================================== PASO 2 -->
+<section class="card" id="paso2" data-c="cyan" data-need="T2,M-orden">
+  <div class="l-head"><div class="l-icon"><svg class="ic"><use href="#i-filter"/></svg></div><div><div class="l-kicker">Paso 2 <span class="time"><svg class="ic"><use href="#i-clock"/></svg>8 min</span></div><h2>Leer y filtrar: SELECT, WHERE, DISTINCT, ORDER BY</h2></div></div>
+  <div class="in-exam">En el examen: <a href="#ex-R5">R5</a><a href="#ex-R6">R6</a><span class="par">parcial: ORDER BY, IS NULL</span></div>
+  <div class="t30"><h4><svg class="ic"><use href="#i-zap"/></svg>La teoría en 30 segundos</h4><ul>
+    <li><a class="gref" data-g="select">SELECT</a> elige las columnas y <a class="gref" data-g="from">FROM</a> la tabla. <code>*</code> = todas.</li>
+    <li><a class="gref" data-g="where">WHERE</a> filtra filas. Textos entre comillas simples: <code>pais = 'Spain'</code>.</li>
+    <li>Combiná con <a class="gref" data-g="and-or">AND / OR</a>; una lista con <a class="gref" data-g="in">IN</a>; un patrón con <a class="gref" data-g="like">LIKE</a>; "sin dato" con <a class="gref" data-g="is-null">IS NULL</a>.</li>
+    <li><a class="gref" data-g="distinct">DISTINCT</a> saca repetidos. <a class="gref" data-g="order-by">ORDER BY</a> ordena (DESC = de mayor a menor).</li>
+  </ul></div>
+  <div class="molde"><span class="k">SELECT</span><span class="slot opt" data-tip="Saca repetidos">DISTINCT</span><span class="slot" data-tip="Columnas separadas por coma">columnas</span><span class="k">FROM</span><span class="slot">tabla</span><span class="k">WHERE</span><span class="slot opt" data-tip="pais = 'Spain' AND ...">condición</span><span class="k">ORDER BY</span><span class="slot opt" data-tip="columna ASC o DESC">columna</span><span>;</span></div>
+  <div class="demo"><div class="demo-h"><span class="tag"><svg class="ic fill"><use href="#i-play"/></svg> Animación</span><b>El WHERE revisa fila por fila</b></div><div id="demoWhere"></div></div>
+  <div class="decoder" data-d="R5"></div>
+  <div class="decoder" data-d="R6"></div>
+  <div class="co co-ojo"><div class="cw"><svg class="ic"><use href="#i-alert"/></svg></div><div class="ct"><b>Las 3 trampas de este tema</b>
+    <p>1) En <code>cliente</code> el país es <code>'Spain'</code>; en <code>oficina</code> es <code>'España'</code>. 2) <code>= NULL</code> nunca funciona → <a class="gref" data-g="igual-null">IS NULL</a>. 3) Si mezclás AND con OR, poné paréntesis.</p></div></div>
+  <div class="mini" data-ex="T2" data-label="Ahora vos · consigna parecida · se corrige sola"></div>
+  <div class="mini" data-ex="M-orden" data-label="Ahora vos · se corrige sola"></div>
+</section>
+
+<!-- =============================================================== PASO 3 -->
+<section class="card" id="paso3" data-c="amber" data-need="T23,T24">
+  <div class="l-head"><div class="l-icon"><svg class="ic"><use href="#i-layers"/></svg></div><div><div class="l-kicker">Paso 3 <span class="time"><svg class="ic"><use href="#i-clock"/></svg>8 min</span></div><h2>Contar y agrupar: COUNT y GROUP BY</h2></div></div>
+  <div class="in-exam">En el examen: <a href="#ex-R8">R8</a><a href="#ex-R9">R9</a><span class="par">parcial: contar coches de cada marca</span></div>
+  <div class="t30"><h4><svg class="ic"><use href="#i-zap"/></svg>La teoría en 30 segundos</h4><ul>
+    <li><a class="gref" data-g="count">COUNT(*)</a> cuenta filas; <a class="gref" data-g="sum-avg">SUM / AVG</a> suman y promedian; <a class="gref" data-g="max-min">MAX / MIN</a> dan el mayor y el menor.</li>
+    <li>Sin GROUP BY devuelven <b>un solo número</b>. Con <a class="gref" data-g="group-by">GROUP BY</a> devuelven <b>uno por grupo</b>.</li>
+    <li><a class="gref" data-g="regla-group">Regla de oro</a>: lo que está en el SELECT y no está dentro de COUNT va en el GROUP BY.</li>
+    <li>Para filtrar por el conteo ("más de 3") se usa <a class="gref" data-g="having">HAVING</a>, no WHERE.</li>
+  </ul></div>
+  <div class="two">
+    <div class="tile"><h4>"¿Cuántos...?" (sin "cada")</h4><p>Un solo número.</p><span class="ex">SELECT COUNT(*) FROM cliente WHERE ciudad = 'Barcelona';</span></div>
+    <div class="tile"><h4>"¿Cuántos... cada...?"</h4><p>Una fila por grupo.</p><span class="ex">SELECT pais, COUNT(*) FROM cliente GROUP BY pais;</span></div>
+  </div>
+  <div class="demo"><div class="demo-h"><span class="tag"><svg class="ic fill"><use href="#i-play"/></svg> Animación</span><b>GROUP BY arma pilas y cuenta cada una</b></div><div id="demoGroup"></div></div>
+  <div class="decoder" data-d="R9"></div>
+  <div class="decoder" data-d="R8"></div>
+  <div class="mini" data-ex="T23" data-label="Ahora vos · se corrige sola"></div>
+  <div class="mini" data-ex="T24" data-label="Ahora vos · agrupar y ordenar"></div>
+</section>
+
+<!-- =============================================================== PASO 4 -->
+<section class="card" id="paso4" data-c="violet" data-need="T11,M-join">
+  <div class="l-head"><div class="l-icon"><svg class="ic"><use href="#i-link"/></svg></div><div><div class="l-kicker">Paso 4 <span class="time"><svg class="ic"><use href="#i-clock"/></svg>10 min</span></div><h2>Unir tablas: JOIN y SELF JOIN</h2></div></div>
+  <div class="in-exam">En el examen: <a href="#ex-R7">R7</a><span class="par">parcial: cliente y su coche, garajes y autos</span></div>
+  <div class="t30"><h4><svg class="ic"><use href="#i-zap"/></svg>La teoría en 30 segundos</h4><ul>
+    <li><a class="gref" data-g="inner-join">INNER JOIN</a> pega cada fila con su pareja de la otra tabla. La pareja se define en el <a class="gref" data-g="on">ON</a>: casi siempre <a class="gref" data-g="fk">FK</a> = <a class="gref" data-g="pk">PK</a>.</li>
+    <li>Poné <a class="gref" data-g="alias">alias</a> a las tablas (<code>cliente c</code>) y usalos adelante de cada columna para evitar la <a class="gref" data-g="ambigua">columna ambigua</a>.</li>
+    <li><a class="gref" data-g="left-join">LEFT JOIN</a> conserva todo lo de la izquierda; con <code>IS NULL</code> encontrás "los que no tienen".</li>
+    <li><a class="gref" data-g="self-join">SELF JOIN</a>: la misma tabla dos veces, con dos alias. Así se saca "el empleado y su jefe".</li>
+  </ul></div>
+  <div class="molde"><span class="k">SELECT</span><span class="slot">a.col, b.col</span><span class="k">FROM</span><span class="slot">tabla1 a</span><span class="k">INNER JOIN</span><span class="slot">tabla2 b</span><span class="k">ON</span><span class="slot" data-tip="La FK de una = la PK de la otra">a.fk = b.pk</span><span>;</span></div>
+  <div class="demo"><div class="demo-h"><span class="tag"><svg class="ic fill"><use href="#i-play"/></svg> Animación</span><b>Qué filas sobreviven en cada tipo de JOIN</b></div><div id="demoJoin"></div></div>
+  <div class="chain"><span class="tb">empleado e</span><span class="ar">e.codigo_jefe<svg class="ic"><use href="#i-arrow"/></svg></span><span class="tb">empleado j</span><span class="ar">= j.codigo_empleado</span></div>
+  <div class="decoder" data-d="R7"></div>
+  <div class="mini" data-ex="T11" data-label="Ahora vos · consigna del TP7"></div>
+  <div class="mini" data-ex="M-join" data-label="Ahora vos · se corrige sola"></div>
+</section>
+
+<!-- =============================================================== PASO 5 -->
+<section class="card" id="paso5" data-c="pink" data-need="T29,X8">
+  <div class="l-head"><div class="l-icon"><svg class="ic"><use href="#i-trophy"/></svg></div><div><div class="l-kicker">Paso 5 <span class="time"><svg class="ic"><use href="#i-clock"/></svg>8 min</span></div><h2>"El que más", top N y subconsultas</h2></div></div>
+  <div class="in-exam">En el examen: <a href="#ex-R10">R10</a><span class="par">parcial: las 5 reservas más caras, el cliente con más reservas</span></div>
+  <div class="t30"><h4><svg class="ic"><use href="#i-zap"/></svg>La teoría en 30 segundos</h4><ul>
+    <li>Camino A: ordená de mayor a menor y cortá con <a class="gref" data-g="limit">LIMIT 1</a> (o <code>LIMIT 5</code> para "los 5 más").</li>
+    <li>Camino B: una <a class="gref" data-g="subconsulta">subconsulta</a> con <a class="gref" data-g="max-min">MAX</a>: <code>WHERE x = (SELECT MAX(x) ...)</code>. Trae también a los empatados.</li>
+    <li>Si primero hay que contar ("el cliente con más pagos"): <code>GROUP BY</code> + <code>ORDER BY COUNT(*) DESC</code> + <code>LIMIT 1</code>. Glosario: <a class="gref" data-g="el-que-mas">patrón "el que más"</a>.</li>
+    <li>Una subconsulta que devuelve una lista va con <a class="gref" data-g="sub-in">IN / NOT IN</a>; si devuelve un valor, con <a class="gref" data-g="sub-igual">= &gt; &lt;</a>.</li>
+  </ul></div>
+  <div class="eo"><div class="eo-chip"><span class="n">1</span>GROUP BY cliente<small>una pila por cliente</small></div><div class="eo-chip"><span class="n">2</span>COUNT(*)<small>cuántos tiene cada pila</small></div><div class="eo-chip"><span class="n">3</span>ORDER BY ... DESC<small>de más a menos</small></div><div class="eo-chip"><span class="n">4</span>LIMIT 1<small>me quedo con el primero</small></div></div>
+  <div class="decoder" data-d="R10"></div>
+  <div class="demo"><div class="demo-h"><span class="tag"><svg class="ic fill"><use href="#i-play"/></svg> Animación</span><b>Cómo funciona una subconsulta con IN</b></div><div id="demoSub"></div></div>
+  <div class="mini" data-ex="T29" data-label="Ahora vos · el que más"></div>
+  <div class="mini" data-ex="X8" data-label="Ahora vos · sumar primero y después el que más"></div>
+</section>
+
+<!-- =============================================================== PASO 6 -->
+<section class="card" id="paso6" data-c="sky" data-need="T9,X1">
+  <div class="l-head"><div class="l-icon"><svg class="ic"><use href="#i-cal"/></svg></div><div><div class="l-kicker">Paso 6 <span class="time"><svg class="ic"><use href="#i-clock"/></svg>5 min</span></div><h2>Fechas sin sufrir</h2></div></div>
+  <div class="in-exam">En el examen: <span class="par">parcial: coches de menos de 5 años, pacientes mayores de edad, citas de hoy</span></div>
+  <div class="t30"><h4><svg class="ic"><use href="#i-zap"/></svg>La teoría en 30 segundos</h4><ul>
+    <li>Las fechas se escriben <a class="gref" data-g="fecha-formato">'aaaa-mm-dd'</a>, entre comillas. Hoy es <a class="gref" data-g="curdate">CURDATE()</a> (no GETDATE).</li>
+    <li>"En 2008" → <a class="gref" data-g="year">YEAR(f) = 2008</a>. "En enero" → <code>MONTH(f) = 1</code>.</li>
+    <li>Rango de fechas → <a class="gref" data-g="between">BETWEEN</a>. Días de diferencia → <a class="gref" data-g="datediff">DATEDIFF</a>. Sumar días → <a class="gref" data-g="adddate">ADDDATE</a>.</li>
+    <li>"Menos de 5 años de antigüedad" → <code>YEAR(CURDATE()) - modelo &lt;= 5</code>.</li>
+  </ul></div>
+  <div class="demo">
+    <div class="demo-h"><span class="tag"><svg class="ic"><use href="#i-eye"/></svg> Visual</span><b>DATEDIFF sobre una línea de tiempo</b></div>
+    <div class="tl"><div class="axis"></div><div class="span" style="left:20%;width:40%"><span>DATEDIFF = 2 días</span></div>
+      <div class="pt2" style="left:20%;color:var(--emerald)"><b>2009-01-25</b><i></i><span>fecha_entrega</span></div>
+      <div class="pt2" style="left:60%;color:var(--pink)"><b>2009-01-27</b><i></i><span>fecha_esperada</span></div></div>
+    <p class="note"><code>DATEDIFF(fecha_esperada, fecha_entrega) = 2</code>: se entregó 2 días antes. Si <code>fecha_entrega &gt; fecha_esperada</code>, se entregó tarde.</p>
+  </div>
+  <div class="decoder" data-d="T6a"></div>
+  <div class="mini" data-ex="T9" data-label="Ahora vos · estado y año"></div>
+  <div class="mini" data-ex="X1" data-label="Ahora vos · un mes de cualquier año"></div>
+</section>
+
+<!-- =============================================================== PASO 7 -->
+<section class="card" id="paso7" data-c="orange" data-need="A5,A9">
+  <div class="l-head"><div class="l-icon"><svg class="ic"><use href="#i-edit"/></svg></div><div><div class="l-kicker">Paso 7 <span class="time"><svg class="ic"><use href="#i-clock"/></svg>10 min</span></div><h2>Modificar datos: INSERT, UPDATE, DELETE</h2></div></div>
+  <div class="in-exam">En el examen: <a href="#ex-R1">R1</a><a href="#ex-R2">R2</a><a href="#ex-R3">R3</a><a href="#ex-R4">R4</a></div>
+  <div class="t30"><h4><svg class="ic"><use href="#i-zap"/></svg>La teoría en 30 segundos</h4><ul>
+    <li><a class="gref" data-g="insert">INSERT INTO</a>: columnas y valores <b>en el mismo orden</b>. Completá todas las <a class="gref" data-g="not-null">NOT NULL</a>.</li>
+    <li>La <a class="gref" data-g="pk">PK</a> no se puede repetir (buscá el último con <code>MAX</code>) y las <a class="gref" data-g="fk">FK</a> tienen que existir (el cliente, la oficina, el jefe).</li>
+    <li><a class="gref" data-g="update">UPDATE ... SET ... WHERE</a>: "disminuir en 200" es <code>precio = precio - 200</code>.</li>
+    <li><a class="gref" data-g="delete">DELETE FROM ... WHERE</a>. Sin WHERE, UPDATE y DELETE afectan <b>toda</b> la tabla → <a class="gref" data-g="sin-where">peligro</a>.</li>
+  </ul></div>
+  <div class="molde"><span class="k">INSERT INTO</span><span class="slot">tabla</span><span>(</span><span class="slot">col1, col2</span><span>)</span><span class="k">VALUES</span><span>(</span><span class="slot" data-tip="Mismo orden. Textos y fechas entre comillas">v1, v2</span><span>);</span><span class="br"></span><span class="k">UPDATE</span><span class="slot">tabla</span><span class="k">SET</span><span class="slot">col = valor</span><span class="k">WHERE</span><span class="slot" data-tip="¡Obligatorio en la práctica!">qué filas</span><span>;</span><span class="br"></span><span class="k">DELETE FROM</span><span class="slot">tabla</span><span class="k">WHERE</span><span class="slot">qué filas</span><span>;</span></div>
+  <div class="demo"><div class="demo-h"><span class="tag"><svg class="ic fill"><use href="#i-play"/></svg> Animación</span><b>Qué filas toca cada sentencia</b></div><div id="demoDml"></div></div>
+  <div class="decoder" data-d="R2"></div>
+  <div class="decoder" data-d="R4"></div>
+  <div class="mini" data-ex="A5" data-label="Ahora vos · subir un porcentaje"></div>
+  <div class="mini" data-ex="A9" data-label="Ahora vos · cambiar un texto"></div>
+</section>
+
+<!-- =============================================================== PASO 8 -->
+<section class="card" id="paso8" data-c="red" data-seen>
+  <div class="l-head"><div class="l-icon"><svg class="ic"><use href="#i-check"/></svg></div><div><div class="l-kicker">Paso 8 <span class="time"><svg class="ic"><use href="#i-clock"/></svg>5 min</span></div><h2>Recuento: todas las consultas en una tabla</h2></div></div>
+  <p class="lead">Si te olvidás de algo en el examen, es esta tabla. Cada fila tiene su entrada en el glosario.</p>
+  <table class="tbl recap">
+    <tr><th>Consulta</th><th>Para qué sirve</th><th>Molde</th><th>Glosario</th></tr>
+    <tr><td>SELECT ... FROM</td><td>Mostrar columnas de una tabla</td><td><code>SELECT a, b FROM t;</code></td><td><a class="gref" data-g="select">SELECT</a></td></tr>
+    <tr><td>WHERE</td><td>Quedarse con algunas filas</td><td><code>WHERE pais = 'Spain' AND ...</code></td><td><a class="gref" data-g="where">WHERE</a></td></tr>
+    <tr><td>DISTINCT</td><td>Sacar repetidos</td><td><code>SELECT DISTINCT a FROM t;</code></td><td><a class="gref" data-g="distinct">DISTINCT</a></td></tr>
+    <tr><td>ORDER BY</td><td>Ordenar</td><td><code>ORDER BY a DESC, b</code></td><td><a class="gref" data-g="order-by">ORDER BY</a></td></tr>
+    <tr><td>LIMIT</td><td>Los primeros N</td><td><code>ORDER BY a DESC LIMIT 5</code></td><td><a class="gref" data-g="limit">LIMIT</a></td></tr>
+    <tr><td>COUNT / SUM / AVG</td><td>Contar, sumar, promediar</td><td><code>SELECT COUNT(*) FROM t;</code></td><td><a class="gref" data-g="count">COUNT</a></td></tr>
+    <tr><td>GROUP BY</td><td>Un resultado por cada grupo</td><td><code>SELECT a, COUNT(*) FROM t GROUP BY a;</code></td><td><a class="gref" data-g="group-by">GROUP BY</a></td></tr>
+    <tr><td>HAVING</td><td>Filtrar grupos por el conteo</td><td><code>GROUP BY a HAVING COUNT(*) &gt; 3</code></td><td><a class="gref" data-g="having">HAVING</a></td></tr>
+    <tr><td>INNER JOIN</td><td>Datos de dos tablas juntas</td><td><code>FROM a JOIN b ON a.fk = b.pk</code></td><td><a class="gref" data-g="inner-join">JOIN</a></td></tr>
+    <tr><td>LEFT JOIN + IS NULL</td><td>Los que no tienen pareja</td><td><code>LEFT JOIN b ON ... WHERE b.pk IS NULL</code></td><td><a class="gref" data-g="left-join">LEFT JOIN</a></td></tr>
+    <tr><td>SELF JOIN</td><td>Empleado y su jefe</td><td><code>empleado e JOIN empleado j ON e.codigo_jefe = j.codigo_empleado</code></td><td><a class="gref" data-g="self-join">SELF JOIN</a></td></tr>
+    <tr><td>Subconsulta IN</td><td>Filtrar con el resultado de otra consulta</td><td><code>WHERE a IN (SELECT a FROM t2)</code></td><td><a class="gref" data-g="sub-in">IN</a></td></tr>
+    <tr><td>"El que más"</td><td>El máximo o el mínimo</td><td><code>WHERE a = (SELECT MAX(a) FROM t)</code></td><td><a class="gref" data-g="el-que-mas">patrón</a></td></tr>
+    <tr><td>YEAR / DATEDIFF</td><td>Trabajar con fechas</td><td><code>WHERE YEAR(f) = 2008</code></td><td><a class="gref" data-g="year">YEAR</a></td></tr>
+    <tr><td>INSERT INTO</td><td>Agregar una fila</td><td><code>INSERT INTO t (a, b) VALUES (1, 'x');</code></td><td><a class="gref" data-g="insert">INSERT</a></td></tr>
+    <tr><td>UPDATE</td><td>Cambiar datos</td><td><code>UPDATE t SET a = a - 200 WHERE ...;</code></td><td><a class="gref" data-g="update">UPDATE</a></td></tr>
+    <tr><td>DELETE</td><td>Borrar filas</td><td><code>DELETE FROM t WHERE ...;</code></td><td><a class="gref" data-g="delete">DELETE</a></td></tr>
+  </table>
+  <h3>Checklist antes de entregar cada consigna</h3>
+  <ul class="check-list">
+    <li><label><input type="checkbox"><span>¿Respondí las 4 preguntas? (mostrar · tabla · filas · agrupar/ordenar/cortar)</span></label></li>
+    <li><label><input type="checkbox"><span>¿Releí la consigna palabra por palabra? ¿Pide un orden? ¿Pide "sin repetidos"? ¿Pide una ciudad o un año?</span></label></li>
+    <li><label><input type="checkbox"><span>¿Los textos y fechas están entre comillas simples y las fechas como 'aaaa-mm-dd'?</span></label></li>
+    <li><label><input type="checkbox"><span>¿Usé IS NULL y no = NULL?</span></label></li>
+    <li><label><input type="checkbox"><span>Si hay COUNT/SUM y otra columna: ¿puse el GROUP BY?</span></label></li>
+    <li><label><input type="checkbox"><span>Si hay JOIN: ¿todas las columnas tienen el alias adelante? ¿el ON une FK con PK?</span></label></li>
+    <li><label><input type="checkbox"><span>¿Uso funciones de MySQL (CURDATE, LIMIT) y no de SQL Server (GETDATE, TOP)?</span></label></li>
+    <li><label><input type="checkbox"><span>UPDATE y DELETE: ¿tienen WHERE? ¿lo probé antes con un SELECT?</span></label></li>
+    <li><label><input type="checkbox"><span>INSERT: ¿mismas columnas que valores, en el mismo orden? ¿código libre? ¿las FK existen?</span></label></li>
+    <li><label><input type="checkbox"><span>¿Cada sentencia termina con ; y tiene su comentario con el número de consigna?</span></label></li>
+  </ul>
+  <div class="co co-ojo"><div class="cw"><svg class="ic"><use href="#i-bug"/></svg></div><div class="ct"><b>Los errores de tu parcial, en una línea</b>
+    <p>Faltó un FROM · faltó una coma · columna ambigua sin alias · GETDATE y fechas 'dd/mm/aaaa' · COUNT sin GROUP BY · no ordenar ni filtrar lo que pedía la consigna. El detalle de cada uno está en la <a href="glosario.html#errores">guía completa</a>.</p></div></div>
+</section>
+
+<!-- =============================================================== PASO 9 -->
+<section class="card" id="paso9" data-c="emerald" data-need="R1,R2,R3,R4,R5,R6,R7,R8,R9,R10">
+  <div class="l-head"><div class="l-icon"><svg class="ic"><use href="#i-trophy"/></svg></div><div><div class="l-kicker">Paso 9 <span class="time"><svg class="ic"><use href="#i-clock"/></svg>20 min</span></div><h2>El examen modelo, resuelto por vos</h2></div></div>
+  <p class="lead">Las 10 consignas del recuperatorio 2025. Abrí cada una, escribí tu consulta y tocá <b>Corregir</b>. Si te trabás, usá la <b>Pista</b> antes que la <b>Solución</b>.</p>
+  <div class="exam-list" data-ids="R1,R2,R3,R4,R5,R6,R7,R8,R9,R10"></div>
+  <div class="co co-tip"><div class="cw"><svg class="ic"><use href="#i-clock"/></svg></div><div class="ct"><b>¿Las sacaste todas?</b>
+    <p>Probá el <a href="glosario.html#simulacro">simulacro con tiempo</a> (consignas al azar y nota sobre 100) o seguí con los <a href="glosario.html#ejercicios">99 ejercicios</a> del TP7 y del repositorio del profe.</p></div></div>
+</section>
+
+<footer>Ruta rápida · el detalle de cada tema está en el <a href="glosario.html#glosario">glosario y la guía completa</a> · Datos: repositorio DDBB-JARDINERIA · Simulador SQLite con funciones de MySQL</footer>
+</div></main>
+
+<div id="toasts"></div>
+<canvas id="confetti"></canvas>
+
+<script type="text/plain" id="seed-oficial">__SEED_OFICIAL__</script>
+<script type="text/plain" id="seed-tp7">__SEED_TP7__</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.10.3/sql-wasm.js"></script>
+<script>
+/*__ENGINE__*/
+</script>
+<script>
+/*__DATA__*/
+</script>
+<script>
+/*__GLOSSDATA__*/
+</script>
+<script>
+/*__APP__*/
+</script>
+<script>
+/*__GLOSUI__*/
+</script>
+<script>
+/*__FAST__*/
+</script>
+</body>
+</html>

@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Glosario y guía completa SQL · Recuperatorio de Base de Datos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600;700;800&display=swap" rel="stylesheet">
+<script>try { document.documentElement.dataset.theme = localStorage.getItem('gsql.theme') || 'dark'; } catch (e) { }</script>
+<style>
+/*__CSS__*/
+</style>
+</head>
+<body data-page="glos">
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-db" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24"><path d="M7 4.5v15l12.5-7.5z"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 3 2 21h20L12 3z"/><path d="M12 10v5M12 18h.01"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5h.01"/></symbol>
+  <symbol id="i-bulb" viewBox="0 0 24 24"><path d="M9 18h6M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/></symbol>
+  <symbol id="i-filter" viewBox="0 0 24 24"><path d="M3 4h18l-7 8.5V19l-4 2v-8.5z"/></symbol>
+  <symbol id="i-sort" viewBox="0 0 24 24"><path d="M7 4v16M3 16l4 4 4-4M17 20V4M13 8l4-4 4 4"/></symbol>
+  <symbol id="i-layers" viewBox="0 0 24 24"><path d="M12 2 2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/></symbol>
+  <symbol id="i-link" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/></symbol>
+  <symbol id="i-nest" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><rect x="7.5" y="7.5" width="9" height="9" rx="2"/></symbol>
+  <symbol id="i-trophy" viewBox="0 0 24 24"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0V4z"/><path d="M17 5h3a3 3 0 0 1-3 4.5M7 5H4a3 3 0 0 0 3 4.5"/></symbol>
+  <symbol id="i-cal" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2.5"/><path d="M3 10h18M8 3v4M16 3v4"/></symbol>
+  <symbol id="i-edit" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16v4z"/><path d="M13.5 6.5l4 4"/></symbol>
+  <symbol id="i-bug" viewBox="0 0 24 24"><rect x="7" y="8" width="10" height="13" rx="5"/><path d="M12 8V5M9.5 5.5 8 3.5M14.5 5.5 16 3.5M3 13h4M17 13h4M4 19.5l3-2M20 19.5l-3-2M4 7.5l3 2M20 7.5l-3 2"/></symbol>
+  <symbol id="i-book" viewBox="0 0 24 24"><path d="M4 4h5a3 3 0 0 1 3 3v14a2.5 2.5 0 0 0-2.5-2.5H4z"/><path d="M20 4h-5a3 3 0 0 0-3 3v14a2.5 2.5 0 0 1 2.5-2.5H20z"/></symbol>
+  <symbol id="i-flask" viewBox="0 0 24 24"><path d="M9 3h6M10 3v6.5L4.3 18.6A1.6 1.6 0 0 0 5.7 21h12.6a1.6 1.6 0 0 0 1.4-2.4L14 9.5V3"/><path d="M7 15h10"/></symbol>
+  <symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.2"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+  <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 2.8l2.8 5.9 6.4.8-4.7 4.4 1.2 6.4L12 17.2l-5.7 3.1 1.2-6.4-4.7-4.4 6.4-.8z"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24"><path d="M21 13A9 9 0 1 1 11 3a7 7 0 0 0 10 10z"/></symbol>
+  <symbol id="i-key" viewBox="0 0 24 24"><circle cx="7.5" cy="15.5" r="4.5"/><path d="M10.7 12.3 20 3M16.5 6.5l3 3M14 9l2.5 2.5"/></symbol>
+  <symbol id="i-cards" viewBox="0 0 24 24"><rect x="3" y="7" width="13" height="14" rx="2.5"/><path d="M8 3h10.5A2.5 2.5 0 0 1 21 5.5V17"/></symbol>
+  <symbol id="i-table" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2.5"/><path d="M3 10h18M3 15h18M9 4v16"/></symbol>
+  <symbol id="i-zap" viewBox="0 0 24 24"><path d="M13 2 3 14h8l-1 8 10-12h-8z"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></symbol>
+  <symbol id="i-chev" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+  <symbol id="i-copy" viewBox="0 0 24 24"><rect x="8" y="8" width="13" height="13" rx="2.5"/><path d="M16 8V5.5A2.5 2.5 0 0 0 13.5 3h-8A2.5 2.5 0 0 0 3 5.5v8A2.5 2.5 0 0 0 5.5 16H8"/></symbol>
+  <symbol id="i-reset" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></symbol>
+  <symbol id="i-map" viewBox="0 0 24 24"><path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2-6-2z"/><path d="M9 4v14M15 6v14"/></symbol>
+  <symbol id="i-puzzle" viewBox="0 0 24 24"><path d="M10 3h4v2.5a1.5 1.5 0 1 0 3 0V3h4v7h-2.5a1.5 1.5 0 1 0 0 3H21v8h-7v-2.5a1.5 1.5 0 1 0-3 0V21H3v-7h2.5a1.5 1.5 0 1 0 0-3H3V3h7z"/></symbol>
+  <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></symbol>
+  <symbol id="i-sparkle" viewBox="0 0 24 24"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5 18 18M6 18l2.5-2.5M15.5 8.5 18 6"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 34 14"><path d="M1 7h30M25 2l6 5-6 5"/></symbol>
+  <symbol id="i-calc" viewBox="0 0 24 24"><rect x="5" y="2.5" width="14" height="19" rx="2.5"/><path d="M8 6.5h8M8 11h.01M12 11h.01M16 11h.01M8 14.5h.01M12 14.5h.01M16 14.5h.01M8 18h.01M12 18h4"/></symbol>
+  <symbol id="i-translate" viewBox="0 0 24 24"><path d="M4 5h8M8 3v2M5.5 5c.8 3.4 3 6 6.5 7.5M10.5 5c-.7 3.5-3 6.2-6.5 7.5"/><path d="M13 21l4-9 4 9M14.5 18h5"/></symbol>
+</svg>
+
+<header id="top">
+  <button class="iconbtn" id="menuBtn" aria-label="Menú"><svg class="ic"><use href="#i-menu"/></svg></button>
+  <a class="logo" href="#inicio"><span class="lg"><svg class="ic"><use href="#i-book"/></svg></span><span>Glosario SQL<small>Guía completa · Jardinería</small></span></a>
+  <div class="search-top" id="searchTop"></div>
+  <a class="btn sm btn-gl" href="index.html"><svg class="ic"><use href="#i-zap"/></svg><span>Ruta rápida</span></a>
+  <div class="prog"><span><b>Ejercicios</b><em id="progTxt">0 / 0</em></span><div class="bar"><i id="progBar"></i></div></div>
+  <div class="lvl" title="Ganás XP resolviendo ejercicios, quizzes y niveles del juego">
+    <div class="badge" id="lvlBadge"><svg class="ic fill"><use href="#i-star"/></svg></div>
+    <div class="txt"><b id="lvlName">Recién llegado</b><span id="lvlXp">0 XP</span></div>
+  </div>
+  <button class="iconbtn" id="themeBtn" aria-label="Cambiar tema"><svg class="ic"><use href="#i-sun"/></svg></button>
+</header>
+
+<nav id="side">
+  <div class="grp">Navegar</div>
+  <a class="nav-a ext" href="index.html" style="--nc:var(--amber)"><span class="ni"><svg class="ic"><use href="#i-zap"/></svg></span>← Ruta rápida (principal)<span class="dot"></span></a>
+  <a class="nav-a" href="#glosario" style="--nc:var(--violet)"><span class="ni"><svg class="ic"><use href="#i-book"/></svg></span>Glosario A–Z<span class="dot"></span></a>
+  <div class="grp">Guía completa</div>
+  <a class="nav-a" href="#inicio" style="--nc:var(--pink)"><span class="ni"><svg class="ic"><use href="#i-map"/></svg></span>Inicio y ruta<span class="dot"></span></a>
+  <a class="nav-a" href="#base" style="--nc:var(--indigo)"><span class="ni"><svg class="ic"><use href="#i-db"/></svg></span>0 · La base de datos<span class="dot"></span></a>
+  <div class="grp">Leer datos</div>
+  <a class="nav-a" href="#select" style="--nc:var(--sky)"><span class="ni"><svg class="ic"><use href="#i-table"/></svg></span>1 · SELECT y FROM<span class="dot"></span></a>
+  <a class="nav-a" href="#where" style="--nc:var(--cyan)"><span class="ni"><svg class="ic"><use href="#i-filter"/></svg></span>2 · WHERE<span class="dot"></span></a>
+  <a class="nav-a" href="#orden" style="--nc:var(--lime)"><span class="ni"><svg class="ic"><use href="#i-sort"/></svg></span>3 · DISTINCT, ORDER, LIMIT<span class="dot"></span></a>
+  <a class="nav-a" href="#agrup" style="--nc:var(--amber)"><span class="ni"><svg class="ic"><use href="#i-layers"/></svg></span>4 · GROUP BY y HAVING<span class="dot"></span></a>
+  <a class="nav-a" href="#join" style="--nc:var(--violet)"><span class="ni"><svg class="ic"><use href="#i-link"/></svg></span>5 · JOIN<span class="dot"></span></a>
+  <a class="nav-a" href="#sub" style="--nc:var(--emerald)"><span class="ni"><svg class="ic"><use href="#i-nest"/></svg></span>6 · Subconsultas<span class="dot"></span></a>
+  <a class="nav-a" href="#mas" style="--nc:var(--pink)"><span class="ni"><svg class="ic"><use href="#i-trophy"/></svg></span>7 · "El que más"<span class="dot"></span></a>
+  <a class="nav-a" href="#fechas" style="--nc:var(--sky)"><span class="ni"><svg class="ic"><use href="#i-cal"/></svg></span>8 · Fechas<span class="dot"></span></a>
+  <div class="grp">Modificar datos</div>
+  <a class="nav-a" href="#dml" style="--nc:var(--orange)"><span class="ni"><svg class="ic"><use href="#i-edit"/></svg></span>9 · INSERT, UPDATE, DELETE<span class="dot"></span></a>
+  <div class="grp">Para el examen</div>
+  <a class="nav-a" href="#errores" style="--nc:var(--red)"><span class="ni"><svg class="ic"><use href="#i-bug"/></svg></span>Errores típicos<span class="dot"></span></a>
+  <a class="nav-a" href="#traductor" style="--nc:var(--indigo)"><span class="ni"><svg class="ic"><use href="#i-translate"/></svg></span>Traductor consigna → SQL<span class="dot"></span></a>
+  <a class="nav-a" href="#flash" style="--nc:var(--violet)"><span class="ni"><svg class="ic"><use href="#i-cards"/></svg></span>Flashcards<span class="dot"></span></a>
+  <a class="nav-a" href="#juego" style="--nc:var(--amber)"><span class="ni"><svg class="ic"><use href="#i-puzzle"/></svg></span>Juego: armá la consulta<span class="dot"></span></a>
+  <a class="nav-a" href="#ejercicios" style="--nc:var(--emerald)"><span class="ni"><svg class="ic"><use href="#i-target"/></svg></span>Ejercicios (99)<span class="dot"></span></a>
+  <a class="nav-a" href="#simulacro" style="--nc:var(--pink)"><span class="ni"><svg class="ic"><use href="#i-clock"/></svg></span>Simulacro de examen<span class="dot"></span></a>
+  <a class="nav-a" href="#lab" style="--nc:var(--cyan)"><span class="ni"><svg class="ic"><use href="#i-flask"/></svg></span>Laboratorio libre<span class="dot"></span></a>
+</nav>
+
+<main><div class="wrap">
+
+<!-- =================================================================== INICIO -->
+<div id="inicio" class="hero" data-sec="inicio">
+  <div class="floaters" id="floaters"></div>
+  <span class="kick"><svg class="ic"><use href="#i-sparkle"/></svg> Base de Datos · Consultas SQL · MySQL</span>
+  <h1>Glosario y guía completa de SQL</h1>
+  <p>Todos los términos con definición, sintaxis y ejemplo ejecutable; las lecciones en detalle, 99 ejercicios autocorregidos y el simulacro. Si querés lo esencial para el examen, andá a la <a href="index.html" style="color:#fff;font-weight:800">ruta rápida</a>.</p>
+  <div id="searchHero"></div>
+  <div class="btns">
+    <a class="btn" href="#glosario"><svg class="ic"><use href="#i-book"/></svg> Glosario A–Z</a>
+    <a class="btn ghost" href="index.html"><svg class="ic"><use href="#i-zap"/></svg> ← Ruta rápida</a>
+    <a class="btn ghost" href="#simulacro"><svg class="ic"><use href="#i-clock"/></svg> Ir al simulacro</a>
+    <a class="btn ghost" href="#ejercicios"><svg class="ic"><use href="#i-target"/></svg> Ver ejercicios</a>
+  </div>
+  <div class="stats">
+    <div class="stat"><b>10</b><span>lecciones con demos</span></div>
+    <div class="stat"><b id="stEx">99</b><span>ejercicios autocorregidos</span></div>
+    <div class="stat"><b>816</b><span>filas de datos reales</span></div>
+    <div class="stat"><b id="stDone">0</b><span>resueltos por vos</span></div>
+  </div>
+</div>
+
+<section class="card" data-c="pink" data-sec="ruta">
+  <div class="l-head"><div class="l-icon"><svg class="ic"><use href="#i-map"/></svg></div><div><div class="l-kicker">Tu ruta</div><h2>De cero a aprobar, en orden</h2></div></div>
+  <p class="lead">Cada lección termina con un <b>quiz</b> y un <b>mini desafío</b>. Cuando contestás bien todo el quiz, la lección se marca como completa.</p>
+  <div class="road" id="road"></div>
+  <div class="co co-info"><div class="cw"><svg class="ic"><use href="#i-info"/></svg></div><div class="ct"><b>Cómo funciona el simulador</b>
+    <p>Corre en tu navegador con la base <b>oficial</b> del repositorio que cita el PDF del recuperatorio (<code>DDBB-JARDINERIA</code>): 9 oficinas, 31 empleados, 36 clientes, 276 productos, 115 pedidos y 26 pagos. Entiende las funciones de MySQL del examen (<code>YEAR</code>, <code>DATE_FORMAT</code>, <code>ADDDATE</code>, <code>DATEDIFF</code>, <code>CURDATE</code>, <code>ALL</code>/<code>ANY</code>...).</p>
+    <p>Necesita internet la primera vez. Tu progreso queda guardado en este navegador.</p>
+    <p id="engineStatus" class="loading"><span class="spin"></span> Cargando el motor SQL...</p></div></div>
+</section>
+
+<!-- =================================================================== GLOSARIO A-Z -->
+<section class="card" id="glosario" data-c="violet" data-sec="glosario">
+  <div class="l-head"><div class="l-icon"><svg class="ic"><use href="#i-book"/></svg></div><div><div class="l-kicker">Referencia</div><h2>Glosario A–Z</h2></div></div>
+  <p class="lead">Cada término tiene su definición corta, la sintaxis, un ejemplo que podés ejecutar y enlaces a la lección completa y al paso de la ruta rápida. Usá el buscador de arriba (<b>Ctrl + K</b>) o filtrá por categoría.</p>
+  <div id="glosAZ"></div>
+</section>
+
+<!-- =================================================================== 0 BASE -->
+<section class="card" id="base" data-c="indigo" data-sec="base">
+  <div class="l-head"><div class="l-icon"><svg class="ic"><use href="#i-db"/></svg></div><div><div class="l-kicker">Lección 0 · Antes de escribir SQL</div><h2>Conocé la base JARDINERÍA</h2></div></div>
+  <div class="frase"><svg class="ic"><use href="#i-bulb"/></svg><div>Antes de cualquier consulta tenés que saber <b>qué tablas hay</b> y <b>cómo se conectan</b>. Es el mapa antes de salir a caminar.</div></div>
+
+  <div class="co co-ana"><div class="cw"><svg class="ic"><use href="#i-bulb"/></svg></div><div class="ct"><b>Analogía: planillas de Excel conectadas</b>
+    <p>Cada <b>tabla</b> es una planilla. Cada <b>fila</b> es un registro (un cliente) y cada <b>columna</b> es un dato (su ciudad).</p>
+    <p>La <b>PK</b> (clave primaria) es el "DNI" de la fila: no se repite nunca. La <b>FK</b> (clave foránea) es una columna que guarda el DNI de una fila de <b>otra</b> tabla. Por ejemplo, el cliente guarda el código de su vendedor. Gracias a eso podemos unir tablas.</p></div></div>
+
+  <div class="demo">
+    <div class="demo-h"><span class="tag"><svg class="ic fill"><use href="#i-play"/></svg> Interactivo</span><b>Diagrama de la base</b><span class="note">Pasá el mouse por una tabla para ver sus relaciones; hacé clic para ver sus datos.</span></div>
+    <div class="er" id="er"></div>
+    <div class="legend"><span><svg class="ic" style="color:var(--amber)"><use href="#i-key"/></svg> PK clave primaria</span><span><svg class="ic" style="color:var(--cyan)"><use href="#i-link"/></svg> FK clave foránea</span><span>Las líneas unen cada FK con la PK a la que apunta</span></div>
+    <div id="erPreview"></div>
+  </div>
+
+  <h3>Cómo se leen las relaciones</h3>
+  <table class="tbl">
+    <tr><th>Columna (FK)</th><th>Apunta a</th><th>Se lee como...</th></tr>
+    <tr><td><code>cliente.codigo_empleado_rep_ventas</code></td><td><code>empleado</code></td><td>Cada cliente tiene un empleado que le vende.</td></tr>
+    <tr><td><code>empleado.codigo_jefe</code></td><td><code>empleado</code></td><td>El jefe <b>también es un empleado</b>: la tabla se apunta a sí misma.</td></tr>
+    <tr><td><code>empleado.codigo_oficina</code></td><td><code>oficina</code></td><td>Cada empleado trabaja en una oficina.</td></tr>
+    <tr><td><code>pago.codigo_cliente</code> / <code>pedido.codigo_cliente</code></td><td><code>cliente</code></td><td>Cada pago y cada pedido son de un cliente.</td></tr>
+    <tr><td><code>detalle_pedido.codigo_pedido</code> / <code>.codigo_producto</code></td><td><code>pedido</code> / <code>producto</code></td><td>Las líneas de un pedido: qué producto y cuántas unidades.</td></tr>
+    <tr><td><code>producto.gama</code></td><td><code>gama_producto</code></td><td>Cada producto pertenece a una gama (Frutales, Ornamentales...).</td></tr>
+  </table>
+
+  <h3>Ojo: hay dos versiones de la base</h3>
+  <p>La de tu carpeta del TP7 (<code>jardineria.sql</code>) no es igual a la oficial del repositorio. Las consultas cambian según cuál usen en el examen:</p>
+  <table class="tbl">
+    <tr><th></th><th>Oficial (GitHub, la que cita el recuperatorio)</th><th>Tu <code>jardineria.sql</code> del TP7</th></tr>
+    <tr><td>Nombres de tabla</td><td>Singular: <code>cliente</code>, <code>empleado</code>, <code>pago</code>...</td><td>Plural: <code>clientes</code>, <code>empleados</code>, <code>pagos</code>...</td></tr>
+    <tr><td>Apellidos</td><td><code>apellido1</code> y <code>apellido2</code></td><td><code>apellido</code></td></tr>
+    <tr><td>Gama del producto</td><td><code>producto.gama</code></td><td><code>productos.gama_producto</code></td></tr>
+    <tr><td>Código de oficina</td><td>Texto: <code>'MAD-ES'</code></td><td>Número: <code>1</code>, <code>2</code>...</td></tr>
+    <tr><td>Clave de pagos</td><td><code>(codigo_cliente, id_transaccion)</code></td><td><code>id_pago</code> autoincremental</td></tr>
+    <tr><td>Puesto de vendedor</td><td><code>'Representante Ventas'</code></td><td><code>'Representante de Ventas'</code></td></tr>
+    <tr><td>Datos</td><td>36 clientes (España, USA, Francia...), años 2006–2009</td><td>6 clientes (Argentina, España, México), 2024</td></tr>
+  </table>
+  <div class="co co-tip"><div class="cw"><svg class="ic"><use href="#i-check"/></svg></div><div class="ct"><b>Qué hacer</b>
+    <p>Toda la guía usa la <b>oficial</b>. En el <a href="#lab">laboratorio</a> podés cambiar a la del TP7 para practicar con esa. Antes del examen preguntá cuál van a usar.</p>
+    <p>Si no te acordás cómo está escrito un dato, preguntale a la base: <code>SELECT DISTINCT pais FROM cliente;</code>. En <code>cliente</code> los países están en inglés (<code>'Spain'</code>); en <code>oficina</code>, en castellano (<code>'España'</code>).</p></div></div>
+<pre class="sql">SELECT DISTINCT pais FROM cliente;</pre>
+<pre class="sql">SELECT DISTINCT pais FROM oficina;</pre>
+</section>
+
+<!-- =================================================================== 1 SELECT -->
+<section class="card" id="select" data-c="sky" data-sec="select">
+  <div class="l-head"><div class="l-icon"><svg class="ic"><use href="#i-table"/></svg></div><div><div class="l-kicker">Lección 1 · Leer datos</div><h2>SELECT y FROM</h2></div></div>
+  <div class="frase"><svg class="ic"><use href="#i-bulb"/></svg><div><b>SELECT</b> elige <b>qué columnas</b> ver y <b>FROM</b> de <b>qué tabla</b>. Solo lee: no cambia nada.</div></div>
+  <div class="molde"><span class="k">SELECT</span><span class="slot" data-tip="Columnas separadas por coma, o * para todas. También cálculos: precio_venta * 1.21">columnas</span><span class="k">FROM</span><span class="slot" data-tip="La tabla de donde salen los datos">tabla</span><span>;</span></div>
+
+  <div class="co co-ana"><div class="cw"><svg class="ic"><use href="#i-bulb"/></svg></div><div class="ct"><b>Analogía</b><p><code>FROM</code> es <b>qué planilla abrís</b>. <code>SELECT</code> es <b>qué columnas dejás visibles</b>: las demás se ocultan.</p></div></div>
+<pre class="sql">SELECT nombre, precio_venta
+FROM producto;</pre>
+<pre class="sql">SELECT * FROM oficina;   -- el * significa "todas las columnas"</pre>
+
+  <h3>Calcular columnas nuevas</h3>
+  <p>En el SELECT podés poner <b>cuentas</b> y <b>funciones</b>, no solo columnas. La base calcula el valor fila por fila.</p>
+  <div class="grid g3">
+    <div class="tile"><h4><svg class="ic"><use href="#i-calc"/></svg>+ − * /</h4><p>Cuentas con columnas.</p><span class="ex">precio_venta * 1.21</span></div>
+    <div class="tile"><h4>AS</h4><p>Le pone un nombre (alias) a la columna del resultado.</p><span class="ex">... AS con_iva</span></div>
+    <div class="tile"><h4>ROUND(x, 2)</h4><p>Redondea a 2 decimales.</p><span class="ex">ROUND(precio * 1.21, 2)</span></div>
+    <div class="tile"><h4>CONCAT(a, b)</h4><p>Une textos en una sola columna.</p><span class="ex">CONCAT(nombre, ' ', apellido1)</span></div>
+    <div class="tile"><h4>UPPER / LOWER</h4><p>Pasa a mayúsculas / minúsculas.</p><span class="ex">UPPER(ciudad)</span></div>
+    <div class="tile"><h4>IFNULL(x, y)</h4><p>Si x es NULL, muestra y.</p><span class="ex">IFNULL(region, '-')</span></div>
+  </div>
+<pre class="sql">SELECT nombre,
+       precio_venta,
+       precio_venta * 1.21           AS con_iva,
+       ROUND(precio_venta * 1.21, 2) AS con_iva_redondeado,
+       precio_venta - precio_proveedor AS ganancia
+FROM producto;</pre>
+<pre class="sql">SELECT CONCAT(apellido1, ', ', nombre) AS empleado, email
+FROM empleado;</pre>
+
+  <h3>El orden en que se escribe ≠ el orden en que se ejecuta</h3>
+  <div class="demo">
+    <div class="demo-h"><span class="tag"><svg class="ic fill"><use href="#i-play"/></svg> Demo</span><b>¿Cómo lee MySQL tu consulta?</b></div>
+    <div id="demoOrden"></div>
+  </div>
+  <div class="co co-info"><div class="cw"><svg class="ic"><use href="#i-info"/></svg></div><div class="ct"><b>¿Por qué importa?</b><p>Explica muchos errores. Por ejemplo, <code>WHERE</code> se ejecuta <b>antes</b> de agrupar, así que adentro de WHERE no podés usar <code>COUNT()</code>. Y el alias del SELECT todavía no existe cuando se ejecuta el WHERE.</p></div></div>
+
+  <div class="co co-ojo"><div class="cw"><svg class="ic"><use href="#i-alert"/></svg></div><div class="ct"><b>Error de tu archivo de clase</b><p>En <code>ejemplo_20261005.sql</code> está <code>concat(apellidos, nombre), as empleado</code>. La coma antes del <code>AS</code> rompe la consulta. Probalo:</p></div></div>
+<pre class="sql bad">SELECT CONCAT(apellido1, nombre), AS empleado FROM empleado;</pre>
+  <div class="quiz" data-quiz="select"></div>
+  <div class="mini" data-ex="M-select"></div>
+  <div class="mini" data-ex="M-calc"></div>
+</section>
+
+<!-- =================================================================== 2 WHERE -->
+<section class="card" id="where" data-c="cyan" data-sec="where">
+  <div class="l-head"><div class="l-icon"><svg class="ic"><use href="#i-filter"/></svg></div><div><div class="l-kicker">Lección 2 · Leer datos</div><h2>WHERE: quedarse con algunas filas</h2></div></div>
+  <div class="frase"><svg class="ic"><use href="#i-bulb"/></svg><div><b>WHERE</b> revisa <b>fila por fila</b> y deja pasar solo las que cumplen la condición.</div></div>
+  <div class="molde"><span class="k">SELECT</span><span class="slot">columnas</span><span class="k">FROM</span><span class="slot">tabla</span><span class="k">WHERE</span><span class="slot" data-tip="Algo que da verdadero o falso para cada fila: pais = 'Spain', total > 1000...">condición</span><span>;</span></div>
+
+  <div class="demo">
+    <div class="demo-h"><span class="tag"><svg class="ic fill"><use href="#i-play"/></svg> Demo</span><b>Elegí una condición y mirá cómo filtra</b></div>
+    <div id="demoWhere"></div>
+  </div>
+
+  <h3>Los operadores</h3>
+  <div class="grid g4">
+    <div class="tile"><h4>= &nbsp;&lt;&gt;</h4><p>Igual / distinto.</p><span class="ex">pais = 'Spain'</span></div>
+    <div class="tile"><h4>&gt; &lt; &gt;= &lt;=</h4><p>Comparar números o fechas.</p><span class="ex">total &gt; 1000</span></div>
+    <div class="tile"><h4>AND</h4><p>Tienen que cumplirse <b>las dos</b>.</p><span class="ex">a AND b</span></div>
+    <div class="tile"><h4>OR</h4><p>Alcanza con que se cumpla <b>una</b>.</p><span class="ex">a OR b</span></div>
+    <div class="tile"><h4>IN (...)</h4><p>Está en la lista (varios OR).</p><span class="ex">ciudad IN ('Madrid','Paris')</span></div>
+    <div class="tile"><h4>BETWEEN</h4><p>En un rango, <b>con</b> los extremos.</p><span class="ex">total BETWEEN 1000 AND 5000</span></div>
+    <div class="tile"><h4>LIKE</h4><p><code>%</code> = cualquier cosa, <code>_</code> = un carácter.</p><span class="ex">nombre LIKE 'Lim%'</span></div>
+    <div class="tile"><h4>IS NULL</h4><p>El campo está vacío (sin dato).</p><span class="ex">fecha_entrega IS NULL</span></div>
+  </div>
+<pre class="sql">-- AND: de España Y de Madrid
+SELECT nombre_cliente, ciudad FROM cliente
+WHERE pais = 'Spain' AND ciudad = 'Madrid';</pre>
+<pre class="sql">-- IN: pagos con PayPal o con Cheque
+SELECT * FROM pago WHERE forma_pago IN ('PayPal', 'Cheque');</pre>
+<pre class="sql">-- BETWEEN: incluye el 2000 y el 5000
+SELECT * FROM pago WHERE total BETWEEN 2000 AND 5000;</pre>
+<pre class="sql">-- LIKE: nombres que empiezan con "Lim"
+SELECT nombre FROM producto WHERE nombre LIKE 'Lim%';</pre>
+<pre class="sql">-- IS NULL: pedidos sin fecha de entrega
+SELECT codigo_pedido, estado, fecha_entrega FROM pedido WHERE fecha_entrega IS NULL;</pre>
+<pre class="sql">-- &lt;&gt;: empleados que NO son representantes
+SELECT nombre, puesto FROM empleado WHERE puesto &lt;&gt; 'Representante Ventas';</pre>
+
+  <div class="co co-ojo"><div class="cw"><svg class="ic"><use href="#i-alert"/></svg></div><div class="ct"><b>NULL no es cero ni vacío</b><p>NULL significa <b>"no hay dato"</b>. <code>= NULL</code> nunca da verdadero. Probá las dos y compará:</p></div></div>
+<pre class="sql bad">SELECT COUNT(*) FROM pedido WHERE fecha_entrega = NULL;</pre>
+<pre class="sql good">SELECT COUNT(*) FROM pedido WHERE fecha_entrega IS NULL;</pre>
+  <div class="co co-ojo"><div class="cw"><svg class="ic"><use href="#i-alert"/></svg></div><div class="ct"><b>AND y OR juntos: usá paréntesis</b><p>AND se evalúa antes que OR. "Clientes de Madrid con representante 11 o 30":</p></div></div>
+<pre class="sql bad">-- Mal: trae TODOS los del representante 30, de cualquier ciudad
+SELECT nombre_cliente, ciudad, codigo_empleado_rep_ventas FROM cliente
+WHERE ciudad = 'Madrid' AND codigo_empleado_rep_ventas = 11 OR codigo_empleado_rep_ventas = 30;</pre>
+<pre class="sql good">SELECT nombre_cliente, ciudad, codigo_empleado_rep_ventas FROM cliente
+WHERE ciudad = 'Madrid' AND (codigo_empleado_rep_ventas = 11 OR codigo_empleado_rep_ventas = 30);</pre>
+  <div class="quiz" data-quiz="where"></div>
+  <div class="mini" data-ex="M-where"></div>
+</section>
+
+<!-- =================================================================== 3 ORDEN -->
+<section class="card" id="orden" data-c="lime" data-sec="orden">
+  <div class="l-head"><div class="l-icon"><svg class="ic"><use href="#i-sort"/></svg></div><div><div class="l-kicker">Lección 3 · Leer datos</div><h2>DISTINCT, ORDER BY y LIMIT</h2></div></div>
+  <div class="frase"><svg class="ic"><use href="#i-bulb"/></svg><div>Tres herramientas para <b>presentar</b> el resultado: sin repetidos, ordenado, y solo los primeros N.</div></div>
+  <div class="molde"><span class="k">SELECT</span><span class="slot opt" data-tip="Saca las filas repetidas">DISTINCT</span><span class="slot">columnas</span><span class="k">FROM</span><span class="slot">tabla</span><span class="k">ORDER BY</span><span class="slot" data-tip="Columna por la que ordenar. ASC = menor a mayor (por defecto), DESC = mayor a menor">columna ASC|DESC</span><span class="k">LIMIT</span><span class="slot" data-tip="Cuántas filas quedarse. Siempre al final">n</span><span>;</span></div>
+
+  <div class="grid g3">
+    <div class="tile"><h4>DISTINCT</h4><p>Si un valor aparece muchas veces, lo muestra <b>una sola vez</b>.</p><span class="ex">"sin repetidos", "distintos"</span></div>
+    <div class="tile"><h4>ORDER BY</h4><p>Ordena. Podés poner varias columnas: desempata con la siguiente.</p><span class="ex">"ordenado por..."</span></div>
+    <div class="tile"><h4>LIMIT n</h4><p>Recorta a las primeras n filas. <b>Primero ordenás, después recortás.</b></p><span class="ex">"los 5 más..."</span></div>
+  </div>
+  <div class="ba">
+    <table class="mt"><caption>SELECT forma_pago</caption><tr><th>forma_pago</th></tr><tr><td>PayPal</td></tr><tr><td>PayPal</td></tr><tr><td>Transferencia</td></tr><tr><td>Cheque</td></tr><tr><td>PayPal</td></tr><tr><td>Transferencia</td></tr></table>
+    <div class="arrow">→</div>
+    <table class="mt"><caption>SELECT DISTINCT forma_pago</caption><tr><th>forma_pago</th></tr><tr class="new"><td>PayPal</td></tr><tr class="new"><td>Transferencia</td></tr><tr class="new"><td>Cheque</td></tr></table>
+  </div>
+<pre class="sql">SELECT DISTINCT forma_pago FROM pago;   -- probá también sin DISTINCT</pre>
+<pre class="sql">SELECT nombre_cliente, limite_credito FROM cliente ORDER BY limite_credito DESC;</pre>
+<pre class="sql">-- Por dos columnas: primero país, y dentro de cada país, por ciudad
+SELECT pais, ciudad, nombre_cliente FROM cliente ORDER BY pais, ciudad;</pre>
+<pre class="sql">-- Los 5 productos más caros
+SELECT nombre, precio_venta FROM producto
+ORDER BY precio_venta DESC
+LIMIT 5;</pre>
+  <div class="co co-info"><div class="cw"><svg class="ic"><use href="#i-info"/></svg></div><div class="ct"><b>LIMIT es de MySQL</b><p>En SQL Server se escribe <code>SELECT TOP 5</code>. Como el examen es en MySQL, usá <b>LIMIT</b> al final.</p></div></div>
+  <div class="quiz" data-quiz="orden"></div>
+  <div class="mini" data-ex="M-orden"></div>
+</section>
+
+<!-- =================================================================== 4 AGRUPACIÓN -->
+<section class="card" id="agrup" data-c="amber" data-sec="agrup">
+  <div class="l-head"><div class="l-icon"><svg class="ic"><use href="#i-layers"/></svg></div><div><div class="l-kicker">Lección 4 · Resumir</div><h2>COUNT, SUM, AVG... GROUP BY y HAVING</h2></div></div>
+  <div class="frase"><svg class="ic"><use href="#i-bulb"/></svg><div>Las funciones de agregación toman <b>muchas filas</b> y devuelven <b>un número</b>. Con <b>GROUP BY</b> calculás ese número <b>para cada grupo</b>.</div></div>
+  <div class="molde"><span class="k">SELECT</span><span class="slot" data-tip="Las columnas del GROUP BY + funciones de agregación">grupo, COUNT(*)</span><span class="k">FROM</span><span class="slot">tabla</span><span class="k">WHERE</span><span class="slot opt" data-tip="Filtra filas ANTES de agrupar">filtro de filas</span><span class="k">GROUP BY</span><span class="slot" data-tip="Por qué columna se arman los grupos">grupo</span><span class="k">HAVING</span><span class="slot opt" data-tip="Filtra GRUPOS, después de agrupar. Acá sí podés usar COUNT/SUM">filtro de grupos</span><span>;</span></div>
+  <div class="grid g4">
+    <div class="tile"><h4>COUNT(*)</h4><p>Cuenta filas.</p><span class="ex">¿cuántos clientes?</span></div>
+    <div class="tile"><h4>SUM(col)</h4><p>Suma.</p><span class="ex">total cobrado</span></div>
+    <div class="tile"><h4>AVG(col)</h4><p>Promedio.</p><span class="ex">pago medio</span></div>
+    <div class="tile"><h4>MAX / MIN</h4><p>El mayor / el menor.</p><span class="ex">el más caro</span></div>
+  </div>
+<pre class="sql">-- Recuperatorio, consigna 9: un solo número
+SELECT COUNT(*) AS clientes_barcelona FROM cliente WHERE ciudad = 'Barcelona';</pre>
+<pre class="sql">-- COUNT(*) cuenta todo; COUNT(columna) no cuenta los NULL
+SELECT COUNT(*) AS pedidos, COUNT(fecha_entrega) AS entregados FROM pedido;</pre>
+<pre class="sql">SELECT SUM(total) AS cobrado, AVG(total) AS promedio, MAX(total) AS mayor, MIN(total) AS menor
+FROM pago;</pre>
+
+  <h3>GROUP BY: un resultado por cada grupo</h3>
+  <div class="co co-ana"><div class="cw"><svg class="ic"><use href="#i-bulb"/></svg></div><div class="ct"><b>Analogía</b><p>Tirás todas las fichas de clientes sobre la mesa, armás <b>una pila por país</b> y contás cuántas fichas tiene cada pila.</p></div></div>
+  <div class="demo">
+    <div class="demo-h"><span class="tag"><svg class="ic fill"><use href="#i-play"/></svg> Demo</span><b>Mirá cómo se arman los grupos</b></div>
+    <div id="demoGroup"></div>
+  </div>
+<pre class="sql">-- Recuperatorio, consigna 8: ¿cuántos clientes tiene cada país?
+SELECT pais, COUNT(*) AS cantidad
+FROM cliente
+GROUP BY pais;</pre>
+<pre class="sql">SELECT forma_pago, COUNT(*) AS pagos, SUM(total) AS total
+FROM pago
+GROUP BY forma_pago;</pre>
+  <div class="co co-ojo"><div class="cw"><svg class="ic"><use href="#i-alert"/></svg></div><div class="ct"><b>Regla de oro</b><p>Toda columna del SELECT que <b>no</b> esté dentro de COUNT/SUM/AVG/MAX/MIN <b>tiene que estar en el GROUP BY</b>. Si no, MySQL 8 da error.</p></div></div>
+<pre class="sql bad">SELECT pais, COUNT(*) FROM cliente;   -- falta GROUP BY pais</pre>
+  <div class="co co-tip"><div class="cw"><svg class="ic"><use href="#i-check"/></svg></div><div class="ct"><b>Cómo reconocerlo en la consigna</b><p>Si dice <b>"cada"</b> o <b>"por"</b> ("cuántos clientes <b>por</b> país", "total de <b>cada</b> cliente"), hace falta GROUP BY.</p></div></div>
+
+  <h3>HAVING: filtrar grupos</h3>
+  <table class="tbl">
+    <tr><th></th><th>WHERE</th><th>HAVING</th></tr>
+    <tr><td>¿Qué filtra?</td><td>Filas sueltas</td><td>Grupos ya armados</td></tr>
+    <tr><td>¿Cuándo?</td><td>Antes del GROUP BY</td><td>Después del GROUP BY</td></tr>
+    <tr><td>¿Puede usar COUNT/SUM?</td><td class="no">No</td><td class="yes">Sí</td></tr>
+  </table>
+<pre class="sql">-- Países con más de 2 clientes
+SELECT pais, COUNT(*) AS cantidad
+FROM cliente
+GROUP BY pais
+HAVING COUNT(*) > 2;</pre>
+<pre class="sql">-- Los dos juntos: de los clientes españoles (WHERE), ciudades con 3 o más (HAVING)
+SELECT ciudad, COUNT(*) AS cantidad
+FROM cliente
+WHERE pais = 'Spain'
+GROUP BY ciudad
+HAVING COUNT(*) >= 3
+ORDER BY cantidad DESC;</pre>
+
+  <h3>Cálculos con agregación: la facturación del TP7</h3>
+  <p>Base imponible = suma de <code>precio_unidad × cantidad</code>. IVA = 21% de la base. Total = base + IVA.</p>
+<pre class="sql">SELECT SUM(cantidad * precio_unidad)        AS base_imponible,
+       SUM(cantidad * precio_unidad) * 0.21 AS iva,
+       SUM(cantidad * precio_unidad) * 1.21 AS total
+FROM detalle_pedido;</pre>
+<pre class="sql">-- Lo mismo por producto, solo los que empiezan con OR y facturaron más de 1000
+SELECT codigo_producto, SUM(cantidad * precio_unidad) AS base_imponible
+FROM detalle_pedido
+WHERE codigo_producto LIKE 'OR%'
+GROUP BY codigo_producto
+HAVING SUM(cantidad * precio_unidad) > 1000;</pre>
+  <div class="quiz" data-quiz="agrup"></div>
+  <div class="mini" data-ex="M-agrup"></div>
+</section>
+
+<!-- =================================================================== 5 JOIN -->
+<section class="card" id="join" data-c="violet" data-sec="join">
+  <div class="l-head"><div class="l-icon"><svg class="ic"><use href="#i-link"/></svg></div><div><div class="l-kicker">Lección 5 · Combinar tablas</div><h2>JOIN: unir tablas</h2></div></div>
+  <div class="frase"><svg class="ic"><use href="#i-bulb"/></svg><div>Los datos están repartidos en varias tablas. El <b>JOIN</b> pega cada fila de una tabla con su <b>pareja</b> en la otra, usando la columna que comparten (FK = PK).</div></div>
+  <div class="molde"><span class="k">SELECT</span><span class="slot">a.col, b.col</span><span class="k">FROM</span><span class="slot" data-tip="Tabla con alias corto (c, e, p...)">tabla1 a</span><span class="slot" data-tip="INNER = solo con pareja. LEFT = todo lo de la izquierda. RIGHT = todo lo de la derecha">INNER|LEFT|RIGHT</span><span class="k">JOIN</span><span class="slot">tabla2 b</span><span class="k">ON</span><span class="slot" data-tip="Qué columnas tienen que coincidir. Casi siempre FK = PK">a.fk = b.pk</span><span>;</span></div>
+  <div class="co co-ana"><div class="cw"><svg class="ic"><use href="#i-bulb"/></svg></div><div class="ct"><b>Analogía</b><p>En <code>pago</code> solo está el <b>número</b> de cliente. Para saber su <b>nombre</b> hay que buscar ese número en <code>cliente</code>. El JOIN hace esa búsqueda por vos, fila por fila.</p></div></div>
+
+  <div class="demo">
+    <div class="demo-h"><span class="tag"><svg class="ic fill"><use href="#i-play"/></svg> Demo</span><b>Elegí el tipo de JOIN y mirá qué filas sobreviven</b></div>
+    <div id="demoJoin"></div>
+  </div>
+
+  <div class="venns">
+    <div class="vcard"><svg viewBox="0 0 110 66"><defs><clipPath id="vc1"><circle cx="42" cy="33" r="26"/></clipPath></defs><circle class="f" cx="68" cy="33" r="26" clip-path="url(#vc1)"/><circle cx="42" cy="33" r="26"/><circle cx="68" cy="33" r="26"/></svg><b>INNER JOIN</b><small>Solo filas con pareja en las dos tablas.</small></div>
+    <div class="vcard"><svg viewBox="0 0 110 66"><circle class="f" cx="42" cy="33" r="26"/><circle cx="42" cy="33" r="26"/><circle cx="68" cy="33" r="26"/></svg><b>LEFT JOIN</b><small>Todo lo de la izquierda; sin pareja → NULL.</small></div>
+    <div class="vcard"><svg viewBox="0 0 110 66"><circle class="f" cx="68" cy="33" r="26"/><circle cx="42" cy="33" r="26"/><circle cx="68" cy="33" r="26"/></svg><b>RIGHT JOIN</b><small>Todo lo de la derecha; sin pareja → NULL.</small></div>
+    <div class="vcard"><svg viewBox="0 0 110 66"><defs><clipPath id="vc4"><rect x="0" y="0" width="55" height="66"/></clipPath></defs><circle class="f" cx="42" cy="33" r="26"/><circle cx="68" cy="33" r="26" fill="var(--panel2)" stroke="none"/><circle cx="42" cy="33" r="26"/><circle cx="68" cy="33" r="26"/></svg><b>LEFT + IS NULL</b><small>Los de la izquierda que <b>no</b> tienen pareja.</small></div>
+  </div>
+
+  <h3>INNER JOIN</h3>
+<pre class="sql">-- Cada cliente con el nombre de su representante
+SELECT c.nombre_cliente, e.nombre, e.apellido1
+FROM cliente c
+INNER JOIN empleado e ON c.codigo_empleado_rep_ventas = e.codigo_empleado;</pre>
+  <ul>
+    <li><code>c</code> y <code>e</code> son <b>alias</b>: apodos cortos de cada tabla.</li>
+    <li><code>ON</code> dice <b>qué columnas tienen que coincidir</b>.</li>
+    <li><code>c.nombre_cliente</code> = la columna <code>nombre_cliente</code> de la tabla <code>c</code>.</li>
+  </ul>
+  <h3>LEFT y RIGHT JOIN</h3>
+<pre class="sql">-- Todos los clientes; los que no pagaron aparecen con total NULL
+SELECT c.nombre_cliente, p.total
+FROM cliente c
+LEFT JOIN pago p ON c.codigo_cliente = p.codigo_cliente;</pre>
+<pre class="sql">-- Clientes que NUNCA pagaron (TP7, punto 16)
+SELECT c.nombre_cliente
+FROM cliente c
+LEFT JOIN pago p ON c.codigo_cliente = p.codigo_cliente
+WHERE p.codigo_cliente IS NULL;</pre>
+<pre class="sql">-- Lo mismo con RIGHT JOIN: ahora cliente está a la DERECHA
+SELECT c.nombre_cliente
+FROM pago p
+RIGHT JOIN cliente c ON c.codigo_cliente = p.codigo_cliente
+WHERE p.codigo_cliente IS NULL;</pre>
+
+  <h3>NATURAL JOIN: une solo por nombres iguales</h3>
+  <p>No lleva <code>ON</code>: une por <b>todas</b> las columnas que se llamen igual en las dos tablas. Entre <code>cliente</code> y <code>pago</code> la única en común es <code>codigo_cliente</code>, así que funciona:</p>
+<pre class="sql">SELECT nombre_cliente, forma_pago, total FROM cliente NATURAL JOIN pago;</pre>
+<pre class="sql">-- Clientes sin pagos con NATURAL LEFT JOIN (TP7, 16 c)
+SELECT codigo_cliente, nombre_cliente FROM cliente NATURAL LEFT JOIN pago WHERE id_transaccion IS NULL;</pre>
+  <div class="co co-ojo"><div class="cw"><svg class="ic"><use href="#i-alert"/></svg></div><div class="ct"><b>Peligro</b><p><code>empleado</code> y <code>cliente</code> no tienen ninguna columna con el mismo nombre (<code>codigo_empleado</code> ≠ <code>codigo_empleado_rep_ventas</code>). El NATURAL JOIN las combina <b>todas con todas</b>: 31 × 36 = 1116 filas sin sentido.</p></div></div>
+<pre class="sql bad">SELECT COUNT(*) FROM empleado NATURAL JOIN cliente;</pre>
+
+  <h3>SELF JOIN: una tabla consigo misma</h3>
+  <p>El jefe de un empleado <b>también está en la tabla empleado</b>. Usás la tabla dos veces con dos alias: <code>e</code> = el empleado, <code>j</code> = su jefe. Es la consigna 7 del recuperatorio.</p>
+  <div class="chain"><span class="tb">empleado e</span><span class="ar">e.codigo_jefe<svg class="ic"><use href="#i-arrow"/></svg></span><span class="tb">empleado j</span><span class="ar">= j.codigo_empleado</span></div>
+<pre class="sql">SELECT e.nombre AS empleado, j.nombre AS jefe
+FROM empleado e
+INNER JOIN empleado j ON e.codigo_jefe = j.codigo_empleado;</pre>
+
+  <h3>Unir 3 o más tablas</h3>
+  <p>Se encadenan los JOIN, cada uno con su <code>ON</code>. Seguí el camino de las FK en el diagrama:</p>
+  <div class="chain"><span class="tb">pago</span><span class="ar">codigo_cliente<svg class="ic"><use href="#i-arrow"/></svg></span><span class="tb">cliente</span><span class="ar">rep_ventas<svg class="ic"><use href="#i-arrow"/></svg></span><span class="tb">empleado</span><span class="ar">codigo_oficina<svg class="ic"><use href="#i-arrow"/></svg></span><span class="tb">oficina</span></div>
+<pre class="sql">-- Cada pago con el cliente, su representante y la ciudad de la oficina (TP7, punto 14)
+SELECT c.nombre_cliente, p.total, e.nombre AS representante, o.ciudad
+FROM pago p
+INNER JOIN cliente c  ON p.codigo_cliente = c.codigo_cliente
+INNER JOIN empleado e ON c.codigo_empleado_rep_ventas = e.codigo_empleado
+INNER JOIN oficina o  ON e.codigo_oficina = o.codigo_oficina;</pre>
+  <div class="co co-ojo"><div class="cw"><svg class="ic"><use href="#i-alert"/></svg></div><div class="ct"><b>Columna ambigua</b><p>Si una columna existe en las dos tablas (<code>nombre</code>, <code>ciudad</code>, <code>codigo_cliente</code>...), <b>siempre poné el alias delante</b>. Este error estaba en tu parcial (ejercicio 2, punto 5):</p></div></div>
+<pre class="sql bad">SELECT nombre, ciudad FROM empleado e INNER JOIN oficina o ON e.codigo_oficina = o.codigo_oficina WHERE codigo_oficina = 'MAD-ES';</pre>
+  <div class="quiz" data-quiz="join"></div>
+  <div class="mini" data-ex="M-join"></div>
+</section>
+
+<!-- =================================================================== 6 SUBCONSULTAS -->
+<section class="card" id="sub" data-c="emerald" data-sec="sub">
+  <div class="l-head"><div class="l-icon"><svg class="ic"><use href="#i-nest"/></svg></div><div><div class="l-kicker">Lección 6 · Consultas dentro de consultas</div><h2>Subconsultas</h2></div></div>
+  <div class="frase"><svg class="ic"><use href="#i-bulb"/></svg><div>Cuando para responder algo <b>primero necesitás otro dato</b> de la base. La consulta de <b>adentro</b> se resuelve primero y la de afuera usa su resultado.</div></div>
+  <div class="molde"><span class="k">SELECT</span><span class="slot">columnas</span><span class="k">FROM</span><span class="slot">tabla</span><span class="k">WHERE</span><span class="slot">columna</span><span class="slot" data-tip="IN / NOT IN para listas; = > < para un solo valor; >= ALL; EXISTS">IN | = | &gt; ALL</span><span>(</span><span class="k">SELECT</span><span class="slot" data-tip="Una sola columna">columna</span><span class="k">FROM</span><span class="slot">otra</span><span>);</span></div>
+  <div class="demo">
+    <div class="demo-h"><span class="tag"><svg class="ic fill"><use href="#i-play"/></svg> Demo</span><b>Clientes que hicieron algún pago, paso a paso</b></div>
+    <div id="demoSub"></div>
+  </div>
+
+  <h3>Los 4 tipos que pide el TP7</h3>
+  <table class="tbl">
+    <tr><th>La subconsulta devuelve...</th><th>Usá</th><th>Ejemplo</th></tr>
+    <tr><td><b>Un solo valor</b></td><td><code>=</code> <code>&gt;</code> <code>&lt;</code></td><td>el precio máximo, el promedio</td></tr>
+    <tr><td><b>Una lista</b> de valores</td><td><code>IN</code> / <code>NOT IN</code></td><td>los códigos de los clientes que pagaron</td></tr>
+    <tr><td>Una lista, comparando con <b>todos</b> o con <b>alguno</b></td><td><code>&gt;= ALL</code> / <code>&gt; ANY</code></td><td>mayor o igual que todos = el máximo</td></tr>
+    <tr><td>Solo importa si <b>hay o no hay</b> filas</td><td><code>EXISTS</code> / <code>NOT EXISTS</code></td><td>¿este cliente tiene algún pago?</td></tr>
+  </table>
+<pre class="sql">-- = con un valor: productos más caros que el promedio
+SELECT nombre, precio_venta FROM producto
+WHERE precio_venta > (SELECT AVG(precio_venta) FROM producto);</pre>
+<pre class="sql">-- NOT IN con una lista: productos que nunca se pidieron (TP7, 42)
+SELECT codigo_producto, nombre FROM producto
+WHERE codigo_producto NOT IN (SELECT codigo_producto FROM detalle_pedido);</pre>
+<pre class="sql">-- ALL: el cliente con mayor límite de crédito (TP7, 36)
+SELECT nombre_cliente, limite_credito FROM cliente
+WHERE limite_credito >= ALL (SELECT limite_credito FROM cliente);</pre>
+<pre class="sql">-- EXISTS: clientes que tienen algún pago (TP7, 47)
+SELECT c.nombre_cliente FROM cliente c
+WHERE EXISTS (SELECT 1 FROM pago p WHERE p.codigo_cliente = c.codigo_cliente);</pre>
+
+  <h3>Subconsultas correlacionadas</h3>
+  <p>En el EXISTS de arriba, la subconsulta usa <code>c.codigo_cliente</code>, que viene de <b>afuera</b>. Se re-ejecuta <b>por cada cliente</b>: "¿hay pagos <b>de este</b> cliente?". Así se resuelve el punto 32 del TP7 sin JOIN:</p>
+<pre class="sql">-- Clientes cuyo límite de crédito es mayor que lo que pagaron
+SELECT c.nombre_cliente, c.limite_credito
+FROM cliente c
+WHERE c.limite_credito > (SELECT SUM(p.total) FROM pago p WHERE p.codigo_cliente = c.codigo_cliente);</pre>
+
+  <h3>Subconsultas anidadas: como una cebolla</h3>
+  <p>El punto 44 del TP7 encadena 5 niveles. Se lee <b>de adentro hacia afuera</b>:</p>
+  <div class="onion"><div style="border-color:var(--pink)"><span>5 · oficinas que NO están en...</span>
+    <div style="border-color:var(--violet)"><span>4 · oficinas de los representantes de...</span>
+      <div style="border-color:var(--indigo)"><span>3 · los clientes de...</span>
+        <div style="border-color:var(--sky)"><span>2 · los pedidos con...</span>
+          <div style="border-color:var(--emerald)"><span>1 · productos de la gama Frutales</span></div></div></div></div></div></div>
+  <div class="co co-tip"><div class="cw"><svg class="ic"><use href="#i-check"/></svg></div><div class="ct"><b>JOIN o subconsulta</b><p>Muchas veces sirven las dos. Si tenés que <b>mostrar columnas de las dos tablas</b>, necesitás JOIN. Si solo <b>filtrás</b>, cualquiera de las dos. Si la consigna dice "sin INNER JOIN" o "con IN/EXISTS", respetalo: el autocorrector lo revisa.</p></div></div>
+  <div class="quiz" data-quiz="sub"></div>
+  <div class="mini" data-ex="M-sub"></div>
+</section>
+
+<!-- =================================================================== 7 EL QUE MÁS -->
+<section class="card" id="mas" data-c="pink" data-sec="mas">
+  <div class="l-head"><div class="l-icon"><svg class="ic"><use href="#i-trophy"/></svg></div><div><div class="l-kicker">Lección 7 · El patrón que siempre sale</div><h2>"El que más" y "el que menos"</h2></div></div>
+  <div class="frase"><svg class="ic"><use href="#i-bulb"/></svg><div>"El producto con más stock", "el cliente con más pagos"... sale en <b>todos</b> los parciales. Hay dos caminos.</div></div>
+  <div class="grid g2">
+    <div class="tile"><h4>Camino A · ordenar y cortar</h4><p>Ordenás de mayor a menor y te quedás con el primero.</p><span class="ex">ORDER BY x DESC LIMIT 1</span></div>
+    <div class="tile"><h4>Camino B · buscar el máximo</h4><p>Calculás el máximo con una subconsulta y buscás quién lo tiene.</p><span class="ex">WHERE x = (SELECT MAX(x) ...)</span></div>
+  </div>
+<pre class="sql">-- A: recuperatorio, consigna 10
+SELECT nombre, cantidad_en_stock FROM producto
+ORDER BY cantidad_en_stock DESC
+LIMIT 1;</pre>
+<pre class="sql">-- B: trae TODOS los empatados
+SELECT nombre, cantidad_en_stock FROM producto
+WHERE cantidad_en_stock = (SELECT MAX(cantidad_en_stock) FROM producto);</pre>
+  <div class="co co-info"><div class="cw"><svg class="ic"><use href="#i-info"/></svg></div><div class="ct"><b>Con los datos reales hay empate</b><p>35 productos tienen 400 unidades. El camino A muestra uno solo y el B, los 35. El autocorrector acepta los dos, pero B es más preciso.</p></div></div>
+  <h3>Cuando primero hay que contar o sumar</h3>
+  <div class="eo"><div class="eo-chip"><span class="n">1</span>GROUP BY cliente<small>una pila por cliente</small></div><div class="eo-chip"><span class="n">2</span>COUNT(*)<small>cuántos pagos tiene cada pila</small></div><div class="eo-chip"><span class="n">3</span>ORDER BY ... DESC<small>de más a menos</small></div><div class="eo-chip"><span class="n">4</span>LIMIT 1<small>el primero</small></div></div>
+<pre class="sql">-- El cliente con más pagos, mostrando su nombre
+SELECT c.nombre_cliente, COUNT(*) AS cantidad_pagos
+FROM cliente c
+INNER JOIN pago p ON c.codigo_cliente = p.codigo_cliente
+GROUP BY c.codigo_cliente, c.nombre_cliente
+ORDER BY cantidad_pagos DESC
+LIMIT 1;</pre>
+<pre class="sql">-- El producto del que más unidades se vendieron (TP7, 31)
+SELECT nombre FROM producto
+WHERE codigo_producto = (
+    SELECT codigo_producto FROM detalle_pedido
+    GROUP BY codigo_producto
+    ORDER BY SUM(cantidad) DESC
+    LIMIT 1
+);</pre>
+  <div class="co co-ojo"><div class="cw"><svg class="ic"><use href="#i-alert"/></svg></div><div class="ct"><b>Error de tu parcial (ejercicio 2, punto 8)</b><p>Se usó <code>ORDER BY count(*)</code> <b>sin GROUP BY</b>. Sin agrupar, COUNT cuenta toda la tabla junta y no por cada consultorio.</p></div></div>
+  <div class="quiz" data-quiz="mas"></div>
+  <div class="mini" data-ex="M-mas"></div>
+</section>
+
+<!-- =================================================================== 8 FECHAS -->
+<section class="card" id="fechas" data-c="sky" data-sec="fechas">
+  <div class="l-head"><div class="l-icon"><svg class="ic"><use href="#i-cal"/></svg></div><div><div class="l-kicker">Lección 8 · Trabajar con fechas</div><h2>Fechas en MySQL</h2></div></div>
+  <div class="frase"><svg class="ic"><use href="#i-bulb"/></svg><div>Las fechas se escriben <b>'aaaa-mm-dd'</b> (por ejemplo <code>'2026-10-31'</code>) y la de hoy es <b>CURDATE()</b>. <code>'31/10/2026'</code> y <code>GETDATE()</code> no funcionan en MySQL.</div></div>
+  <table class="tbl">
+    <tr><th>Función</th><th>Para qué sirve</th><th>Ejemplo → resultado</th></tr>
+    <tr><td><code>CURDATE()</code> / <code>NOW()</code></td><td>Hoy / hoy con hora</td><td><code>2026-11-15</code></td></tr>
+    <tr><td><code>YEAR(f)</code> <code>MONTH(f)</code> <code>DAY(f)</code></td><td>Sacan el año, el mes o el día</td><td><code>YEAR('2008-11-10')</code> → 2008</td></tr>
+    <tr><td><code>DATE_FORMAT(f, '%Y')</code></td><td>Da formato a la fecha (devuelve texto)</td><td><code>'%d/%m/%Y'</code> → 10/11/2008</td></tr>
+    <tr><td><code>DATEDIFF(a, b)</code></td><td>Días entre dos fechas (a − b)</td><td><code>DATEDIFF('2009-01-27','2009-01-25')</code> → 2</td></tr>
+    <tr><td><code>ADDDATE(f, INTERVAL n DAY)</code></td><td>Suma días (también MONTH, YEAR)</td><td><code>ADDDATE('2009-01-25', INTERVAL 2 DAY)</code> → 2009-01-27</td></tr>
+    <tr><td><code>TIMESTAMPDIFF(YEAR, a, b)</code></td><td>Diferencia en años (edad)</td><td>mayores de edad: <code>&gt;= 18</code></td></tr>
+  </table>
+  <div class="demo">
+    <div class="demo-h"><span class="tag"><svg class="ic"><use href="#i-eye"/></svg> Visual</span><b>DATEDIFF y ADDDATE sobre una línea de tiempo</b></div>
+    <div class="tl">
+      <div class="axis"></div>
+      <div class="span" style="left:20%;width:40%"><span>DATEDIFF = 2 días</span></div>
+      <div class="pt2" style="left:20%;color:var(--emerald)"><b>2009-01-25</b><i></i><span>fecha_entrega</span></div>
+      <div class="pt2" style="left:60%;color:var(--pink)"><b>2009-01-27</b><i></i><span>fecha_esperada</span></div>
+    </div>
+    <p class="note">Se entregó <b>2 días antes</b>: <code>DATEDIFF(fecha_esperada, fecha_entrega) = 2</code>. Visto al revés: <code>ADDDATE(fecha_entrega, INTERVAL 2 DAY) &lt;= fecha_esperada</code>. Las dos formas son el punto 8 del TP7.</p>
+  </div>
+<pre class="sql">-- Clientes con pagos en 2008: tres formas (TP7, punto 6)
+SELECT DISTINCT codigo_cliente FROM pago WHERE YEAR(fecha_pago) = 2008;
+SELECT DISTINCT codigo_cliente FROM pago WHERE DATE_FORMAT(fecha_pago, '%Y') = '2008';
+SELECT DISTINCT codigo_cliente FROM pago WHERE fecha_pago BETWEEN '2008-01-01' AND '2008-12-31';</pre>
+<pre class="sql">-- Pedidos entregados tarde y cuántos días de atraso
+SELECT codigo_pedido, fecha_esperada, fecha_entrega,
+       DATEDIFF(fecha_entrega, fecha_esperada) AS dias_de_atraso
+FROM pedido
+WHERE fecha_entrega > fecha_esperada;</pre>
+<pre class="sql">-- Entregados al menos 2 días antes (TP7, 8 a)
+SELECT codigo_pedido, fecha_entrega, fecha_esperada FROM pedido
+WHERE ADDDATE(fecha_entrega, INTERVAL 2 DAY) &lt;= fecha_esperada;</pre>
+<pre class="sql">-- Formato lindo y cuántos años pasaron
+SELECT id_transaccion,
+       DATE_FORMAT(fecha_pago, '%d/%m/%Y') AS fecha,
+       TIMESTAMPDIFF(YEAR, fecha_pago, CURDATE()) AS anios
+FROM pago;</pre>
+<pre class="sql bad">-- Así NO (SQL Server):
+SELECT * FROM pago WHERE YEAR(fecha_pago) = YEAR(GETDATE());</pre>
+  <div class="co co-tip"><div class="cw"><svg class="ic"><use href="#i-check"/></svg></div><div class="ct"><b>"Hoy" cuando la columna tiene hora</b><p>Si la columna guarda fecha <b>y hora</b>, <code>col = CURDATE()</code> no coincide nunca. Usá <code>DATE(col) = CURDATE()</code>. Fue el error del ejercicio 2, punto 6 del parcial.</p></div></div>
+  <div class="quiz" data-quiz="fechas"></div>
+  <div class="mini" data-ex="M-fechas"></div>
+</section>
+
+<!-- =================================================================== 9 DML -->
+<section class="card" id="dml" data-c="orange" data-sec="dml">
+  <div class="l-head"><div class="l-icon"><svg class="ic"><use href="#i-edit"/></svg></div><div><div class="l-kicker">Lección 9 · Cambiar los datos</div><h2>INSERT, UPDATE y DELETE</h2></div></div>
+  <div class="frase"><svg class="ic"><use href="#i-bulb"/></svg><div>Hasta acá todo era leer. Estas tres <b>cambian</b> la base. Fueron <b>4 de las 10 consignas</b> del recuperatorio 2025.</div></div>
+  <div class="co co-info"><div class="cw"><svg class="ic"><use href="#i-reset"/></svg></div><div class="ct"><b>Podés romper todo</b><p>Los ejemplos de esta lección modifican la base de la guía. Si algo queda raro, usá <b>Reiniciar base</b> en el <a href="#lab">laboratorio</a>.</p></div></div>
+
+  <h3>INSERT INTO: agregar una fila</h3>
+  <div class="molde"><span class="k">INSERT INTO</span><span class="slot">tabla</span><span>(</span><span class="slot" data-tip="Lista de columnas. Incluí todas las obligatorias (NOT NULL)">col1, col2, ...</span><span>)</span><span class="k">VALUES</span><span>(</span><span class="slot" data-tip="Valores en el MISMO orden. Textos y fechas entre comillas simples">v1, v2, ...</span><span>);</span></div>
+  <div class="ba">
+    <table class="mt"><caption>pago (antes)</caption><tr><th>codigo_cliente</th><th>forma_pago</th><th>total</th></tr><tr><td>1</td><td>PayPal</td><td>2000</td></tr><tr><td>3</td><td>PayPal</td><td>5000</td></tr></table>
+    <div class="arrow">→</div>
+    <table class="mt"><caption>pago (después)</caption><tr><th>codigo_cliente</th><th>forma_pago</th><th>total</th></tr><tr><td>1</td><td>PayPal</td><td>2000</td></tr><tr><td>3</td><td>PayPal</td><td>5000</td></tr><tr class="new"><td>1</td><td>PayPal</td><td>1500</td></tr></table>
+  </div>
+<pre class="sql">-- Consigna 1 del recuperatorio
+INSERT INTO pago (codigo_cliente, forma_pago, id_transaccion, fecha_pago, total)
+VALUES (1, 'PayPal', 'ak-std-000099', '2026-11-15', 1500);
+
+SELECT * FROM pago WHERE codigo_cliente = 1;   -- para ver que se agregó</pre>
+  <ul>
+    <li>Primero la <b>lista de columnas</b>, después los <b>valores en el mismo orden</b>.</li>
+    <li>Textos y fechas entre comillas simples; números sin comillas.</li>
+    <li>La <b>PK no se puede repetir</b>: ejecutá el ejemplo dos veces y mirá el error.</li>
+    <li>Las <b>FK tienen que existir</b>: el <code>codigo_cliente</code> tiene que ser de un cliente real.</li>
+  </ul>
+<pre class="sql">-- Consigna 2: Representante Ventas cuyo jefe es el 3
+SELECT MAX(codigo_empleado) FROM empleado;   -- primero: ¿qué código está libre?
+
+INSERT INTO empleado (codigo_empleado, nombre, apellido1, apellido2, extension,
+                      email, codigo_oficina, codigo_jefe, puesto)
+VALUES (32, 'Lucía', 'Gómez', 'Díaz', '2850',
+        'lgomez@jardineria.es', 'TAL-ES', 3, 'Representante Ventas');
+
+SELECT * FROM empleado WHERE codigo_jefe = 3;</pre>
+
+  <h3>UPDATE ... SET ... WHERE: cambiar datos</h3>
+  <div class="molde"><span class="k">UPDATE</span><span class="slot">tabla</span><span class="k">SET</span><span class="slot" data-tip="Podés usar el valor actual: precio = precio - 200. Varias columnas separadas por coma">col = valor</span><span class="k">WHERE</span><span class="slot" data-tip="¡OBLIGATORIO en la práctica! Sin WHERE cambia TODAS las filas">qué filas</span><span>;</span></div>
+  <div class="ba">
+    <table class="mt"><caption>producto (antes)</caption><tr><th>codigo</th><th>precio_venta</th></tr><tr><td>OR-114</td><td>5</td></tr><tr><td>OR-115</td><td>7</td></tr></table>
+    <div class="arrow">→</div>
+    <table class="mt"><caption>después de SET precio_venta = 75 WHERE codigo = 'OR-114'</caption><tr><th>codigo</th><th>precio_venta</th></tr><tr class="chg"><td>OR-114</td><td class="x">75</td></tr><tr><td>OR-115</td><td>7</td></tr></table>
+  </div>
+<pre class="sql">-- Consigna 3
+UPDATE producto SET precio_venta = 75 WHERE codigo_producto = 'OR-114';
+SELECT codigo_producto, nombre, precio_venta FROM producto WHERE codigo_producto = 'OR-114';</pre>
+<pre class="sql">-- Consigna 4: restar 200 a lo que ya tenía cada producto
+SELECT nombre, precio_venta FROM producto WHERE proveedor = 'NaranjasValencianas.com';  -- antes
+UPDATE producto SET precio_venta = precio_venta - 200
+WHERE proveedor = 'NaranjasValencianas.com';
+SELECT nombre, precio_venta FROM producto WHERE proveedor = 'NaranjasValencianas.com';  -- después</pre>
+<pre class="sql">-- Subir un 10%: multiplicar por 1.10. Varias columnas: separadas por coma
+UPDATE producto SET precio_venta = precio_venta * 1.10, cantidad_en_stock = cantidad_en_stock + 5
+WHERE gama = 'Aromáticas';
+SELECT nombre, precio_venta, cantidad_en_stock FROM producto WHERE gama = 'Aromáticas';</pre>
+
+  <h3>DELETE FROM ... WHERE: borrar filas</h3>
+<pre class="sql">DELETE FROM pago WHERE id_transaccion = 'ak-std-000099';
+SELECT * FROM pago WHERE codigo_cliente = 1;</pre>
+<pre class="sql bad">-- La FK no deja borrar un cliente que tiene pagos y pedidos
+DELETE FROM cliente WHERE codigo_cliente = 1;</pre>
+  <div class="co co-ojo"><div class="cw"><svg class="ic"><use href="#i-alert"/></svg></div><div class="ct"><b>El error más grave posible</b>
+    <p><code>UPDATE producto SET precio_venta = 75;</code> <b>sin WHERE</b> les pone 75 a <b>los 276 productos</b>. <code>DELETE FROM pago;</code> borra <b>todos</b> los pagos.</p>
+    <p><b>Truco:</b> escribí primero un <code>SELECT ... WHERE ...</code> con el mismo filtro, fijate que salgan las filas correctas, y recién después cambiá SELECT por UPDATE o DELETE.</p></div></div>
+  <div class="quiz" data-quiz="dml"></div>
+  <div class="mini" data-ex="M-dml"></div>
+</section>
+
+<!-- =================================================================== ERRORES -->
+<section class="card" id="errores" data-c="red" data-sec="errores">
+  <div class="l-head"><div class="l-icon"><svg class="ic"><use href="#i-bug"/></svg></div><div><div class="l-kicker">Para el examen</div><h2>Errores típicos (sacados de tus archivos)</h2></div></div>
+  <p class="lead">Revisé tu parcial, el archivo de ejemplo de clase y el TP7. Estos son los errores que conviene no repetir. Los de la izquierda se pueden ejecutar para ver el error.</p>
+
+  <div class="errcard"><h4><span class="num">1</span>Falta el FROM</h4><div class="src">Parcial · ejercicio 1, punto 7</div>
+    <div class="vs"><pre class="sql bad">SELECT codigo_pedido, fecha_pedido
+ORDER BY fecha_pedido DESC LIMIT 5;</pre><pre class="sql good">SELECT codigo_pedido, fecha_pedido
+FROM pedido
+ORDER BY fecha_pedido DESC LIMIT 5;</pre></div></div>
+
+  <div class="errcard"><h4><span class="num">2</span>Falta una coma: la columna se vuelve alias</h4><div class="src">Parcial · ejercicio 2, punto 1</div>
+    <div class="vs"><pre class="sql bad">SELECT nombre, extension email FROM empleado;</pre><pre class="sql good">SELECT nombre, extension, email FROM empleado;</pre></div>
+    <p>No da error, pero <code>email</code> pasa a ser el <b>nombre</b> de la columna <code>extension</code> y el email no se muestra. Ejecutalo y mirá el encabezado.</p></div>
+
+  <div class="errcard"><h4><span class="num">3</span>Coma antes del AS</h4><div class="src">ejemplo_20261005.sql (clase)</div>
+    <div class="vs"><pre class="sql bad">SELECT CONCAT(apellido1, nombre), AS empleado
+FROM empleado ORDER BY empleado;</pre><pre class="sql good">SELECT CONCAT(apellido1, ' ', nombre) AS empleado
+FROM empleado ORDER BY empleado;</pre></div>
+    <p>Bonus: sin el <code>' '</code> en el medio queda todo pegado ("MagañaMarcos").</p></div>
+
+  <div class="errcard"><h4><span class="num">4</span>Aumento del 20% mal calculado</h4><div class="src">ejemplo_20261005.sql (clase)</div>
+    <div class="vs"><pre class="sql bad norun">-- salario + (salario + 0.20) = el doble + 0.20
+SELECT nombre, (salario + (salario + 0.20)) FROM empleados;</pre><pre class="sql good">-- 20% más = multiplicar por 1.20
+SELECT nombre, precio_venta * 1.20 AS con_aumento FROM producto;</pre></div></div>
+
+  <div class="errcard"><h4><span class="num">5</span>Falta el punto y coma entre sentencias</h4><div class="src">ejemplo_20261005.sql (clase)</div>
+    <div class="vs"><pre class="sql bad">SELECT * FROM pedido WHERE comentarios IS NOT NULL
+SELECT * FROM pago</pre><pre class="sql good">SELECT * FROM pedido WHERE comentarios IS NOT NULL;
+SELECT * FROM pago;</pre></div></div>
+
+  <div class="errcard"><h4><span class="num">6</span>Columna ambigua en un JOIN</h4><div class="src">Parcial · ejercicio 2, punto 5</div>
+    <div class="vs"><pre class="sql bad">SELECT e.nombre, o.ciudad FROM empleado e
+INNER JOIN oficina o ON e.codigo_oficina = o.codigo_oficina
+WHERE codigo_oficina = 'MAD-ES';</pre><pre class="sql good">SELECT e.nombre, o.ciudad FROM empleado e
+INNER JOIN oficina o ON e.codigo_oficina = o.codigo_oficina
+WHERE o.codigo_oficina = 'MAD-ES';</pre></div></div>
+
+  <div class="errcard"><h4><span class="num">7</span>Funciones de SQL Server y fechas mal escritas</h4><div class="src">Parcial · ejercicio 2, puntos 1, 6 y 7</div>
+    <div class="vs"><pre class="sql bad">SELECT COUNT(*) FROM pedido
+WHERE fecha_pedido BETWEEN '01/01/2009' AND '31/01/2009';</pre><pre class="sql good">SELECT COUNT(*) FROM pedido
+WHERE fecha_pedido BETWEEN '2009-01-01' AND '2009-01-31';</pre></div></div>
+
+  <div class="errcard"><h4><span class="num">8</span>COUNT sin GROUP BY</h4><div class="src">Parcial · ejercicio 2, punto 8</div>
+    <div class="vs"><pre class="sql bad">SELECT codigo_cliente, COUNT(*) FROM pago;</pre><pre class="sql good">SELECT codigo_cliente, COUNT(*) FROM pago
+GROUP BY codigo_cliente;</pre></div></div>
+
+  <div class="errcard"><h4><span class="num">9</span>Nombres de la otra versión de la base</h4><div class="src">TP7 vs base oficial</div>
+    <div class="vs"><pre class="sql bad">SELECT nombre, apellido FROM empleados
+WHERE puesto = 'Representante de Ventas';</pre><pre class="sql good">SELECT nombre, apellido1 FROM empleado
+WHERE puesto = 'Representante Ventas';</pre></div></div>
+
+  <div class="errcard"><h4><span class="num">10</span>No hacer todo lo que pide la consigna</h4><div class="src">Parcial · ejercicio 2, puntos 1 y 10</div>
+    <p>El punto 1 pedía "ordenados por apellido y nombre" y faltó el <code>ORDER BY</code>. El 10 pedía "en la ciudad de Metán" y no se filtró por ciudad. <b>Al terminar, releé la consigna palabra por palabra</b> y señalá en tu consulta dónde está cada parte.</p></div>
+  <div class="grid g3">
+    <div class="tile"><h4><svg class="ic"><use href="#i-x"/></svg>= NULL</h4><p>Siempre <code>IS NULL</code>.</p></div>
+    <div class="tile"><h4><svg class="ic"><use href="#i-x"/></svg>Texto sin comillas</h4><p><code>ciudad = Madrid</code> → <code>ciudad = 'Madrid'</code></p></div>
+    <div class="tile"><h4><svg class="ic"><use href="#i-x"/></svg>UPDATE sin WHERE</h4><p>Cambia toda la tabla.</p></div>
+  </div>
+</section>
+
+<!-- =================================================================== TRADUCTOR -->
+<section class="card" id="traductor" data-c="indigo" data-sec="traductor">
+  <div class="l-head"><div class="l-icon"><svg class="ic"><use href="#i-translate"/></svg></div><div><div class="l-kicker">Para el examen</div><h2>Traductor: de la consigna al SQL</h2></div></div>
+  <h3>Método en 4 pasos</h3>
+  <div class="steps">
+    <div><b>¿Qué muestro?</b><small>Columnas del</small> <code>SELECT</code></div>
+    <div><b>¿De dónde salen?</b><small>Tablas del</small> <code>FROM</code> <small>y</small> <code>JOIN</code></div>
+    <div><b>¿Qué filas quiero?</b><small>Condiciones del</small> <code>WHERE</code></div>
+    <div><b>¿Agrupo, ordeno, corto?</b><code>GROUP BY</code> <code>HAVING</code> <code>ORDER BY</code> <code>LIMIT</code></div>
+  </div>
+  <h3>Palabras clave</h3>
+  <table class="tbl">
+    <tr><th>Si la consigna dice...</th><th>Usá</th></tr>
+    <tr><td>"listado", "mostrar", "devuelve"</td><td><code>SELECT ... FROM</code></td></tr>
+    <tr><td>"de X", "que sean", "solo los", "españoles"</td><td><code>WHERE</code></td></tr>
+    <tr><td>"ordenado por", "de mayor a menor"</td><td><code>ORDER BY ... DESC</code></td></tr>
+    <tr><td>"sin repetidos", "distintas", "no deben aparecer repetidas"</td><td><code>DISTINCT</code></td></tr>
+    <tr><td>"cuántos", "cantidad"</td><td><code>COUNT(*)</code></td></tr>
+    <tr><td>"total", "suma", "facturación"</td><td><code>SUM()</code></td></tr>
+    <tr><td>"promedio", "medio"</td><td><code>AVG()</code></td></tr>
+    <tr><td>"por cada", "de cada", "por país"</td><td><code>GROUP BY</code></td></tr>
+    <tr><td>"que tengan más de N" (sobre un conteo o suma)</td><td><code>HAVING</code></td></tr>
+    <tr><td>"junto con", "y su...", "con el nombre de..."</td><td><code>JOIN</code></td></tr>
+    <tr><td>"con el nombre de su jefe"</td><td>SELF <code>JOIN</code> de empleado</td></tr>
+    <tr><td>"que no tengan", "que nunca", "ningún"</td><td><code>LEFT JOIN ... IS NULL</code>, <code>NOT IN</code> o <code>NOT EXISTS</code></td></tr>
+    <tr><td>"el que más", "el mayor", "el más caro"</td><td><code>ORDER BY ... DESC LIMIT 1</code> o <code>= (SELECT MAX...)</code></td></tr>
+    <tr><td>"los 5 primeros", "los 5 más..."</td><td><code>ORDER BY ... LIMIT 5</code></td></tr>
+    <tr><td>"del año 2008", "en enero"</td><td><code>YEAR()</code>, <code>MONTH()</code></td></tr>
+    <tr><td>"vigentes", "sin entregar", "sin fecha"</td><td><code>IS NULL</code></td></tr>
+    <tr><td>"empiecen por OR", "contengan"</td><td><code>LIKE 'OR%'</code>, <code>LIKE '%x%'</code></td></tr>
+    <tr><td>"insertar", "agregar", "registrar"</td><td><code>INSERT INTO</code></td></tr>
+    <tr><td>"cambiar", "modificar", "aumentar", "disminuir"</td><td><code>UPDATE ... SET ... WHERE</code></td></tr>
+    <tr><td>"eliminar", "borrar"</td><td><code>DELETE FROM ... WHERE</code></td></tr>
+  </table>
+</section>
+
+<!-- =================================================================== FLASHCARDS -->
+<section class="card" id="flash" data-c="violet" data-sec="flash">
+  <div class="l-head"><div class="l-icon"><svg class="ic"><use href="#i-cards"/></svg></div><div><div class="l-kicker">Repaso rápido</div><h2>Flashcards</h2></div></div>
+  <p class="lead">Leé la palabra, decí en voz alta para qué sirve y dala vuelta. Marcá las que ya sabés.</p>
+  <div class="btns"><button class="btn sm" id="fcShuffle"><svg class="ic"><use href="#i-reset"/></svg> Mezclar</button><button class="btn sm" id="fcOnly"><svg class="ic"><use href="#i-eye"/></svg> Solo las que no sé</button><span class="chip" id="fcCount">0 / 0 sabidas</span></div>
+  <div class="fc-grid" id="fcGrid"></div>
+</section>
+
+<!-- =================================================================== JUEGO -->
+<section class="card" id="juego" data-c="amber" data-sec="juego">
+  <div class="l-head"><div class="l-icon"><svg class="ic"><use href="#i-puzzle"/></svg></div><div><div class="l-kicker">Juego</div><h2>Armá la consulta</h2></div></div>
+  <p class="lead">Tocá las piezas <b>en el orden correcto</b>. Algunas son trampa y no van. Cuando la armes bien, se ejecuta sola.</p>
+  <div class="gm-levels" id="gmLevels"></div>
+  <div id="gmBoard"></div>
+</section>
+
+<!-- =================================================================== EJERCICIOS -->
+<section class="card" id="ejercicios" data-c="emerald" data-sec="ejercicios">
+  <div class="l-head"><div class="l-icon"><svg class="ic"><use href="#i-target"/></svg></div><div><div class="l-kicker">Práctica</div><h2>Ejercicios autocorregidos</h2></div></div>
+  <p class="lead">Escribí tu consulta y tocá <b>Corregir</b>: se ejecuta contra la base y se compara con la solución. No importa el orden de las columnas ni los alias; sí importan las filas y los valores. En los INSERT, UPDATE y DELETE se revisa cómo quedó la tabla.</p>
+  <div class="toolbar">
+    <div class="search"><svg class="ic"><use href="#i-search"/></svg><input id="exSearch" placeholder="Buscar en las consignas (ej: pago, jefe, 2008...)"></div>
+    <label class="toggle"><input type="checkbox" id="exPend"> Solo pendientes</label>
+  </div>
+  <div class="chips" id="exCats"></div>
+  <div id="exList"></div>
+</section>
+
+<!-- =================================================================== SIMULACRO -->
+<section class="card" id="simulacro" data-c="pink" data-sec="simulacro">
+  <div class="l-head"><div class="l-icon"><svg class="ic"><use href="#i-clock"/></svg></div><div><div class="l-kicker">Hora de la verdad</div><h2>Simulacro de examen</h2></div></div>
+  <p class="lead">Consignas al azar con estilo de recuperatorio, con tiempo. No hay pistas ni soluciones hasta que entregás. Se aprueba con <b>60/100</b>, como en el examen.</p>
+  <div id="sim"></div>
+</section>
+
+<!-- =================================================================== LAB -->
+<section class="card" id="lab" data-c="cyan" data-sec="lab">
+  <div class="l-head"><div class="l-icon"><svg class="ic"><use href="#i-flask"/></svg></div><div><div class="l-kicker">Libre</div><h2>Laboratorio</h2></div></div>
+  <p>Escribí lo que quieras y ejecutalo con <b>Ctrl + Enter</b>. Podés poner varias sentencias separadas por <code>;</code>: se muestra el resultado de la última que devuelve filas.</p>
+  <div class="lab-top">
+    <span class="note">Base:</span>
+    <div class="seg" id="labDb"><button data-k="oficial" class="on">Oficial (GitHub)</button><button data-k="tp7">TP7 (tu jardineria.sql)</button></div>
+    <span class="top-sp"></span>
+    <button class="btn sm" id="labReset"><svg class="ic"><use href="#i-reset"/></svg> Reiniciar base</button>
+  </div>
+  <div class="chips" id="labTables"></div>
+  <div class="code" id="labBox"></div>
+  <div class="hist" id="labHist"></div>
+</section>
+
+<footer>Hecho para practicar el recuperatorio de Base de Datos · Datos: repositorio DDBB-JARDINERIA y tu TP7 · El simulador usa SQLite con funciones de MySQL agregadas, así que puede haber diferencias mínimas con MySQL real.</footer>
+</div></main>
+
+<div id="toasts"></div>
+<canvas id="confetti"></canvas>
+
+<script type="text/plain" id="seed-oficial">__SEED_OFICIAL__</script>
+<script type="text/plain" id="seed-tp7">__SEED_TP7__</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.10.3/sql-wasm.js"></script>
+<script>
+/*__ENGINE__*/
+</script>
+<script>
+/*__DATA__*/
+</script>
+<script>
+/*__GLOSSDATA__*/
+</script>
+<script>
+/*__APP__*/
+</script>
+<script>
+/*__GLOSUI__*/
+</script>
+</body>
+</html>
