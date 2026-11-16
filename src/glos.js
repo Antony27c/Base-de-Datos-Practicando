@@ -137,6 +137,45 @@
     fromHash();
   }
 
+  // ------------------------------------------------------------ Panel del diagrama (como el del modelo de examen)
+  function buildDiagram() {
+    const panel = h(`<aside id="diag" aria-label="Diagrama de la base" aria-hidden="true">
+      <div class="dg-h">${icon('db')}<b>Diagrama <span class="dg-full">JARDINERÍA</span></b><span class="sp"></span>
+        <button type="button" class="iconbtn sm" data-z="-1" title="Alejar">−</button>
+        <button type="button" class="iconbtn sm fit" data-z="0" title="Ajustar al ancho">↔</button>
+        <button type="button" class="iconbtn sm" data-z="1" title="Acercar">+</button>
+        <button type="button" class="iconbtn sm" data-x title="Cerrar (Esc)">${icon('x')}</button></div>
+      <div class="dg-scroll"><img src="diagrama_jardineria.png" alt="Diagrama entidad-relación de la base JARDINERÍA" draggable="false"></div>
+      <div class="dg-leg"><span><i class="k"></i> llave amarilla = PK</span><span><i class="f"></i> rombo rojo = FK</span><span>Las líneas unen cada FK con la PK a la que apunta.</span></div>
+      <div class="dg-tabs"></div></aside>`);
+    document.body.appendChild(panel);
+    const fab = h(`<button type="button" id="diagFab" data-diagram title="Ver el diagrama de la base">${icon('db')}<span>Diagrama</span></button>`);
+    document.body.appendChild(fab);
+    const sc = panel.querySelector('.dg-scroll'), img = sc.querySelector('img');
+    let z = 1;
+    const setZ = v => { z = Math.max(1, Math.min(3, v)); img.style.width = (z * 100) + '%'; };
+    panel.querySelectorAll('[data-z]').forEach(b => b.onclick = () => setZ(+b.dataset.z === 0 ? 1 : z + (+b.dataset.z) * 0.5));
+    img.ondblclick = () => setZ(z > 1 ? 1 : 2);
+    sc.addEventListener('wheel', e => { if (e.ctrlKey) { e.preventDefault(); setZ(z + (e.deltaY < 0 ? .25 : -.25)); } }, { passive: false });
+    let drag = null;
+    sc.addEventListener('pointerdown', e => { if (z > 1 && e.pointerType === 'mouse') { drag = { x: e.clientX, y: e.clientY, l: sc.scrollLeft, t: sc.scrollTop }; sc.classList.add('grab'); } });
+    addEventListener('pointermove', e => { if (drag) { sc.scrollLeft = drag.l - (e.clientX - drag.x); sc.scrollTop = drag.t - (e.clientY - drag.y); } });
+    addEventListener('pointerup', () => { drag = null; sc.classList.remove('grab'); });
+    // chips de tablas con sus columnas, por si la imagen se ve chica
+    const TABLES = { oficina: 'codigo_oficina · ciudad · pais · region · codigo_postal · telefono · linea_direccion1 · linea_direccion2', empleado: 'codigo_empleado · nombre · apellido1 · apellido2 · extension · email · codigo_oficina (FK) · codigo_jefe (FK) · puesto', cliente: 'codigo_cliente · nombre_cliente · nombre_contacto · apellido_contacto · telefono · fax · linea_direccion1 · linea_direccion2 · ciudad · region · pais · codigo_postal · codigo_empleado_rep_ventas (FK) · limite_credito', pago: 'codigo_cliente (FK) · forma_pago · id_transaccion · fecha_pago · total', pedido: 'codigo_pedido · fecha_pedido · fecha_esperada · fecha_entrega · estado · comentarios · codigo_cliente (FK)', detalle_pedido: 'codigo_pedido (FK) · codigo_producto (FK) · cantidad · precio_unidad · numero_linea', producto: 'codigo_producto · nombre · gama (FK) · dimensiones · proveedor · descripcion · cantidad_en_stock · precio_venta · precio_proveedor', gama_producto: 'gama · descripcion_texto · descripcion_html · imagen' };
+    const tabs = panel.querySelector('.dg-tabs');
+    tabs.innerHTML = '<div class="dg-tt">Columnas por tabla (texto)</div>' + Object.entries(TABLES).map(([t, c]) => `<details><summary>${t}</summary><p>${c.split(' · ').map(x => `<code>${x}</code>`).join(' ')}</p></details>`).join('');
+    let first = true;
+    const open = () => { if (first) { first = false; setZ(innerWidth < 760 ? 2 : 1); } panel.classList.add('open'); panel.setAttribute('aria-hidden', 'false'); document.body.classList.add('diag-on'); fab.classList.add('on'); };
+    const close = () => { panel.classList.remove('open'); panel.setAttribute('aria-hidden', 'true'); document.body.classList.remove('diag-on'); fab.classList.remove('on'); };
+    const toggle = () => panel.classList.contains('open') ? close() : open();
+    panel.querySelector('[data-x]').onclick = close;
+    document.addEventListener('click', e => { const t = e.target.closest('[data-diagram]'); if (t) { e.preventDefault(); t === fab ? toggle() : open(); } });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape' && panel.classList.contains('open')) close(); if (e.key === 'Enter' && e.target.matches && e.target.matches('figure[data-diagram]')) open(); });
+    window.openDiagram = open;
+  }
+
+  buildDiagram();
   buildAZ();
   wireRefs();
   const top = mountSearch($('#searchTop'));

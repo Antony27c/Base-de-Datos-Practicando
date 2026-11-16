@@ -785,6 +785,46 @@ a.gref .ic{width:13px;height:13px}
   .dj-t td{padding:6px 7px;font-size:12.5px}
 }
 
+/* =================== Panel del diagrama =================== */
+.diag-fig{margin:18px 0;border-radius:18px;overflow:hidden;border:1px solid var(--line);background:#fff;cursor:zoom-in;transition:transform .2s,box-shadow .2s}
+.diag-fig:hover{transform:translateY(-2px);box-shadow:0 14px 34px rgba(0,0,0,.25)}
+.diag-fig img{display:block;width:100%;height:auto}
+.diag-fig figcaption{display:flex;gap:8px;align-items:flex-start;padding:10px 14px;font-size:13.5px;background:var(--panel2);color:var(--soft);border-top:1px solid var(--line)}
+.diag-fig figcaption .ic{color:var(--c,var(--indigo));margin-top:2px;width:16px;height:16px}
+#diag{position:fixed;top:64px;right:0;bottom:0;width:min(600px,44vw);z-index:60;display:flex;flex-direction:column;background:var(--panel);border-left:1px solid var(--line);box-shadow:-20px 0 50px rgba(0,0,0,.3);transform:translateX(105%);transition:transform .35s cubic-bezier(.2,.8,.2,1);visibility:hidden}
+#diag.open{transform:none;visibility:visible}
+.dg-h{display:flex;align-items:center;gap:8px;padding:10px 12px;border-bottom:1px solid var(--line)}
+.dg-h > .ic{color:var(--indigo)}
+.dg-h .sp{flex:1}
+.iconbtn.sm{width:34px;height:34px;border-radius:10px;font:800 16px Inter,sans-serif}
+.iconbtn.sm .ic{width:16px;height:16px}
+.dg-scroll{flex:1;overflow:auto;background:#fff;touch-action:pan-x pan-y pinch-zoom}
+.dg-scroll.grab{cursor:grabbing}
+.dg-scroll img{display:block;width:100%;height:auto;user-select:none;cursor:zoom-in}
+.dg-leg{display:flex;flex-wrap:wrap;gap:6px 14px;padding:8px 12px;font-size:12px;color:var(--muted);border-top:1px solid var(--line)}
+.dg-leg i{display:inline-block;width:10px;height:10px;margin-right:4px;vertical-align:-1px}
+.dg-leg i.k{background:#f2c200;border-radius:2px}
+.dg-leg i.f{background:#d9534f;transform:rotate(45deg)}
+.dg-tabs{max-height:34%;overflow:auto;padding:6px 12px 12px;border-top:1px solid var(--line)}
+.dg-tt{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin:4px 0}
+.dg-tabs details{border-bottom:1px solid var(--line);padding:5px 0}
+.dg-tabs summary{cursor:pointer;font:700 13px var(--mono);color:var(--c,var(--indigo))}
+.dg-tabs p{margin:6px 0 4px;display:flex;flex-wrap:wrap;gap:4px}
+.dg-tabs code{font-size:11.5px}
+#diagFab{position:fixed;left:20px;bottom:20px;z-index:55;display:inline-flex;align-items:center;gap:8px;padding:11px 16px;border-radius:999px;border:0;cursor:pointer;font:700 14px Inter,sans-serif;color:#fff;background:linear-gradient(135deg,var(--indigo),var(--violet));box-shadow:0 10px 26px rgba(99,102,241,.45);transition:transform .2s}
+#diagFab:hover{transform:translateY(-2px)}
+#diagFab.on{background:linear-gradient(135deg,var(--pink),var(--violet))}
+@media (min-width:1101px){#diagFab{left:290px}}
+@media (min-width:1400px){body.diag-on main{margin-right:min(600px,44vw)}body.diag-on main .wrap{max-width:none}}
+@media (max-width:1100px){#diag{width:min(600px,100vw)}}
+@media (max-width:760px){
+  #diag{width:100vw;border-left:0}
+  #diagFab{left:12px;bottom:12px;padding:10px 14px;font-size:13px}
+  .dg-tabs{max-height:30%}
+}
+body.diag-on .tbl{display:block;overflow-x:auto}
+@media (max-width:760px){.dg-full{display:none}}
+
 </style>
 </head>
 <body data-page="fast">
@@ -883,6 +923,7 @@ a.gref .ic{width:13px;height:13px}
   <div class="l-head"><div class="l-icon"><svg class="ic"><use href="#i-map"/></svg></div><div><div class="l-kicker">Antes de arrancar <span class="time"><svg class="ic"><use href="#i-clock"/></svg>2 min</span></div><h2>Qué te toman: el mapa del examen modelo</h2></div></div>
   <p class="lead">El recuperatorio 2025 (<code>20251103_base_de_datos_recuperatorio.pdf</code>) tiene <b>10 consignas</b> sobre la base JARDINERÍA. Según el PDF, cada una vale 20 puntos y se aprueba con 60/100. Esta ruta está armada alrededor de esas 10 consignas:</p>
   <div class="exam-map" id="examMap"></div>
+  <figure class="diag-fig" data-diagram tabindex="0"><img src="diagrama_jardineria.png" alt="Diagrama entidad-relación de la base JARDINERÍA" loading="lazy"><figcaption><svg class="ic"><use href="#i-db"/></svg> Diagrama de la base que pasó el profe con el modelo de examen. Tocalo para abrirlo al costado mientras resolvés: también está el botón <b>Diagrama</b> abajo a la izquierda.</figcaption></figure>
   <div class="two">
     <div class="tile"><h4><svg class="ic"><use href="#i-edit"/></svg>4 de 10 modifican datos</h4><p>Consignas 1 a 4: dos <code>INSERT</code> y dos <code>UPDATE</code>. Son puntos casi regalados si sabés el molde → <a href="#paso7">Paso 7</a>.</p></div>
     <div class="tile"><h4><svg class="ic"><use href="#i-table"/></svg>6 de 10 son consultas</h4><p><code>WHERE</code>, <code>DISTINCT</code>, <code>SELF JOIN</code>, <code>GROUP BY</code>, <code>COUNT</code> y "el que más" → pasos 2 a 5.</p></div>
@@ -983,7 +1024,7 @@ a.gref .ic{width:13px;height:13px}
   <div class="demo"><div class="demo-h"><span class="tag"><svg class="ic fill"><use href="#i-play"/></svg> Animación</span><b>Qué filas sobreviven en cada tipo de JOIN</b></div><div id="demoJoin"></div></div>
   <div class="chain"><span class="tb">empleado e</span><span class="ar">e.codigo_jefe<svg class="ic"><use href="#i-arrow"/></svg></span><span class="tb">empleado j</span><span class="ar">= j.codigo_empleado</span></div>
   <div class="decoder" data-d="R7"></div>
-  <div class="mini" data-ex="T11" data-label="Ahora vos · consigna del TP7"></div>
+  <div class="mini" data-ex="T11" data-label="Ahora vos · tema del modelo de examen"></div>
   <div class="mini" data-ex="M-join" data-label="Ahora vos · se corrige sola"></div>
 </section>
 
@@ -1091,7 +1132,7 @@ a.gref .ic{width:13px;height:13px}
   <p class="lead">Las 10 consignas del recuperatorio 2025. Abrí cada una, escribí tu consulta y tocá <b>Corregir</b>. Si te trabás, usá la <b>Pista</b> antes que la <b>Solución</b>.</p>
   <div class="exam-list" data-ids="R1,R2,R3,R4,R5,R6,R7,R8,R9,R10"></div>
   <div class="co co-tip"><div class="cw"><svg class="ic"><use href="#i-clock"/></svg></div><div class="ct"><b>¿Las sacaste todas?</b>
-    <p>Probá el <a href="glosario.html#simulacro">simulacro con tiempo</a> (consignas al azar y nota sobre 100) o seguí con los <a href="glosario.html#ejercicios">99 ejercicios</a> del TP7 y del repositorio del profe.</p></div></div>
+    <p>Probá el <a href="glosario.html#simulacro">simulacro con tiempo</a> (consignas al azar y nota sobre 100) o seguí con los <a href="glosario.html#ejercicios">99 ejercicios</a>, todos sobre temas que entran en el modelo de examen del profe.</p></div></div>
 </section>
 
 <footer>Ruta rápida · el detalle de cada tema está en el <a href="glosario.html#glosario">glosario y la guía completa</a> · Datos: repositorio DDBB-JARDINERIA · Simulador SQLite con funciones de MySQL</footer>
@@ -2498,8 +2539,8 @@ INSERT INTO pagos (codigo_cliente, forma_pago, id_transaccion, fecha_pago, total
       direccion: 'En la base oficial la dirección está en <code>linea_direccion1</code> y <code>linea_direccion2</code>.'
     },
     tp7: {
-      apellido1: 'En la base del TP7 el apellido está en una sola columna: <code>apellido</code>.',
-      gama: 'En la base del TP7 la columna de <code>productos</code> se llama <code>gama_producto</code>.'
+      apellido1: 'En la base alternativa el apellido está en una sola columna: <code>apellido</code>.',
+      gama: 'En la base alternativa la columna de <code>productos</code> se llama <code>gama_producto</code>.'
     }
   };
 
@@ -2709,7 +2750,7 @@ INSERT INTO pagos (codigo_cliente, forma_pago, id_transaccion, fecha_pago, total
     { id: 'R9', cat: 'recu', t: '¿Cuántos clientes tiene la ciudad de Barcelona?', sol: `SELECT COUNT(*) AS clientes_barcelona FROM cliente WHERE ciudad = 'Barcelona';`, hint: 'Un solo número: COUNT(*) con un WHERE. No hace falta GROUP BY.' },
     { id: 'R10', cat: 'recu', tieOk: true, t: 'Devuelve el producto que más unidades tiene en stock.', sol: `SELECT nombre FROM producto\nWHERE cantidad_en_stock = (SELECT MAX(cantidad_en_stock) FROM producto);`, alt: [`SELECT nombre FROM producto ORDER BY cantidad_en_stock DESC LIMIT 1;`], hint: 'Patrón "el que más": ORDER BY ... DESC LIMIT 1, o subconsulta con MAX.' },
 
-    // ============ TP7 · CONSULTAS SOBRE UNA TABLA ============
+    // ============ MODELO DE EXAMEN · CONSULTAS SOBRE UNA TABLA ============
     { id: 'T1', cat: 'tp7a', t: 'Devuelve un listado con el código de oficina y la ciudad donde hay oficinas.', sol: `SELECT codigo_oficina, ciudad FROM oficina;` },
     { id: 'T2', cat: 'tp7a', t: 'Devuelve un listado con la ciudad y el teléfono de las oficinas de España.', sol: `SELECT ciudad, telefono FROM oficina WHERE pais = 'España';`, hint: 'En la tabla oficina el país está en castellano.' },
     { id: 'T3', cat: 'tp7a', t: 'Devuelve un listado con el nombre, apellidos y email de los empleados cuyo jefe tiene un código de jefe igual a 7.', sol: `SELECT nombre, apellido1, apellido2, email FROM empleado WHERE codigo_jefe = 7;` },
@@ -2724,14 +2765,14 @@ INSERT INTO pagos (codigo_cliente, forma_pago, id_transaccion, fecha_pago, total
     { id: 'T9', cat: 'tp7a', t: 'Devuelve un listado de todos los pedidos que fueron rechazados en 2009.', sol: `SELECT codigo_pedido FROM pedido WHERE estado = 'Rechazado' AND YEAR(fecha_pedido) = 2009;` },
     { id: 'T10', cat: 'tp7a', t: 'Productos de la gama Ornamentales con más de 100 unidades en stock, ordenados por precio de venta de mayor a menor.', sol: `SELECT codigo_producto, nombre, precio_venta FROM producto\nWHERE gama = 'Ornamentales' AND cantidad_en_stock > 100\nORDER BY precio_venta DESC;`, ordered: 'precio_venta' },
 
-    // ============ TP7 · MULTITABLA ============
+    // ============ MODELO DE EXAMEN · MULTITABLA ============
     { id: 'T11', cat: 'tp7m', t: 'Obtén un listado con el nombre de cada cliente y el nombre y apellido de su representante de ventas.', sol: `SELECT c.nombre_cliente, e.nombre, e.apellido1\nFROM cliente c\nINNER JOIN empleado e ON c.codigo_empleado_rep_ventas = e.codigo_empleado;` },
     { id: 'T12', cat: 'tp7m', t: 'Muestra el nombre de los clientes que hayan realizado pagos junto con el nombre de sus representantes de ventas.', sol: `SELECT DISTINCT c.nombre_cliente, e.nombre\nFROM cliente c\nINNER JOIN empleado e ON c.codigo_empleado_rep_ventas = e.codigo_empleado\nINNER JOIN pago p ON p.codigo_cliente = c.codigo_cliente;`, alt: [`SELECT c.nombre_cliente, e.nombre\nFROM cliente c\nINNER JOIN empleado e ON c.codigo_empleado_rep_ventas = e.codigo_empleado\nWHERE c.codigo_cliente IN (SELECT codigo_cliente FROM pago);`], hint: 'Un cliente con 3 pagos aparecería 3 veces si unís con pago: DISTINCT.' },
     { id: 'T13', cat: 'tp7m', t: 'Muestra el nombre de los clientes que NO hayan realizado pagos junto con el nombre de sus representantes de ventas.', sol: `SELECT c.nombre_cliente, e.nombre\nFROM cliente c\nINNER JOIN empleado e ON c.codigo_empleado_rep_ventas = e.codigo_empleado\nWHERE c.codigo_cliente NOT IN (SELECT codigo_cliente FROM pago);` },
     { id: 'T14', cat: 'tp7m', t: 'Nombre de los clientes que han hecho pagos, el nombre de sus representantes y la ciudad de la oficina del representante.', sol: `SELECT DISTINCT c.nombre_cliente, e.nombre, o.ciudad\nFROM cliente c\nINNER JOIN empleado e ON c.codigo_empleado_rep_ventas = e.codigo_empleado\nINNER JOIN oficina o ON e.codigo_oficina = o.codigo_oficina\nINNER JOIN pago p ON p.codigo_cliente = c.codigo_cliente;`, hint: 'Cuatro tablas: cliente → empleado → oficina, y cliente → pago.' },
     { id: 'T15', cat: 'tp7m', t: 'Nombre de los clientes que NO han hecho pagos, el nombre de sus representantes y la ciudad de la oficina del representante.', sol: `SELECT c.nombre_cliente, e.nombre, o.ciudad\nFROM cliente c\nINNER JOIN empleado e ON c.codigo_empleado_rep_ventas = e.codigo_empleado\nINNER JOIN oficina o ON e.codigo_oficina = o.codigo_oficina\nWHERE c.codigo_cliente NOT IN (SELECT codigo_cliente FROM pago);` },
 
-    // ============ TP7 · COMPOSICIÓN EXTERNA ============
+    // ============ MODELO DE EXAMEN · COMPOSICIÓN EXTERNA ============
     { id: 'T16a', cat: 'tp7e', t: 'Clientes que no han realizado ningún pago. Con LEFT JOIN.', sol: `SELECT c.codigo_cliente, c.nombre_cliente\nFROM cliente c\nLEFT JOIN pago p ON c.codigo_cliente = p.codigo_cliente\nWHERE p.codigo_cliente IS NULL;`, requires: [{ re: 'LEFT\\s+(OUTER\\s+)?JOIN', msg: 'usar LEFT JOIN' }] },
     { id: 'T16b', cat: 'tp7e', t: 'Clientes que no han realizado ningún pago. Con RIGHT JOIN.', sol: `SELECT c.codigo_cliente, c.nombre_cliente\nFROM pago p\nRIGHT JOIN cliente c ON c.codigo_cliente = p.codigo_cliente\nWHERE p.codigo_cliente IS NULL;`, requires: [{ re: 'RIGHT\\s+(OUTER\\s+)?JOIN', msg: 'usar RIGHT JOIN' }], hint: 'RIGHT JOIN conserva todo lo de la tabla de la DERECHA: poné cliente a la derecha.' },
     { id: 'T16c', cat: 'tp7e', t: 'Clientes que no han realizado ningún pago. Con NATURAL LEFT JOIN.', sol: `SELECT codigo_cliente, nombre_cliente FROM cliente NATURAL LEFT JOIN pago WHERE id_transaccion IS NULL;`, requires: [{ re: 'NATURAL\\s+LEFT', msg: 'usar NATURAL LEFT JOIN' }], hint: 'NATURAL une solo por las columnas que se llaman igual en las dos tablas (acá, codigo_cliente). No lleva ON.' },
@@ -2743,7 +2784,7 @@ INSERT INTO pagos (codigo_cliente, forma_pago, id_transaccion, fecha_pago, total
     { id: 'T20a', cat: 'tp7e', t: 'Empleados que no tienen un cliente asociado. Con LEFT JOIN.', sol: `SELECT e.codigo_empleado, e.nombre, e.apellido1\nFROM empleado e\nLEFT JOIN cliente c ON e.codigo_empleado = c.codigo_empleado_rep_ventas\nWHERE c.codigo_cliente IS NULL;`, requires: [{ re: 'LEFT\\s+(OUTER\\s+)?JOIN', msg: 'usar LEFT JOIN' }], hint: 'Acá NATURAL no sirve: empleado y cliente no tienen columnas con el mismo nombre.' },
     { id: 'T20b', cat: 'tp7e', t: 'Empleados que no tienen un cliente asociado. Con RIGHT JOIN.', sol: `SELECT e.codigo_empleado, e.nombre, e.apellido1\nFROM cliente c\nRIGHT JOIN empleado e ON e.codigo_empleado = c.codigo_empleado_rep_ventas\nWHERE c.codigo_cliente IS NULL;`, requires: [{ re: 'RIGHT\\s+(OUTER\\s+)?JOIN', msg: 'usar RIGHT JOIN' }] },
 
-    // ============ TP7 · RESUMEN ============
+    // ============ MODELO DE EXAMEN · RESUMEN ============
     { id: 'T21', cat: 'tp7r', t: '¿Cuántos empleados hay en la compañía?', sol: `SELECT COUNT(*) AS total_empleados FROM empleado;` },
     { id: 'T22', cat: 'tp7r', t: '¿Cuántos clientes tiene cada país?', sol: `SELECT pais, COUNT(*) AS cantidad FROM cliente GROUP BY pais;` },
     { id: 'T23', cat: 'tp7r', t: '¿Cuál fue el pago medio en 2009?', sol: `SELECT AVG(total) AS pago_medio FROM pago WHERE YEAR(fecha_pago) = 2009;` },
@@ -2753,7 +2794,7 @@ INSERT INTO pagos (codigo_cliente, forma_pago, id_transaccion, fecha_pago, total
     { id: 'T27', cat: 'tp7r', t: 'La misma facturación agrupada por código de producto, solo para los códigos que empiecen por OR.', sol: `SELECT codigo_producto,\n       SUM(cantidad * precio_unidad) AS base_imponible,\n       SUM(cantidad * precio_unidad) * 0.21 AS iva,\n       SUM(cantidad * precio_unidad) * 1.21 AS total\nFROM detalle_pedido\nWHERE codigo_producto LIKE 'OR%'\nGROUP BY codigo_producto;`, hint: "LIKE 'OR%' = empieza con OR." },
     { id: 'T28', cat: 'tp7r', t: 'Ventas totales de los productos que facturaron más de 3000 euros: nombre, unidades vendidas, total facturado y total con IVA (21%).', sol: `SELECT p.nombre,\n       SUM(d.cantidad) AS unidades,\n       SUM(d.cantidad * d.precio_unidad) AS total,\n       SUM(d.cantidad * d.precio_unidad) * 1.21 AS total_con_iva\nFROM detalle_pedido d\nINNER JOIN producto p ON d.codigo_producto = p.codigo_producto\nGROUP BY p.codigo_producto, p.nombre\nHAVING SUM(d.cantidad * d.precio_unidad) > 3000;`, hint: 'El filtro es sobre una SUMA: va en HAVING, no en WHERE.' },
 
-    // ============ TP7 · SUBCONSULTAS ============
+    // ============ MODELO DE EXAMEN · SUBCONSULTAS ============
     { id: 'T29', cat: 'tp7s', t: 'Devuelve el nombre del cliente con mayor límite de crédito.', sol: `SELECT nombre_cliente FROM cliente WHERE limite_credito = (SELECT MAX(limite_credito) FROM cliente);` },
     { id: 'T30', cat: 'tp7s', t: 'Devuelve el nombre del producto que tenga el precio de venta más caro.', sol: `SELECT nombre FROM producto WHERE precio_venta = (SELECT MAX(precio_venta) FROM producto);` },
     { id: 'T31', cat: 'tp7s', t: 'Devuelve el nombre del producto del que se han vendido más unidades (sumando cantidad en detalle_pedido).', sol: `SELECT nombre FROM producto\nWHERE codigo_producto = (\n    SELECT codigo_producto FROM detalle_pedido\n    GROUP BY codigo_producto\n    ORDER BY SUM(cantidad) DESC\n    LIMIT 1\n);`, hint: 'Primero: ¿qué código vendió más unidades? (GROUP BY + SUM + ORDER BY + LIMIT 1). Después: el nombre de ese código.' },
@@ -2809,11 +2850,11 @@ INSERT INTO pagos (codigo_cliente, forma_pago, id_transaccion, fecha_pago, total
 
   const CATS = {
     recu: { name: 'Recuperatorio 2025', color: 'pink', desc: 'Las 10 consignas del modelo de recuperatorio que dejó el profesor.' },
-    tp7a: { name: 'TP7 · Una tabla', color: 'cyan', desc: 'Consultas sobre una sola tabla (TP7, puntos 1 a 10).' },
-    tp7m: { name: 'TP7 · Multitabla', color: 'violet', desc: 'Composición interna: JOIN entre varias tablas (puntos 11 a 15).' },
-    tp7e: { name: 'TP7 · Composición externa', color: 'indigo', desc: 'LEFT, RIGHT y NATURAL JOIN (puntos 16 a 20).' },
-    tp7r: { name: 'TP7 · Resumen', color: 'amber', desc: 'COUNT, SUM, AVG, GROUP BY, HAVING (puntos 21 a 28).' },
-    tp7s: { name: 'TP7 · Subconsultas', color: 'emerald', desc: 'Comparación, ALL/ANY, IN/NOT IN, EXISTS (puntos 29 a 49).' },
+    tp7a: { name: 'Una tabla', color: 'cyan', desc: 'Consultas sobre una sola tabla. Tema del modelo de examen del profe.' },
+    tp7m: { name: 'Multitabla', color: 'violet', desc: 'Composición interna: JOIN entre varias tablas. Tema del modelo de examen del profe.' },
+    tp7e: { name: 'Composición externa', color: 'indigo', desc: 'LEFT, RIGHT y NATURAL JOIN. Tema del modelo de examen del profe.' },
+    tp7r: { name: 'Resumen', color: 'amber', desc: 'COUNT, SUM, AVG, GROUP BY, HAVING. Tema del modelo de examen del profe.' },
+    tp7s: { name: 'Subconsultas', color: 'emerald', desc: 'Comparación, ALL/ANY, IN/NOT IN, EXISTS. Tema del modelo de examen del profe.' },
     dml: { name: 'Modificar datos', color: 'orange', desc: 'INSERT, UPDATE y DELETE. Se corrigen mirando cómo quedó la tabla.' },
     extra: { name: 'Extra', color: 'sky', desc: 'Del repositorio DDBB-JARDINERIA que cita el profesor, y combinaciones.' }
   };
@@ -2990,14 +3031,14 @@ INSERT INTO pagos (codigo_cliente, forma_pago, id_transaccion, fecha_pago, total
 
   // Secciones del glosario completo (para el buscador)
   const LESSONS = [
-    ['glosario', 'Glosario A–Z', 'todos los términos definiciones'], ['base', 'La base JARDINERÍA', 'tablas diagrama relaciones pk fk oficial tp7 diferencias'],
+    ['glosario', 'Glosario A–Z', 'todos los términos definiciones'], ['base', 'La base JARDINERÍA', 'tablas diagrama relaciones pk fk oficial alternativa diferencias'],
     ['select', 'Lección 1 · SELECT y FROM', 'columnas calculos alias concat round orden ejecucion'], ['where', 'Lección 2 · WHERE', 'filtrar operadores and or in between like null'],
     ['orden', 'Lección 3 · DISTINCT, ORDER BY, LIMIT', 'repetidos ordenar top'], ['agrup', 'Lección 4 · GROUP BY y HAVING', 'count sum avg max min agrupar facturacion iva'],
     ['join', 'Lección 5 · JOIN', 'inner left right natural self join varias tablas ambigua'], ['sub', 'Lección 6 · Subconsultas', 'in not in all any exists correlacionada anidada'],
     ['mas', 'Lección 7 · "El que más"', 'maximo limit 1 empate'], ['fechas', 'Lección 8 · Fechas', 'year datediff adddate date_format curdate'],
     ['dml', 'Lección 9 · INSERT, UPDATE, DELETE', 'insertar modificar borrar'], ['errores', 'Errores típicos', 'parcial errores comunes'],
     ['traductor', 'Traductor consigna → SQL', 'palabras clave metodo'], ['flash', 'Flashcards', 'repaso tarjetas'], ['juego', 'Juego: armá la consulta', 'piezas'],
-    ['ejercicios', 'Ejercicios autocorregidos (99)', 'practica tp7 recuperatorio'], ['simulacro', 'Simulacro de examen', 'examen tiempo nota'], ['lab', 'Laboratorio libre', 'probar consultas']
+    ['ejercicios', 'Ejercicios autocorregidos (99)', 'practica modelo examen recuperatorio'], ['simulacro', 'Simulacro de examen', 'examen tiempo nota'], ['lab', 'Laboratorio libre', 'probar consultas']
   ];
 
   // Pasos de la ruta rápida (para el buscador)
@@ -3286,6 +3327,7 @@ INSERT INTO pagos (codigo_cliente, forma_pago, id_transaccion, fecha_pago, total
         btn('b-g', icon('bulb') + 'Pista', () => {
           extra.innerHTML = `<div class="hintbox"><b>Pista:</b> ${ex.hint ? esc(ex.hint) : 'Usá el método de 4 pasos: ¿qué muestro? ¿de qué tablas? ¿qué filas? ¿agrupo/ordeno/corto?'}${ex.verify ? `<br><span class="note">Se corrige revisando cómo queda la tabla con: <code>${esc(ex.verify)}</code></span>` : ''}</div>`;
         }),
+        btn('b-g', icon('db') + 'Diagrama', () => window.openDiagram && window.openDiagram()),
         btn('b-g', icon('eye') + 'Solución', () => {
           if (!P.solved.has(ex.id)) { P.peeked.add(ex.id); save(); }
           const sb = h('<div class="solbox"><b>Solución</b></div>');
@@ -3413,7 +3455,7 @@ INSERT INTO pagos (codigo_cliente, forma_pago, id_transaccion, fecha_pago, total
     ['errores', 'bug', 'red', 'Errores típicos', 'Los de tu parcial y tus archivos'],
     ['flash', 'cards', 'violet', 'Flashcards', 'Repaso express'],
     ['juego', 'puzzle', 'amber', 'Armá la consulta', 'Juego de piezas'],
-    ['ejercicios', 'target', 'emerald', '99 ejercicios', 'Recuperatorio + TP7 + extra'],
+    ['ejercicios', 'target', 'emerald', '99 ejercicios', 'Temas del modelo de examen'],
     ['simulacro', 'clock', 'pink', 'Simulacro', 'Examen con tiempo y nota']
   ];
   function secDone(k) {
@@ -3829,7 +3871,7 @@ INSERT INTO pagos (codigo_cliente, forma_pago, id_transaccion, fecha_pago, total
         const res = h('<div class="res"></div>');
         const ed = makeEditor('', { onRun: () => run(), onChange: count, placeholder: `-- Consigna ${i + 1}` });
         const run = () => whenReady(() => renderRun(res, exRunner(ex)(ed.ed.get())));
-        box.firstElementChild.appendChild(btn('b-run', icon('play', 'ic fill') + 'Ejecutar', run));
+        box.firstElementChild.append(btn('b-run', icon('play', 'ic fill') + 'Ejecutar', run), btn('b-g', icon('db') + 'Diagrama', () => window.openDiagram && window.openDiagram()));
         box.append(ed, res);
         card.querySelector('.exc-body').appendChild(box);
         list.appendChild(card); eds.push(ed);
@@ -3893,7 +3935,7 @@ INSERT INTO pagos (codigo_cliente, forma_pago, id_transaccion, fecha_pago, total
     labRes = h('<div class="res"></div>');
     box.append(labEd, labRes);
     bar.append(btn('b-run', icon('play', 'ic fill') + 'Ejecutar', runLab), btn('b-g', icon('x') + 'Limpiar', () => { labEd.ed.set(''); labRes.innerHTML = ''; labEd.ed.focus(); }));
-    $$('#labDb button').forEach(b => b.onclick = () => { labKind = b.dataset.k; $$('#labDb button').forEach(x => x.classList.toggle('on', x === b)); tables(); labRes.innerHTML = `<div class="msg-ok">${icon('db')}<div>Ahora estás usando la base <b>${labKind === 'tp7' ? 'del TP7 (tablas en plural)' : 'oficial (tablas en singular)'}</b>.</div></div>`; });
+    $$('#labDb button').forEach(b => b.onclick = () => { labKind = b.dataset.k; $$('#labDb button').forEach(x => x.classList.toggle('on', x === b)); tables(); labRes.innerHTML = `<div class="msg-ok">${icon('db')}<div>Ahora estás usando la base <b>${labKind === 'tp7' ? 'alternativa (tablas en plural)' : 'oficial (tablas en singular)'}</b>.</div></div>`; });
     $('#labReset').onclick = () => whenReady(() => { DB.close(); DB = Engine.fresh('oficial'); TP7.close(); TP7 = Engine.fresh('tp7'); labRes.innerHTML = `<div class="msg-ok">${icon('reset')}<div>Las dos bases volvieron a los datos originales.</div></div>`; toast('Base reiniciada', 'reset'); });
     tables(); hist();
   }
@@ -4114,6 +4156,45 @@ INSERT INTO pagos (codigo_cliente, forma_pago, id_transaccion, fecha_pago, total
     fromHash();
   }
 
+  // ------------------------------------------------------------ Panel del diagrama (como el del modelo de examen)
+  function buildDiagram() {
+    const panel = h(`<aside id="diag" aria-label="Diagrama de la base" aria-hidden="true">
+      <div class="dg-h">${icon('db')}<b>Diagrama <span class="dg-full">JARDINERÍA</span></b><span class="sp"></span>
+        <button type="button" class="iconbtn sm" data-z="-1" title="Alejar">−</button>
+        <button type="button" class="iconbtn sm fit" data-z="0" title="Ajustar al ancho">↔</button>
+        <button type="button" class="iconbtn sm" data-z="1" title="Acercar">+</button>
+        <button type="button" class="iconbtn sm" data-x title="Cerrar (Esc)">${icon('x')}</button></div>
+      <div class="dg-scroll"><img src="diagrama_jardineria.png" alt="Diagrama entidad-relación de la base JARDINERÍA" draggable="false"></div>
+      <div class="dg-leg"><span><i class="k"></i> llave amarilla = PK</span><span><i class="f"></i> rombo rojo = FK</span><span>Las líneas unen cada FK con la PK a la que apunta.</span></div>
+      <div class="dg-tabs"></div></aside>`);
+    document.body.appendChild(panel);
+    const fab = h(`<button type="button" id="diagFab" data-diagram title="Ver el diagrama de la base">${icon('db')}<span>Diagrama</span></button>`);
+    document.body.appendChild(fab);
+    const sc = panel.querySelector('.dg-scroll'), img = sc.querySelector('img');
+    let z = 1;
+    const setZ = v => { z = Math.max(1, Math.min(3, v)); img.style.width = (z * 100) + '%'; };
+    panel.querySelectorAll('[data-z]').forEach(b => b.onclick = () => setZ(+b.dataset.z === 0 ? 1 : z + (+b.dataset.z) * 0.5));
+    img.ondblclick = () => setZ(z > 1 ? 1 : 2);
+    sc.addEventListener('wheel', e => { if (e.ctrlKey) { e.preventDefault(); setZ(z + (e.deltaY < 0 ? .25 : -.25)); } }, { passive: false });
+    let drag = null;
+    sc.addEventListener('pointerdown', e => { if (z > 1 && e.pointerType === 'mouse') { drag = { x: e.clientX, y: e.clientY, l: sc.scrollLeft, t: sc.scrollTop }; sc.classList.add('grab'); } });
+    addEventListener('pointermove', e => { if (drag) { sc.scrollLeft = drag.l - (e.clientX - drag.x); sc.scrollTop = drag.t - (e.clientY - drag.y); } });
+    addEventListener('pointerup', () => { drag = null; sc.classList.remove('grab'); });
+    // chips de tablas con sus columnas, por si la imagen se ve chica
+    const TABLES = { oficina: 'codigo_oficina · ciudad · pais · region · codigo_postal · telefono · linea_direccion1 · linea_direccion2', empleado: 'codigo_empleado · nombre · apellido1 · apellido2 · extension · email · codigo_oficina (FK) · codigo_jefe (FK) · puesto', cliente: 'codigo_cliente · nombre_cliente · nombre_contacto · apellido_contacto · telefono · fax · linea_direccion1 · linea_direccion2 · ciudad · region · pais · codigo_postal · codigo_empleado_rep_ventas (FK) · limite_credito', pago: 'codigo_cliente (FK) · forma_pago · id_transaccion · fecha_pago · total', pedido: 'codigo_pedido · fecha_pedido · fecha_esperada · fecha_entrega · estado · comentarios · codigo_cliente (FK)', detalle_pedido: 'codigo_pedido (FK) · codigo_producto (FK) · cantidad · precio_unidad · numero_linea', producto: 'codigo_producto · nombre · gama (FK) · dimensiones · proveedor · descripcion · cantidad_en_stock · precio_venta · precio_proveedor', gama_producto: 'gama · descripcion_texto · descripcion_html · imagen' };
+    const tabs = panel.querySelector('.dg-tabs');
+    tabs.innerHTML = '<div class="dg-tt">Columnas por tabla (texto)</div>' + Object.entries(TABLES).map(([t, c]) => `<details><summary>${t}</summary><p>${c.split(' · ').map(x => `<code>${x}</code>`).join(' ')}</p></details>`).join('');
+    let first = true;
+    const open = () => { if (first) { first = false; setZ(innerWidth < 760 ? 2 : 1); } panel.classList.add('open'); panel.setAttribute('aria-hidden', 'false'); document.body.classList.add('diag-on'); fab.classList.add('on'); };
+    const close = () => { panel.classList.remove('open'); panel.setAttribute('aria-hidden', 'true'); document.body.classList.remove('diag-on'); fab.classList.remove('on'); };
+    const toggle = () => panel.classList.contains('open') ? close() : open();
+    panel.querySelector('[data-x]').onclick = close;
+    document.addEventListener('click', e => { const t = e.target.closest('[data-diagram]'); if (t) { e.preventDefault(); t === fab ? toggle() : open(); } });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape' && panel.classList.contains('open')) close(); if (e.key === 'Enter' && e.target.matches && e.target.matches('figure[data-diagram]')) open(); });
+    window.openDiagram = open;
+  }
+
+  buildDiagram();
   buildAZ();
   wireRefs();
   const top = mountSearch($('#searchTop'));
@@ -4211,7 +4292,7 @@ INSERT INTO pagos (codigo_cliente, forma_pago, id_transaccion, fecha_pago, total
     const bNext = btn('btn pri sm', icon('play', 'ic fill') + 'Siguiente paso', step);
     const bAll = btn('btn sm', icon('zap') + 'Reproducir todo', all);
     const bRe = btn('btn sm', icon('reset') + 'Reiniciar', reset);
-    bar.append(bNext, bAll, bRe);
+    bar.append(bNext, bAll, bRe, btn('btn sm', icon('db') + 'Ver diagrama', () => window.openDiagram && window.openDiagram()));
     if (ex) bar.append(h(`<a class="btn sm" href="#ex-${id}" style="margin-left:auto">${icon('target')} Resolverla vos</a>`));
     const sync = () => { bNext.disabled = k >= D.st.length; bNext.innerHTML = icon('play', 'ic fill') + (k ? `Paso ${Math.min(k + 1, 4)} de 4` : 'Empezar: paso 1 de 4'); };
     sync();

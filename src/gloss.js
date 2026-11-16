@@ -73,14 +73,14 @@
 
   // Secciones del glosario completo (para el buscador)
   const LESSONS = [
-    ['glosario', 'Glosario A–Z', 'todos los términos definiciones'], ['base', 'La base JARDINERÍA', 'tablas diagrama relaciones pk fk oficial tp7 diferencias'],
+    ['glosario', 'Glosario A–Z', 'todos los términos definiciones'], ['base', 'La base JARDINERÍA', 'tablas diagrama relaciones pk fk oficial alternativa diferencias'],
     ['select', 'Lección 1 · SELECT y FROM', 'columnas calculos alias concat round orden ejecucion'], ['where', 'Lección 2 · WHERE', 'filtrar operadores and or in between like null'],
     ['orden', 'Lección 3 · DISTINCT, ORDER BY, LIMIT', 'repetidos ordenar top'], ['agrup', 'Lección 4 · GROUP BY y HAVING', 'count sum avg max min agrupar facturacion iva'],
     ['join', 'Lección 5 · JOIN', 'inner left right natural self join varias tablas ambigua'], ['sub', 'Lección 6 · Subconsultas', 'in not in all any exists correlacionada anidada'],
     ['mas', 'Lección 7 · "El que más"', 'maximo limit 1 empate'], ['fechas', 'Lección 8 · Fechas', 'year datediff adddate date_format curdate'],
     ['dml', 'Lección 9 · INSERT, UPDATE, DELETE', 'insertar modificar borrar'], ['errores', 'Errores típicos', 'parcial errores comunes'],
     ['traductor', 'Traductor consigna → SQL', 'palabras clave metodo'], ['flash', 'Flashcards', 'repaso tarjetas'], ['juego', 'Juego: armá la consulta', 'piezas'],
-    ['ejercicios', 'Ejercicios autocorregidos (99)', 'practica tp7 recuperatorio'], ['simulacro', 'Simulacro de examen', 'examen tiempo nota'], ['lab', 'Laboratorio libre', 'probar consultas']
+    ['ejercicios', 'Ejercicios autocorregidos (99)', 'practica modelo examen recuperatorio'], ['simulacro', 'Simulacro de examen', 'examen tiempo nota'], ['lab', 'Laboratorio libre', 'probar consultas']
   ];
 
   // Pasos de la ruta rápida (para el buscador)

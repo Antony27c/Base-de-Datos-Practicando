@@ -85,7 +85,7 @@
     const bNext = btn('btn pri sm', icon('play', 'ic fill') + 'Siguiente paso', step);
     const bAll = btn('btn sm', icon('zap') + 'Reproducir todo', all);
     const bRe = btn('btn sm', icon('reset') + 'Reiniciar', reset);
-    bar.append(bNext, bAll, bRe);
+    bar.append(bNext, bAll, bRe, btn('btn sm', icon('db') + 'Ver diagrama', () => window.openDiagram && window.openDiagram()));
     if (ex) bar.append(h(`<a class="btn sm" href="#ex-${id}" style="margin-left:auto">${icon('target')} Resolverla vos</a>`));
     const sync = () => { bNext.disabled = k >= D.st.length; bNext.innerHTML = icon('play', 'ic fill') + (k ? `Paso ${Math.min(k + 1, 4)} de 4` : 'Empezar: paso 1 de 4'); };
     sync();

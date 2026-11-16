@@ -229,6 +229,7 @@
         btn('b-g', icon('bulb') + 'Pista', () => {
           extra.innerHTML = `<div class="hintbox"><b>Pista:</b> ${ex.hint ? esc(ex.hint) : 'Usá el método de 4 pasos: ¿qué muestro? ¿de qué tablas? ¿qué filas? ¿agrupo/ordeno/corto?'}${ex.verify ? `<br><span class="note">Se corrige revisando cómo queda la tabla con: <code>${esc(ex.verify)}</code></span>` : ''}</div>`;
         }),
+        btn('b-g', icon('db') + 'Diagrama', () => window.openDiagram && window.openDiagram()),
         btn('b-g', icon('eye') + 'Solución', () => {
           if (!P.solved.has(ex.id)) { P.peeked.add(ex.id); save(); }
           const sb = h('<div class="solbox"><b>Solución</b></div>');
@@ -356,7 +357,7 @@
     ['errores', 'bug', 'red', 'Errores típicos', 'Los de tu parcial y tus archivos'],
     ['flash', 'cards', 'violet', 'Flashcards', 'Repaso express'],
     ['juego', 'puzzle', 'amber', 'Armá la consulta', 'Juego de piezas'],
-    ['ejercicios', 'target', 'emerald', '99 ejercicios', 'Recuperatorio + TP7 + extra'],
+    ['ejercicios', 'target', 'emerald', '99 ejercicios', 'Temas del modelo de examen'],
     ['simulacro', 'clock', 'pink', 'Simulacro', 'Examen con tiempo y nota']
   ];
   function secDone(k) {
@@ -772,7 +773,7 @@
         const res = h('<div class="res"></div>');
         const ed = makeEditor('', { onRun: () => run(), onChange: count, placeholder: `-- Consigna ${i + 1}` });
         const run = () => whenReady(() => renderRun(res, exRunner(ex)(ed.ed.get())));
-        box.firstElementChild.appendChild(btn('b-run', icon('play', 'ic fill') + 'Ejecutar', run));
+        box.firstElementChild.append(btn('b-run', icon('play', 'ic fill') + 'Ejecutar', run), btn('b-g', icon('db') + 'Diagrama', () => window.openDiagram && window.openDiagram()));
         box.append(ed, res);
         card.querySelector('.exc-body').appendChild(box);
         list.appendChild(card); eds.push(ed);
@@ -836,7 +837,7 @@
     labRes = h('<div class="res"></div>');
     box.append(labEd, labRes);
     bar.append(btn('b-run', icon('play', 'ic fill') + 'Ejecutar', runLab), btn('b-g', icon('x') + 'Limpiar', () => { labEd.ed.set(''); labRes.innerHTML = ''; labEd.ed.focus(); }));
-    $$('#labDb button').forEach(b => b.onclick = () => { labKind = b.dataset.k; $$('#labDb button').forEach(x => x.classList.toggle('on', x === b)); tables(); labRes.innerHTML = `<div class="msg-ok">${icon('db')}<div>Ahora estás usando la base <b>${labKind === 'tp7' ? 'del TP7 (tablas en plural)' : 'oficial (tablas en singular)'}</b>.</div></div>`; });
+    $$('#labDb button').forEach(b => b.onclick = () => { labKind = b.dataset.k; $$('#labDb button').forEach(x => x.classList.toggle('on', x === b)); tables(); labRes.innerHTML = `<div class="msg-ok">${icon('db')}<div>Ahora estás usando la base <b>${labKind === 'tp7' ? 'alternativa (tablas en plural)' : 'oficial (tablas en singular)'}</b>.</div></div>`; });
     $('#labReset').onclick = () => whenReady(() => { DB.close(); DB = Engine.fresh('oficial'); TP7.close(); TP7 = Engine.fresh('tp7'); labRes.innerHTML = `<div class="msg-ok">${icon('reset')}<div>Las dos bases volvieron a los datos originales.</div></div>`; toast('Base reiniciada', 'reset'); });
     tables(); hist();
   }

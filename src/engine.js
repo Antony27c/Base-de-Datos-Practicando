@@ -252,8 +252,8 @@
       direccion: 'En la base oficial la dirección está en <code>linea_direccion1</code> y <code>linea_direccion2</code>.'
     },
     tp7: {
-      apellido1: 'En la base del TP7 el apellido está en una sola columna: <code>apellido</code>.',
-      gama: 'En la base del TP7 la columna de <code>productos</code> se llama <code>gama_producto</code>.'
+      apellido1: 'En la base alternativa el apellido está en una sola columna: <code>apellido</code>.',
+      gama: 'En la base alternativa la columna de <code>productos</code> se llama <code>gama_producto</code>.'
     }
   };
 

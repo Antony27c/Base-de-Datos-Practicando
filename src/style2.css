@@ -237,3 +237,43 @@ a.gref .ic{width:13px;height:13px}
   .gc-title span{display:none}
   .dj-t td{padding:6px 7px;font-size:12.5px}
 }
+
+/* =================== Panel del diagrama =================== */
+.diag-fig{margin:18px 0;border-radius:18px;overflow:hidden;border:1px solid var(--line);background:#fff;cursor:zoom-in;transition:transform .2s,box-shadow .2s}
+.diag-fig:hover{transform:translateY(-2px);box-shadow:0 14px 34px rgba(0,0,0,.25)}
+.diag-fig img{display:block;width:100%;height:auto}
+.diag-fig figcaption{display:flex;gap:8px;align-items:flex-start;padding:10px 14px;font-size:13.5px;background:var(--panel2);color:var(--soft);border-top:1px solid var(--line)}
+.diag-fig figcaption .ic{color:var(--c,var(--indigo));margin-top:2px;width:16px;height:16px}
+#diag{position:fixed;top:64px;right:0;bottom:0;width:min(600px,44vw);z-index:60;display:flex;flex-direction:column;background:var(--panel);border-left:1px solid var(--line);box-shadow:-20px 0 50px rgba(0,0,0,.3);transform:translateX(105%);transition:transform .35s cubic-bezier(.2,.8,.2,1);visibility:hidden}
+#diag.open{transform:none;visibility:visible}
+.dg-h{display:flex;align-items:center;gap:8px;padding:10px 12px;border-bottom:1px solid var(--line)}
+.dg-h > .ic{color:var(--indigo)}
+.dg-h .sp{flex:1}
+.iconbtn.sm{width:34px;height:34px;border-radius:10px;font:800 16px Inter,sans-serif}
+.iconbtn.sm .ic{width:16px;height:16px}
+.dg-scroll{flex:1;overflow:auto;background:#fff;touch-action:pan-x pan-y pinch-zoom}
+.dg-scroll.grab{cursor:grabbing}
+.dg-scroll img{display:block;width:100%;height:auto;user-select:none;cursor:zoom-in}
+.dg-leg{display:flex;flex-wrap:wrap;gap:6px 14px;padding:8px 12px;font-size:12px;color:var(--muted);border-top:1px solid var(--line)}
+.dg-leg i{display:inline-block;width:10px;height:10px;margin-right:4px;vertical-align:-1px}
+.dg-leg i.k{background:#f2c200;border-radius:2px}
+.dg-leg i.f{background:#d9534f;transform:rotate(45deg)}
+.dg-tabs{max-height:34%;overflow:auto;padding:6px 12px 12px;border-top:1px solid var(--line)}
+.dg-tt{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin:4px 0}
+.dg-tabs details{border-bottom:1px solid var(--line);padding:5px 0}
+.dg-tabs summary{cursor:pointer;font:700 13px var(--mono);color:var(--c,var(--indigo))}
+.dg-tabs p{margin:6px 0 4px;display:flex;flex-wrap:wrap;gap:4px}
+.dg-tabs code{font-size:11.5px}
+#diagFab{position:fixed;left:20px;bottom:20px;z-index:55;display:inline-flex;align-items:center;gap:8px;padding:11px 16px;border-radius:999px;border:0;cursor:pointer;font:700 14px Inter,sans-serif;color:#fff;background:linear-gradient(135deg,var(--indigo),var(--violet));box-shadow:0 10px 26px rgba(99,102,241,.45);transition:transform .2s}
+#diagFab:hover{transform:translateY(-2px)}
+#diagFab.on{background:linear-gradient(135deg,var(--pink),var(--violet))}
+@media (min-width:1101px){#diagFab{left:290px}}
+@media (min-width:1400px){body.diag-on main{margin-right:min(600px,44vw)}body.diag-on main .wrap{max-width:none}}
+@media (max-width:1100px){#diag{width:min(600px,100vw)}}
+@media (max-width:760px){
+  #diag{width:100vw;border-left:0}
+  #diagFab{left:12px;bottom:12px;padding:10px 14px;font-size:13px}
+  .dg-tabs{max-height:30%}
+}
+body.diag-on .tbl{display:block;overflow-x:auto}
+@media (max-width:760px){.dg-full{display:none}}

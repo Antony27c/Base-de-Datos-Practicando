@@ -146,6 +146,7 @@
     <p>Cada <b>tabla</b> es una planilla. Cada <b>fila</b> es un registro (un cliente) y cada <b>columna</b> es un dato (su ciudad).</p>
     <p>La <b>PK</b> (clave primaria) es el "DNI" de la fila: no se repite nunca. La <b>FK</b> (clave foránea) es una columna que guarda el DNI de una fila de <b>otra</b> tabla. Por ejemplo, el cliente guarda el código de su vendedor. Gracias a eso podemos unir tablas.</p></div></div>
 
+  <figure class="diag-fig" data-diagram tabindex="0"><img src="diagrama_jardineria.png" alt="Diagrama entidad-relación de la base JARDINERÍA" loading="lazy"><figcaption><svg class="ic"><use href="#i-db"/></svg> Diagrama de la base que pasó el profe con el modelo de examen. Tocalo para abrirlo al costado mientras resolvés: también está el botón <b>Diagrama</b> abajo a la izquierda.</figcaption></figure>
   <div class="demo">
     <div class="demo-h"><span class="tag"><svg class="ic fill"><use href="#i-play"/></svg> Interactivo</span><b>Diagrama de la base</b><span class="note">Pasá el mouse por una tabla para ver sus relaciones; hacé clic para ver sus datos.</span></div>
     <div class="er" id="er"></div>
@@ -165,9 +166,9 @@
   </table>
 
   <h3>Ojo: hay dos versiones de la base</h3>
-  <p>La de tu carpeta del TP7 (<code>jardineria.sql</code>) no es igual a la oficial del repositorio. Las consultas cambian según cuál usen en el examen:</p>
+  <p>Hay otra versión de la base (<code>jardineria.sql</code>) que no es igual a la oficial del repositorio. Las consultas cambian según cuál usen en el examen:</p>
   <table class="tbl">
-    <tr><th></th><th>Oficial (GitHub, la que cita el recuperatorio)</th><th>Tu <code>jardineria.sql</code> del TP7</th></tr>
+    <tr><th></th><th>Oficial (GitHub, la que cita el recuperatorio)</th><th>Versión alternativa (<code>jardineria.sql</code>)</th></tr>
     <tr><td>Nombres de tabla</td><td>Singular: <code>cliente</code>, <code>empleado</code>, <code>pago</code>...</td><td>Plural: <code>clientes</code>, <code>empleados</code>, <code>pagos</code>...</td></tr>
     <tr><td>Apellidos</td><td><code>apellido1</code> y <code>apellido2</code></td><td><code>apellido</code></td></tr>
     <tr><td>Gama del producto</td><td><code>producto.gama</code></td><td><code>productos.gama_producto</code></td></tr>
@@ -177,7 +178,7 @@
     <tr><td>Datos</td><td>36 clientes (España, USA, Francia...), años 2006–2009</td><td>6 clientes (Argentina, España, México), 2024</td></tr>
   </table>
   <div class="co co-tip"><div class="cw"><svg class="ic"><use href="#i-check"/></svg></div><div class="ct"><b>Qué hacer</b>
-    <p>Toda la guía usa la <b>oficial</b>. En el <a href="#lab">laboratorio</a> podés cambiar a la del TP7 para practicar con esa. Antes del examen preguntá cuál van a usar.</p>
+    <p>Toda la guía usa la <b>oficial</b>. En el <a href="#lab">laboratorio</a> podés cambiar a la versión alternativa para practicar con esa. Antes del examen preguntá cuál van a usar.</p>
     <p>Si no te acordás cómo está escrito un dato, preguntale a la base: <code>SELECT DISTINCT pais FROM cliente;</code>. En <code>cliente</code> los países están en inglés (<code>'Spain'</code>); en <code>oficina</code>, en castellano (<code>'España'</code>).</p></div></div>
 <pre class="sql">SELECT DISTINCT pais FROM cliente;</pre>
 <pre class="sql">SELECT DISTINCT pais FROM oficina;</pre>
@@ -360,7 +361,7 @@ GROUP BY ciudad
 HAVING COUNT(*) >= 3
 ORDER BY cantidad DESC;</pre>
 
-  <h3>Cálculos con agregación: la facturación del TP7</h3>
+  <h3>Cálculos con agregación: la facturación (entra en el modelo de examen)</h3>
   <p>Base imponible = suma de <code>precio_unidad × cantidad</code>. IVA = 21% de la base. Total = base + IVA.</p>
 <pre class="sql">SELECT SUM(cantidad * precio_unidad)        AS base_imponible,
        SUM(cantidad * precio_unidad) * 0.21 AS iva,
@@ -410,7 +411,7 @@ INNER JOIN empleado e ON c.codigo_empleado_rep_ventas = e.codigo_empleado;</pre>
 SELECT c.nombre_cliente, p.total
 FROM cliente c
 LEFT JOIN pago p ON c.codigo_cliente = p.codigo_cliente;</pre>
-<pre class="sql">-- Clientes que NUNCA pagaron (TP7, punto 16)
+<pre class="sql">-- Clientes que NUNCA pagaron
 SELECT c.nombre_cliente
 FROM cliente c
 LEFT JOIN pago p ON c.codigo_cliente = p.codigo_cliente
@@ -424,7 +425,7 @@ WHERE p.codigo_cliente IS NULL;</pre>
   <h3>NATURAL JOIN: une solo por nombres iguales</h3>
   <p>No lleva <code>ON</code>: une por <b>todas</b> las columnas que se llamen igual en las dos tablas. Entre <code>cliente</code> y <code>pago</code> la única en común es <code>codigo_cliente</code>, así que funciona:</p>
 <pre class="sql">SELECT nombre_cliente, forma_pago, total FROM cliente NATURAL JOIN pago;</pre>
-<pre class="sql">-- Clientes sin pagos con NATURAL LEFT JOIN (TP7, 16 c)
+<pre class="sql">-- Clientes sin pagos con NATURAL LEFT JOIN
 SELECT codigo_cliente, nombre_cliente FROM cliente NATURAL LEFT JOIN pago WHERE id_transaccion IS NULL;</pre>
   <div class="co co-ojo"><div class="cw"><svg class="ic"><use href="#i-alert"/></svg></div><div class="ct"><b>Peligro</b><p><code>empleado</code> y <code>cliente</code> no tienen ninguna columna con el mismo nombre (<code>codigo_empleado</code> ≠ <code>codigo_empleado_rep_ventas</code>). El NATURAL JOIN las combina <b>todas con todas</b>: 31 × 36 = 1116 filas sin sentido.</p></div></div>
 <pre class="sql bad">SELECT COUNT(*) FROM empleado NATURAL JOIN cliente;</pre>
@@ -439,7 +440,7 @@ INNER JOIN empleado j ON e.codigo_jefe = j.codigo_empleado;</pre>
   <h3>Unir 3 o más tablas</h3>
   <p>Se encadenan los JOIN, cada uno con su <code>ON</code>. Seguí el camino de las FK en el diagrama:</p>
   <div class="chain"><span class="tb">pago</span><span class="ar">codigo_cliente<svg class="ic"><use href="#i-arrow"/></svg></span><span class="tb">cliente</span><span class="ar">rep_ventas<svg class="ic"><use href="#i-arrow"/></svg></span><span class="tb">empleado</span><span class="ar">codigo_oficina<svg class="ic"><use href="#i-arrow"/></svg></span><span class="tb">oficina</span></div>
-<pre class="sql">-- Cada pago con el cliente, su representante y la ciudad de la oficina (TP7, punto 14)
+<pre class="sql">-- Cada pago con el cliente, su representante y la ciudad de la oficina
 SELECT c.nombre_cliente, p.total, e.nombre AS representante, o.ciudad
 FROM pago p
 INNER JOIN cliente c  ON p.codigo_cliente = c.codigo_cliente
@@ -461,7 +462,7 @@ INNER JOIN oficina o  ON e.codigo_oficina = o.codigo_oficina;</pre>
     <div id="demoSub"></div>
   </div>
 
-  <h3>Los 4 tipos que pide el TP7</h3>
+  <h3>Los 4 tipos que entran en el modelo de examen del profe</h3>
   <table class="tbl">
     <tr><th>La subconsulta devuelve...</th><th>Usá</th><th>Ejemplo</th></tr>
     <tr><td><b>Un solo valor</b></td><td><code>=</code> <code>&gt;</code> <code>&lt;</code></td><td>el precio máximo, el promedio</td></tr>
@@ -472,25 +473,25 @@ INNER JOIN oficina o  ON e.codigo_oficina = o.codigo_oficina;</pre>
 <pre class="sql">-- = con un valor: productos más caros que el promedio
 SELECT nombre, precio_venta FROM producto
 WHERE precio_venta > (SELECT AVG(precio_venta) FROM producto);</pre>
-<pre class="sql">-- NOT IN con una lista: productos que nunca se pidieron (TP7, 42)
+<pre class="sql">-- NOT IN con una lista: productos que nunca se pidieron
 SELECT codigo_producto, nombre FROM producto
 WHERE codigo_producto NOT IN (SELECT codigo_producto FROM detalle_pedido);</pre>
-<pre class="sql">-- ALL: el cliente con mayor límite de crédito (TP7, 36)
+<pre class="sql">-- ALL: el cliente con mayor límite de crédito
 SELECT nombre_cliente, limite_credito FROM cliente
 WHERE limite_credito >= ALL (SELECT limite_credito FROM cliente);</pre>
-<pre class="sql">-- EXISTS: clientes que tienen algún pago (TP7, 47)
+<pre class="sql">-- EXISTS: clientes que tienen algún pago
 SELECT c.nombre_cliente FROM cliente c
 WHERE EXISTS (SELECT 1 FROM pago p WHERE p.codigo_cliente = c.codigo_cliente);</pre>
 
   <h3>Subconsultas correlacionadas</h3>
-  <p>En el EXISTS de arriba, la subconsulta usa <code>c.codigo_cliente</code>, que viene de <b>afuera</b>. Se re-ejecuta <b>por cada cliente</b>: "¿hay pagos <b>de este</b> cliente?". Así se resuelve el punto 32 del TP7 sin JOIN:</p>
+  <p>En el EXISTS de arriba, la subconsulta usa <code>c.codigo_cliente</code>, que viene de <b>afuera</b>. Se re-ejecuta <b>por cada cliente</b>: "¿hay pagos <b>de este</b> cliente?". Así se resuelve sin JOIN:</p>
 <pre class="sql">-- Clientes cuyo límite de crédito es mayor que lo que pagaron
 SELECT c.nombre_cliente, c.limite_credito
 FROM cliente c
 WHERE c.limite_credito > (SELECT SUM(p.total) FROM pago p WHERE p.codigo_cliente = c.codigo_cliente);</pre>
 
   <h3>Subconsultas anidadas: como una cebolla</h3>
-  <p>El punto 44 del TP7 encadena 5 niveles. Se lee <b>de adentro hacia afuera</b>:</p>
+  <p>Esta consulta encadena 5 niveles. Se lee <b>de adentro hacia afuera</b>:</p>
   <div class="onion"><div style="border-color:var(--pink)"><span>5 · oficinas que NO están en...</span>
     <div style="border-color:var(--violet)"><span>4 · oficinas de los representantes de...</span>
       <div style="border-color:var(--indigo)"><span>3 · los clientes de...</span>
@@ -526,7 +527,7 @@ INNER JOIN pago p ON c.codigo_cliente = p.codigo_cliente
 GROUP BY c.codigo_cliente, c.nombre_cliente
 ORDER BY cantidad_pagos DESC
 LIMIT 1;</pre>
-<pre class="sql">-- El producto del que más unidades se vendieron (TP7, 31)
+<pre class="sql">-- El producto del que más unidades se vendieron
 SELECT nombre FROM producto
 WHERE codigo_producto = (
     SELECT codigo_producto FROM detalle_pedido
@@ -560,9 +561,9 @@ WHERE codigo_producto = (
       <div class="pt2" style="left:20%;color:var(--emerald)"><b>2009-01-25</b><i></i><span>fecha_entrega</span></div>
       <div class="pt2" style="left:60%;color:var(--pink)"><b>2009-01-27</b><i></i><span>fecha_esperada</span></div>
     </div>
-    <p class="note">Se entregó <b>2 días antes</b>: <code>DATEDIFF(fecha_esperada, fecha_entrega) = 2</code>. Visto al revés: <code>ADDDATE(fecha_entrega, INTERVAL 2 DAY) &lt;= fecha_esperada</code>. Las dos formas son el punto 8 del TP7.</p>
+    <p class="note">Se entregó <b>2 días antes</b>: <code>DATEDIFF(fecha_esperada, fecha_entrega) = 2</code>. Visto al revés: <code>ADDDATE(fecha_entrega, INTERVAL 2 DAY) &lt;= fecha_esperada</code>. Las dos formas entran en el modelo de examen del profe.</p>
   </div>
-<pre class="sql">-- Clientes con pagos en 2008: tres formas (TP7, punto 6)
+<pre class="sql">-- Clientes con pagos en 2008: tres formas
 SELECT DISTINCT codigo_cliente FROM pago WHERE YEAR(fecha_pago) = 2008;
 SELECT DISTINCT codigo_cliente FROM pago WHERE DATE_FORMAT(fecha_pago, '%Y') = '2008';
 SELECT DISTINCT codigo_cliente FROM pago WHERE fecha_pago BETWEEN '2008-01-01' AND '2008-12-31';</pre>
@@ -571,7 +572,7 @@ SELECT codigo_pedido, fecha_esperada, fecha_entrega,
        DATEDIFF(fecha_entrega, fecha_esperada) AS dias_de_atraso
 FROM pedido
 WHERE fecha_entrega > fecha_esperada;</pre>
-<pre class="sql">-- Entregados al menos 2 días antes (TP7, 8 a)
+<pre class="sql">-- Entregados al menos 2 días antes
 SELECT codigo_pedido, fecha_entrega, fecha_esperada FROM pedido
 WHERE ADDDATE(fecha_entrega, INTERVAL 2 DAY) &lt;= fecha_esperada;</pre>
 <pre class="sql">-- Formato lindo y cuántos años pasaron
@@ -655,7 +656,7 @@ DELETE FROM cliente WHERE codigo_cliente = 1;</pre>
 <!-- =================================================================== ERRORES -->
 <section class="card" id="errores" data-c="red" data-sec="errores">
   <div class="l-head"><div class="l-icon"><svg class="ic"><use href="#i-bug"/></svg></div><div><div class="l-kicker">Para el examen</div><h2>Errores típicos (sacados de tus archivos)</h2></div></div>
-  <p class="lead">Revisé tu parcial, el archivo de ejemplo de clase y el TP7. Estos son los errores que conviene no repetir. Los de la izquierda se pueden ejecutar para ver el error.</p>
+  <p class="lead">Revisé tu parcial, el archivo de ejemplo de clase y el modelo de examen del profe. Estos son los errores que conviene no repetir. Los de la izquierda se pueden ejecutar para ver el error.</p>
 
   <div class="errcard"><h4><span class="num">1</span>Falta el FROM</h4><div class="src">Parcial · ejercicio 1, punto 7</div>
     <div class="vs"><pre class="sql bad">SELECT codigo_pedido, fecha_pedido
@@ -699,7 +700,7 @@ WHERE fecha_pedido BETWEEN '2009-01-01' AND '2009-01-31';</pre></div></div>
     <div class="vs"><pre class="sql bad">SELECT codigo_cliente, COUNT(*) FROM pago;</pre><pre class="sql good">SELECT codigo_cliente, COUNT(*) FROM pago
 GROUP BY codigo_cliente;</pre></div></div>
 
-  <div class="errcard"><h4><span class="num">9</span>Nombres de la otra versión de la base</h4><div class="src">TP7 vs base oficial</div>
+  <div class="errcard"><h4><span class="num">9</span>Nombres de la otra versión de la base</h4><div class="src">Versión alternativa vs base oficial</div>
     <div class="vs"><pre class="sql bad">SELECT nombre, apellido FROM empleados
 WHERE puesto = 'Representante de Ventas';</pre><pre class="sql good">SELECT nombre, apellido1 FROM empleado
 WHERE puesto = 'Representante Ventas';</pre></div></div>
@@ -790,7 +791,7 @@ WHERE puesto = 'Representante Ventas';</pre></div></div>
   <p>Escribí lo que quieras y ejecutalo con <b>Ctrl + Enter</b>. Podés poner varias sentencias separadas por <code>;</code>: se muestra el resultado de la última que devuelve filas.</p>
   <div class="lab-top">
     <span class="note">Base:</span>
-    <div class="seg" id="labDb"><button data-k="oficial" class="on">Oficial (GitHub)</button><button data-k="tp7">TP7 (tu jardineria.sql)</button></div>
+    <div class="seg" id="labDb"><button data-k="oficial" class="on">Oficial (GitHub)</button><button data-k="tp7">Alternativa (jardineria.sql)</button></div>
     <span class="top-sp"></span>
     <button class="btn sm" id="labReset"><svg class="ic"><use href="#i-reset"/></svg> Reiniciar base</button>
   </div>
@@ -799,7 +800,7 @@ WHERE puesto = 'Representante Ventas';</pre></div></div>
   <div class="hist" id="labHist"></div>
 </section>
 
-<footer>Hecho para practicar el recuperatorio de Base de Datos · Datos: repositorio DDBB-JARDINERIA y tu TP7 · El simulador usa SQLite con funciones de MySQL agregadas, así que puede haber diferencias mínimas con MySQL real.</footer>
+<footer>Hecho para practicar el recuperatorio de Base de Datos · Datos: repositorio DDBB-JARDINERIA y modelo de examen del profesor · El simulador usa SQLite con funciones de MySQL agregadas, así que puede haber diferencias mínimas con MySQL real.</footer>
 </div></main>
 
 <div id="toasts"></div>

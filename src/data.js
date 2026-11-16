@@ -27,7 +27,7 @@
     { id: 'R9', cat: 'recu', t: '¿Cuántos clientes tiene la ciudad de Barcelona?', sol: `SELECT COUNT(*) AS clientes_barcelona FROM cliente WHERE ciudad = 'Barcelona';`, hint: 'Un solo número: COUNT(*) con un WHERE. No hace falta GROUP BY.' },
     { id: 'R10', cat: 'recu', tieOk: true, t: 'Devuelve el producto que más unidades tiene en stock.', sol: `SELECT nombre FROM producto\nWHERE cantidad_en_stock = (SELECT MAX(cantidad_en_stock) FROM producto);`, alt: [`SELECT nombre FROM producto ORDER BY cantidad_en_stock DESC LIMIT 1;`], hint: 'Patrón "el que más": ORDER BY ... DESC LIMIT 1, o subconsulta con MAX.' },
 
-    // ============ TP7 · CONSULTAS SOBRE UNA TABLA ============
+    // ============ MODELO DE EXAMEN · CONSULTAS SOBRE UNA TABLA ============
     { id: 'T1', cat: 'tp7a', t: 'Devuelve un listado con el código de oficina y la ciudad donde hay oficinas.', sol: `SELECT codigo_oficina, ciudad FROM oficina;` },
     { id: 'T2', cat: 'tp7a', t: 'Devuelve un listado con la ciudad y el teléfono de las oficinas de España.', sol: `SELECT ciudad, telefono FROM oficina WHERE pais = 'España';`, hint: 'En la tabla oficina el país está en castellano.' },
     { id: 'T3', cat: 'tp7a', t: 'Devuelve un listado con el nombre, apellidos y email de los empleados cuyo jefe tiene un código de jefe igual a 7.', sol: `SELECT nombre, apellido1, apellido2, email FROM empleado WHERE codigo_jefe = 7;` },
@@ -42,14 +42,14 @@
     { id: 'T9', cat: 'tp7a', t: 'Devuelve un listado de todos los pedidos que fueron rechazados en 2009.', sol: `SELECT codigo_pedido FROM pedido WHERE estado = 'Rechazado' AND YEAR(fecha_pedido) = 2009;` },
     { id: 'T10', cat: 'tp7a', t: 'Productos de la gama Ornamentales con más de 100 unidades en stock, ordenados por precio de venta de mayor a menor.', sol: `SELECT codigo_producto, nombre, precio_venta FROM producto\nWHERE gama = 'Ornamentales' AND cantidad_en_stock > 100\nORDER BY precio_venta DESC;`, ordered: 'precio_venta' },
 
-    // ============ TP7 · MULTITABLA ============
+    // ============ MODELO DE EXAMEN · MULTITABLA ============
     { id: 'T11', cat: 'tp7m', t: 'Obtén un listado con el nombre de cada cliente y el nombre y apellido de su representante de ventas.', sol: `SELECT c.nombre_cliente, e.nombre, e.apellido1\nFROM cliente c\nINNER JOIN empleado e ON c.codigo_empleado_rep_ventas = e.codigo_empleado;` },
     { id: 'T12', cat: 'tp7m', t: 'Muestra el nombre de los clientes que hayan realizado pagos junto con el nombre de sus representantes de ventas.', sol: `SELECT DISTINCT c.nombre_cliente, e.nombre\nFROM cliente c\nINNER JOIN empleado e ON c.codigo_empleado_rep_ventas = e.codigo_empleado\nINNER JOIN pago p ON p.codigo_cliente = c.codigo_cliente;`, alt: [`SELECT c.nombre_cliente, e.nombre\nFROM cliente c\nINNER JOIN empleado e ON c.codigo_empleado_rep_ventas = e.codigo_empleado\nWHERE c.codigo_cliente IN (SELECT codigo_cliente FROM pago);`], hint: 'Un cliente con 3 pagos aparecería 3 veces si unís con pago: DISTINCT.' },
     { id: 'T13', cat: 'tp7m', t: 'Muestra el nombre de los clientes que NO hayan realizado pagos junto con el nombre de sus representantes de ventas.', sol: `SELECT c.nombre_cliente, e.nombre\nFROM cliente c\nINNER JOIN empleado e ON c.codigo_empleado_rep_ventas = e.codigo_empleado\nWHERE c.codigo_cliente NOT IN (SELECT codigo_cliente FROM pago);` },
     { id: 'T14', cat: 'tp7m', t: 'Nombre de los clientes que han hecho pagos, el nombre de sus representantes y la ciudad de la oficina del representante.', sol: `SELECT DISTINCT c.nombre_cliente, e.nombre, o.ciudad\nFROM cliente c\nINNER JOIN empleado e ON c.codigo_empleado_rep_ventas = e.codigo_empleado\nINNER JOIN oficina o ON e.codigo_oficina = o.codigo_oficina\nINNER JOIN pago p ON p.codigo_cliente = c.codigo_cliente;`, hint: 'Cuatro tablas: cliente → empleado → oficina, y cliente → pago.' },
     { id: 'T15', cat: 'tp7m', t: 'Nombre de los clientes que NO han hecho pagos, el nombre de sus representantes y la ciudad de la oficina del representante.', sol: `SELECT c.nombre_cliente, e.nombre, o.ciudad\nFROM cliente c\nINNER JOIN empleado e ON c.codigo_empleado_rep_ventas = e.codigo_empleado\nINNER JOIN oficina o ON e.codigo_oficina = o.codigo_oficina\nWHERE c.codigo_cliente NOT IN (SELECT codigo_cliente FROM pago);` },
 
-    // ============ TP7 · COMPOSICIÓN EXTERNA ============
+    // ============ MODELO DE EXAMEN · COMPOSICIÓN EXTERNA ============
     { id: 'T16a', cat: 'tp7e', t: 'Clientes que no han realizado ningún pago. Con LEFT JOIN.', sol: `SELECT c.codigo_cliente, c.nombre_cliente\nFROM cliente c\nLEFT JOIN pago p ON c.codigo_cliente = p.codigo_cliente\nWHERE p.codigo_cliente IS NULL;`, requires: [{ re: 'LEFT\\s+(OUTER\\s+)?JOIN', msg: 'usar LEFT JOIN' }] },
     { id: 'T16b', cat: 'tp7e', t: 'Clientes que no han realizado ningún pago. Con RIGHT JOIN.', sol: `SELECT c.codigo_cliente, c.nombre_cliente\nFROM pago p\nRIGHT JOIN cliente c ON c.codigo_cliente = p.codigo_cliente\nWHERE p.codigo_cliente IS NULL;`, requires: [{ re: 'RIGHT\\s+(OUTER\\s+)?JOIN', msg: 'usar RIGHT JOIN' }], hint: 'RIGHT JOIN conserva todo lo de la tabla de la DERECHA: poné cliente a la derecha.' },
     { id: 'T16c', cat: 'tp7e', t: 'Clientes que no han realizado ningún pago. Con NATURAL LEFT JOIN.', sol: `SELECT codigo_cliente, nombre_cliente FROM cliente NATURAL LEFT JOIN pago WHERE id_transaccion IS NULL;`, requires: [{ re: 'NATURAL\\s+LEFT', msg: 'usar NATURAL LEFT JOIN' }], hint: 'NATURAL une solo por las columnas que se llaman igual en las dos tablas (acá, codigo_cliente). No lleva ON.' },
@@ -61,7 +61,7 @@
     { id: 'T20a', cat: 'tp7e', t: 'Empleados que no tienen un cliente asociado. Con LEFT JOIN.', sol: `SELECT e.codigo_empleado, e.nombre, e.apellido1\nFROM empleado e\nLEFT JOIN cliente c ON e.codigo_empleado = c.codigo_empleado_rep_ventas\nWHERE c.codigo_cliente IS NULL;`, requires: [{ re: 'LEFT\\s+(OUTER\\s+)?JOIN', msg: 'usar LEFT JOIN' }], hint: 'Acá NATURAL no sirve: empleado y cliente no tienen columnas con el mismo nombre.' },
     { id: 'T20b', cat: 'tp7e', t: 'Empleados que no tienen un cliente asociado. Con RIGHT JOIN.', sol: `SELECT e.codigo_empleado, e.nombre, e.apellido1\nFROM cliente c\nRIGHT JOIN empleado e ON e.codigo_empleado = c.codigo_empleado_rep_ventas\nWHERE c.codigo_cliente IS NULL;`, requires: [{ re: 'RIGHT\\s+(OUTER\\s+)?JOIN', msg: 'usar RIGHT JOIN' }] },
 
-    // ============ TP7 · RESUMEN ============
+    // ============ MODELO DE EXAMEN · RESUMEN ============
     { id: 'T21', cat: 'tp7r', t: '¿Cuántos empleados hay en la compañía?', sol: `SELECT COUNT(*) AS total_empleados FROM empleado;` },
     { id: 'T22', cat: 'tp7r', t: '¿Cuántos clientes tiene cada país?', sol: `SELECT pais, COUNT(*) AS cantidad FROM cliente GROUP BY pais;` },
     { id: 'T23', cat: 'tp7r', t: '¿Cuál fue el pago medio en 2009?', sol: `SELECT AVG(total) AS pago_medio FROM pago WHERE YEAR(fecha_pago) = 2009;` },
@@ -71,7 +71,7 @@
     { id: 'T27', cat: 'tp7r', t: 'La misma facturación agrupada por código de producto, solo para los códigos que empiecen por OR.', sol: `SELECT codigo_producto,\n       SUM(cantidad * precio_unidad) AS base_imponible,\n       SUM(cantidad * precio_unidad) * 0.21 AS iva,\n       SUM(cantidad * precio_unidad) * 1.21 AS total\nFROM detalle_pedido\nWHERE codigo_producto LIKE 'OR%'\nGROUP BY codigo_producto;`, hint: "LIKE 'OR%' = empieza con OR." },
     { id: 'T28', cat: 'tp7r', t: 'Ventas totales de los productos que facturaron más de 3000 euros: nombre, unidades vendidas, total facturado y total con IVA (21%).', sol: `SELECT p.nombre,\n       SUM(d.cantidad) AS unidades,\n       SUM(d.cantidad * d.precio_unidad) AS total,\n       SUM(d.cantidad * d.precio_unidad) * 1.21 AS total_con_iva\nFROM detalle_pedido d\nINNER JOIN producto p ON d.codigo_producto = p.codigo_producto\nGROUP BY p.codigo_producto, p.nombre\nHAVING SUM(d.cantidad * d.precio_unidad) > 3000;`, hint: 'El filtro es sobre una SUMA: va en HAVING, no en WHERE.' },
 
-    // ============ TP7 · SUBCONSULTAS ============
+    // ============ MODELO DE EXAMEN · SUBCONSULTAS ============
     { id: 'T29', cat: 'tp7s', t: 'Devuelve el nombre del cliente con mayor límite de crédito.', sol: `SELECT nombre_cliente FROM cliente WHERE limite_credito = (SELECT MAX(limite_credito) FROM cliente);` },
     { id: 'T30', cat: 'tp7s', t: 'Devuelve el nombre del producto que tenga el precio de venta más caro.', sol: `SELECT nombre FROM producto WHERE precio_venta = (SELECT MAX(precio_venta) FROM producto);` },
     { id: 'T31', cat: 'tp7s', t: 'Devuelve el nombre del producto del que se han vendido más unidades (sumando cantidad en detalle_pedido).', sol: `SELECT nombre FROM producto\nWHERE codigo_producto = (\n    SELECT codigo_producto FROM detalle_pedido\n    GROUP BY codigo_producto\n    ORDER BY SUM(cantidad) DESC\n    LIMIT 1\n);`, hint: 'Primero: ¿qué código vendió más unidades? (GROUP BY + SUM + ORDER BY + LIMIT 1). Después: el nombre de ese código.' },
@@ -127,11 +127,11 @@
 
   const CATS = {
     recu: { name: 'Recuperatorio 2025', color: 'pink', desc: 'Las 10 consignas del modelo de recuperatorio que dejó el profesor.' },
-    tp7a: { name: 'TP7 · Una tabla', color: 'cyan', desc: 'Consultas sobre una sola tabla (TP7, puntos 1 a 10).' },
-    tp7m: { name: 'TP7 · Multitabla', color: 'violet', desc: 'Composición interna: JOIN entre varias tablas (puntos 11 a 15).' },
-    tp7e: { name: 'TP7 · Composición externa', color: 'indigo', desc: 'LEFT, RIGHT y NATURAL JOIN (puntos 16 a 20).' },
-    tp7r: { name: 'TP7 · Resumen', color: 'amber', desc: 'COUNT, SUM, AVG, GROUP BY, HAVING (puntos 21 a 28).' },
-    tp7s: { name: 'TP7 · Subconsultas', color: 'emerald', desc: 'Comparación, ALL/ANY, IN/NOT IN, EXISTS (puntos 29 a 49).' },
+    tp7a: { name: 'Una tabla', color: 'cyan', desc: 'Consultas sobre una sola tabla. Tema del modelo de examen del profe.' },
+    tp7m: { name: 'Multitabla', color: 'violet', desc: 'Composición interna: JOIN entre varias tablas. Tema del modelo de examen del profe.' },
+    tp7e: { name: 'Composición externa', color: 'indigo', desc: 'LEFT, RIGHT y NATURAL JOIN. Tema del modelo de examen del profe.' },
+    tp7r: { name: 'Resumen', color: 'amber', desc: 'COUNT, SUM, AVG, GROUP BY, HAVING. Tema del modelo de examen del profe.' },
+    tp7s: { name: 'Subconsultas', color: 'emerald', desc: 'Comparación, ALL/ANY, IN/NOT IN, EXISTS. Tema del modelo de examen del profe.' },
     dml: { name: 'Modificar datos', color: 'orange', desc: 'INSERT, UPDATE y DELETE. Se corrigen mirando cómo quedó la tabla.' },
     extra: { name: 'Extra', color: 'sky', desc: 'Del repositorio DDBB-JARDINERIA que cita el profesor, y combinaciones.' }
   };
